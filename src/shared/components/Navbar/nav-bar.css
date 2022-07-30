@@ -1,0 +1,54 @@
+.hoverable {
+  position: static;
+}
+
+.hoverable:hover .mega-menu {
+  display: block;
+}
+
+.mega-menu {
+  display: none;
+  left: 0;
+  position: absolute;
+  text-align: left;
+  /* width: 407px; */
+  z-index: 9999;
+  /* top: 19%; */
+  bottom: 0;
+  transform: translateY(100%);
+  min-width: 100%;
+}
+/* #toggle Class Styles
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.toggleable > label:after {
+  content: "\25BC";
+  font-size: 10px;
+  padding-left: 6px;
+  position: relative;
+  top: -1px;
+}
+
+.toggle-input {
+  display: none;
+}
+.toggle-input:not(checked) ~ .mega-menu {
+  display: none;
+}
+
+.toggle-input:checked ~ .mega-menu {
+  display: block;
+}
+
+.toggle-input:checked + label {
+  color: white;
+  background: #2c5282; /*@apply bg-blue-800 */
+}
+
+.toggle-input:checked ~ label:after {
+  content: "\25B2";
+  font-size: 10px;
+  padding-left: 6px;
+  position: relative;
+  top: -1px;
+}
