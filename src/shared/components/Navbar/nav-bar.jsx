@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+
+import Search from "./search/search";
+import Cart from "./cart/cart";
+
 import "./nav-bar.css";
-import "flowbite";
+
+
 export default function Navbar() {
   const navItems = [
     {
@@ -30,18 +35,22 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white border-gray-200 dark:border-gray-600 dark:bg-gray-900 relative">
-      <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 ">
-        <a href="https://flowbite.com" className="flex items-center">
-          <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="mr-3 h-6 sm:h-9"
-            alt="Flowbite Logo"
-          />
-          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+    <nav className="pt-3 bg-white border-gray-200 dark:border-gray-600 dark:bg-gray-900 relative">
+      <div className="flex flex-col justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 ">
+        <div className="flex justify-between items-center w-full">
+          <a href="https://flowbite.com" className="flex items-center">
+            <img
+                src="https://flowbite.com/docs/images/logo.svg"
+                className="mr-3 h-6 sm:h-9"
+                alt="Flowbite Logo"
+            />
+            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
             Flowbite
           </span>
-        </a>
+          </a>
+          <Search></Search>
+          <Cart></Cart>
+        </div>
         <button
           id="mega-menu-full-cta-button"
           data-collapse-toggle="mega-menu-full-cta"
@@ -67,9 +76,9 @@ export default function Navbar() {
         </button>
         <div
           id="mega-menu-full-cta"
-          className=" justify-between items-center w-full md:flex md:w-auto md:order-1"
+          className="justify-items-start w-full md:flex md:order-1"
         >
-          <ul className="flex flex-col mt-4 text-sm font-medium md:flex-row md:space-x-8 md:mt-0">
+          <ul className="flex flex-col mt-4 text-sm font-medium md:flex-row md:space-x-8 md:mt-0 w-full">
             {navItems &&
               navItems.map((navItem) => {
                 if (navItem.hasMegaMenu) {
