@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./best-seller.css";
 export default function BestSeller() {
   const bestbook = [
     {
@@ -8,9 +8,10 @@ export default function BestSeller() {
       cover:
         "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&product=path%5B/pimages/9780439064873_p0_v1%5D&call=url%5Bfile:common/decodeProduct.chain%5D",
       bookurl: "",
-      author: "gg",
-      description: "ftttt",
-      title: "rrr",
+      author: "Alison Espach",
+      description:
+        "In this exhilarating novel, two friends—often in love, but never lovers—come together as creative partners in the world of video game design, where success brings them fame, joy, tragedy, duplicity, and, ultimately, a kind of immortality.",
+      title: "The Night Shift: ANovel",
       rate: 5,
     },
     {
@@ -19,9 +20,9 @@ export default function BestSeller() {
       cover:
         "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&product=path%5B/pimages/9780439064873_p0_v1%5D&call=url%5Bfile:common/decodeProduct.chain%5D",
       bookurl: "",
-      author: "gg",
+      author: "Alison Espach",
       description: "ftttt",
-      title: "rrr",
+      title: "The Night Shift: ANovel",
       rate: 3,
     },
     {
@@ -30,9 +31,9 @@ export default function BestSeller() {
       cover:
         "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&product=path%5B/pimages/9780439064873_p0_v1%5D&call=url%5Bfile:common/decodeProduct.chain%5D",
       bookurl: "",
-      author: "gg",
+      author: "Alison Espach",
       description: "ftttt",
-      title: "rrr",
+      title: "The Night Shift: ANovel",
       rate: 4,
     },
     {
@@ -41,9 +42,9 @@ export default function BestSeller() {
       cover:
         "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&product=path%5B/pimages/9780439064873_p0_v1%5D&call=url%5Bfile:common/decodeProduct.chain%5D",
       bookurl: "",
-      author: "gg",
+      author: "Alison Espach",
       description: "ftttt",
-      title: "rrr",
+      title: "The Night Shift: ANovel",
       rate: 4,
     },
     {
@@ -52,9 +53,9 @@ export default function BestSeller() {
       cover:
         "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&product=path%5B/pimages/9780439064873_p0_v1%5D&call=url%5Bfile:common/decodeProduct.chain%5D",
       bookurl: "",
-      author: "gg",
+      author: "Alison Espach",
       description: "ftttt",
-      title: "rrr",
+      title: "The Night Shift: ANovel",
       rate: 4,
     },
     {
@@ -63,9 +64,9 @@ export default function BestSeller() {
       cover:
         "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&product=path%5B/pimages/9780439064873_p0_v1%5D&call=url%5Bfile:common/decodeProduct.chain%5D",
       bookurl: "",
-      author: "gg",
+      author: "Alison Espach",
       description: "ftttt",
-      title: "rrr",
+      title: "The Night Shift: ANovel",
       rate: 4,
     },
     {
@@ -74,9 +75,9 @@ export default function BestSeller() {
       cover:
         "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&product=path%5B/pimages/9780439064873_p0_v1%5D&call=url%5Bfile:common/decodeProduct.chain%5D",
       bookurl: "",
-      author: "gg",
+      author: "Alison Espach",
       description: "ftttt",
-      title: "rrr",
+      title: "The Night Shift: ANovel",
       rate: 4,
     },
     {
@@ -85,9 +86,9 @@ export default function BestSeller() {
       cover:
         "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&product=path%5B/pimages/9780439064873_p0_v1%5D&call=url%5Bfile:common/decodeProduct.chain%5D",
       bookurl: "",
-      author: "gg",
+      author: "Alison Espach",
       description: "ftttt",
-      title: "rrr",
+      title: "The Night Shift: ANovel",
       rate: 4,
     },
     {
@@ -96,9 +97,9 @@ export default function BestSeller() {
       cover:
         "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&product=path%5B/pimages/9780439064873_p0_v1%5D&call=url%5Bfile:common/decodeProduct.chain%5D",
       bookurl: "",
-      author: "gg",
+      author: "Alison Espach",
       description: "ftttt",
-      title: "rrr",
+      title: "The Night Shift: ANovel",
       rate: 4,
     },
   ];
@@ -127,54 +128,74 @@ export default function BestSeller() {
     return starsarr;
   }
   return (
-    <section>
-      <aside className=" grid grid-cols-3  gap-2 mx-auto w-11/12">
+    <section className="">
+      <aside className="w-11/12 grid grid-cols-4 text-center gap-2 mx-auto w-11/12">
         <div className="grid gap-2">
           <div className="max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-              <img
-                className="p-8 rounded-t-lg"
-                src={bestbook[0].cover}
-                alt="product image"
-              />
-            </a>
+            <div className=" group relative overflow-hidden">
+              <a href="#">
+                <img
+                  className="object-cover w-full p-5 rounded-t-lg"
+                  src={bestbook[0].cover}
+                  alt="product image"
+                />
+              </a>
+              <button className="w-11/12 bg-gray-50 hover:bg-gray-700 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:translate-y-0 hover:translate-y-0 transition ease-in-out delay-150 duration-1000 ">
+                Quick Add
+              </button>
+            </div>
             <div className="px-5 pb-5">
               <a href="#">
                 <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
                   {bestbook[0].title}
                 </h5>
               </a>
-              <div className="flex items-center mt-2.5 mb-5">
+              <a href="">
+                <p>{bestbook[0].author}</p>
+              </a>
+              <div className="flex justify-center mt-2.5 mb-5">
                 {forloop(5)}
-                <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-                  5.0
-                </span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                  $599
-                </span>
-                <a
-                  href="#"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Add to cart
-                </a>
+              <div>
+                <p>{bestbook[0].description}</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className=" grid col-span-2 gap-2 mx-auto">
+        <div className=" grid col-span-3 gap-2 mx-auto text-center">
           <div className=" grid grid-cols-4 gap-2 mx-auto">
             {bestbook.map((book, i) => {
               if (i != 0) {
                 return (
                   <div className=" rounded">
-                    <img
-                      src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80"
-                      alt="image"
-                    />
+                    <div className="max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                      <div className=" group relative overflow-hidden">
+                        <a href="#">
+                          <img
+                            className="object-cover w-full p-5 rounded-t-lg"
+                            src={book.cover}
+                            alt="product image"
+                          />
+                        </a>
+                        <button className="w-10/12 bg-gray-50 hover:bg-gray-700 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:translate-y-0 hover:translate-y-0 transition ease-in-out delay-150 duration-1000 ">
+                          Quick Add
+                        </button>
+                      </div>
+                      <div className="px-5 pb-5">
+                        <a href="#">
+                          <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                            {book.title}
+                          </h5>
+                        </a>
+                        <a href="#" className="underline text-gray-500">
+                          <p>{book.author}</p>
+                        </a>
+                        <div className="flex justify-center mt-2.5 mb-5">
+                          {forloop(5)}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 );
               }
