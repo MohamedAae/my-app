@@ -4,41 +4,53 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper";
-import classes from './offers-slider.module.css'
+import classes from "./offers-slider.module.css";
+import SwiperCore, { Autoplay } from "swiper";
 
 export default function OffersSlider() {
-    const SliderData = [
-        {
-          "id": 1,
-          "title": "A",
-          "url": "https://media.istockphoto.com/photos/mountain-landscape-picture-id517188688?k=20&m=517188688&s=612x612&w=0&h=i38qBm2P-6V4vZVEaMy_TaTEaoCMkYhvLCysE7yJQ5Q=",
-        },
-        {
-          "id": 2,
-          "title": "B",
-          "url": "https://media.istockphoto.com/photos/taj-mahal-mausoleum-in-agra-picture-id1146517111?k=20&m=1146517111&s=612x612&w=0&h=vHWfu6TE0R5rG6DJkV42Jxr49aEsLN0ML-ihvtim8kk=",
-        },
-        {
-          "id": 3,
-          "title": "C",
-          "url": "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__480.jpg",
-        }
-      ];
+  SwiperCore.use([Autoplay]);
+
+  const SliderData = [
+    {
+      id: 1,
+      title: "A",
+      url: "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/07/21/24216_Quote_A_1_Michelle_Obama_07-21b.jpg",
+    },
+    {
+      id: 2,
+      title: "B",
+      url: "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/07/26/23992_Quote_A1_Violet_Made_07-26.jpg",
+    },
+    {
+      id: 3,
+      title: "C",
+      url: "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/07/26/23992_Quote_A2_Book_Of_Tea_07-26.jpg",
+    },
+  ];
   return (
-    <section >
-        <Swiper navigation={true} modules={[Navigation]} className={classes.swiper}>
-      {SliderData.map((slide, index) => {
-        return(
-          <SwiperSlide>
-            <img
+    <section>
+      <Swiper
+        navigation={true}
+        modules={[Navigation]}
+        className={classes.swiper}
+        loop={true}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
+      >
+        {SliderData.map((slide, index) => {
+          return (
+            <SwiperSlide key={slide.id}>
+              <img
                 src={slide.url}
                 alt="First slide"
                 className={classes["swiper-slide"]}
               />
-          </SwiperSlide>
-        )
-      })}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </section>
-  )
+  );
 }
