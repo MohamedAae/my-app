@@ -32,8 +32,9 @@ export default function TopSlider() {
         modules={[Navigation]}
         className={`${classes.swiper} text-center bg-gray-700 mb-3`}
         loop={true}
+        speed={1000}
         autoplay={{
-          delay: 1000,
+          delay: 3000,
           disableOnInteraction: false,
         }}
       >

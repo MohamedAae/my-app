@@ -2,14 +2,17 @@ import React from "react";
 import OffersSlider from "../components/offers-slider/offers-slider";
 import TrindingSlider from "../components/trinding-slider/trinding-slider";
 import ImageSection from "../components/image-section";
-import BestSeller from "../components/best-seller/best-seller"
+import BestSeller from "../components/best-seller/best-seller";
+import ShopByCategory from "../components/shop-by-category/shop-by-category";
+
 export default function Home() {
   return (
     <>
       <OffersSlider />
       <TrindingSlider />
-      {/* <ImageSection/> */}
-      <BestSeller/>
+      <BestSeller />
+      <ShopByCategory />
+      <ImageSection />
     </>
   );
 }
