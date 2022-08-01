@@ -4,22 +4,16 @@ import "./best-seller.css";
 import axios from "axios";
 import { getProducts } from "../../../redux/products/products.action";
 
-let products;
+let bestBooks=[]
 
 const   BestSeller = (props)=> {
-  useEffect(()=>{
- console.log(   props.getProducts())
-  },[])
-  console.log(props.products);
-  const [bestBooks, setbestBooks] = useState([]);
 
-  // useEffect( () => {
-  //   axios.get('http://127.0.0.1:5003/products').then((res) => {
-  //     const products = res.data.products;
-  //     // console.log(products);
-  //     setbestBooks(products);
-  //   }).catch((err) => console.error(err.message));
-  // },[]);
+  useEffect(()=>{
+ props.getProducts()
+ bestBooks=props.products.products
+ 
+  },[])
+
 
   function forloop(bookRating) {
     let starsarr = [],
