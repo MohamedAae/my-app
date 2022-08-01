@@ -133,7 +133,7 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    getProducts: () => dispatch(getProducts().then((res)=>{ console.log( res)})),
+    getProducts: () => dispatch(getProducts()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(BestSeller);

@@ -1,9 +1,16 @@
 import {GETPRODUCTS} from "./products.types"
-
- const reducer = ( state=[],action)=> {
+const initialState = {
+    products:[],
+    loading:true
+}
+ const reducer = ( state=initialState,action)=> {
     switch (action.type) {
         case GETPRODUCTS:
-            return action.products
+            return {
+                ...state,
+                products:action.products,
+                loading:false
+            }
         default:
             return state
     }
