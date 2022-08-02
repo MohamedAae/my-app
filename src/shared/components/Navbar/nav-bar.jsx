@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TopSlider from "./top-slider/top-slider";
 import Search from "./search/search";
 import Cart from "./cart/cart";
-
+import Login from "./login/login";
 import "./nav-bar.css";
 
 export default function Navbar() {
@@ -42,9 +42,9 @@ export default function Navbar() {
       <TopSlider></TopSlider>
       <div
         id="mega-menu-full-cta"
-        className="justify-items-start w-full md:flex md:order-1 mx-auto max-w-screen-xl px-4 md:px-6"
+        className="justify-between w-full md:flex md:order-1 mx-auto max-w-screen-xl px-4 md:px-6"
       >
-        <ul className="flex flex-col mt-4 text-sm font-medium md:flex-row md:space-x-8 md:mt-0 w-full">
+        <ul className="flex flex-col mt-4 text-sm font-medium md:flex-row md:space-x-8 md:mt-0">
           {navItems &&
             navItems.map((navItem) => {
               return (
@@ -60,6 +60,7 @@ export default function Navbar() {
               );
             })}
         </ul>
+        <Login />
       </div>
       <div className="flex flex-col justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 ">
         <div className="flex justify-between items-center w-full">
