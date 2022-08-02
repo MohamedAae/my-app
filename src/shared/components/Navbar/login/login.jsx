@@ -1,8 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { UserIcon } from "@heroicons/react/solid";
+import { connect } from "react-redux";
+import { registerUser } from "../../../../redux/users/users.action";
 
-export default function Login() {
+const Login = (props) => {
   const [showModal, setShowModal] = React.useState(false);
+  const [userData, setUserData] = useState({
+    name: "",
+    password: "",
+    email: "",
+  });
+
+  const changeDataHandler = (event, init) => {
+    const value = event.target.value;
+    switch (init) {
+      case "name":
+        setUserData({
+          ...userData,
+          name: value,
+        });
+        break;
+
+      case "email":
+        setUserData({
+          ...userData,
+          email: value,
+        });
+        break;
+
+      case "password":
+        setUserData({
+          ...userData,
+          password: value,
+        });
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const submitData = (event) => {
+    event.preventDefault();
+    props.registerUser(userData);
+    console.log(props.user);
+  };
 
   return (
     <div>
@@ -76,7 +118,7 @@ export default function Login() {
                   </a>
                 </div>
                 <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
-                  <form>
+                  <form onSubmit={submitData}>
                     <div>
                       <label
                         htmlFor="name"
@@ -86,6 +128,8 @@ export default function Login() {
                       </label>
                       <div className="flex flex-col items-start">
                         <input
+                          onChange={(event) => changeDataHandler(event, "name")}
+                          value={userData.name}
                           type="text"
                           name="name"
                           className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -101,6 +145,10 @@ export default function Login() {
                       </label>
                       <div className="flex flex-col items-start">
                         <input
+                          onChange={(event) =>
+                            changeDataHandler(event, "email")
+                          }
+                          value={userData.email}
                           type="email"
                           name="email"
                           className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -116,6 +164,10 @@ export default function Login() {
                       </label>
                       <div className="flex flex-col items-start">
                         <input
+                          onChange={(event) =>
+                            changeDataHandler(event, "password")
+                          }
+                          value={userData.password}
                           type="password"
                           name="password"
                           className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -155,4 +207,18 @@ export default function Login() {
       ) : null}
     </div>
   );
-}
+};
+
+let mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    registerUser: (user) => dispatch(registerUser(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

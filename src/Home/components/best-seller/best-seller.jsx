@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import "./best-seller.css";
-import axios from "axios";
 import { getProducts } from "../../../redux/products/products.action";
 
 let bestBooks = [];
@@ -114,6 +113,7 @@ const BestSeller = (props) => {
     </section>
   );
 };
+
 let mapStateToProps = (state) => {
   return {
     products: state.products,
@@ -125,4 +125,5 @@ let mapDispatchToProps = (dispatch) => {
     getProducts: () => dispatch(getProducts()),
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(BestSeller);
