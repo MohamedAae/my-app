@@ -5,6 +5,7 @@ import Footer from "./shared/components/Footer/footer";
 import Home from "./Home/screen/Home";
 
 import "./App.css";
+import Product from "./Product-page/screen/Product";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/product" element={<Product />} />
       </Routes>
       <Footer />
     </>

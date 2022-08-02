@@ -24,3 +24,15 @@ code {
 #root .swiper-button-next::after {
   font-size: 0.75em;
 }
+/* .carousel .thumb{
+display: block !important;
+}
+.carousel{
+  width: 20% !important;
+}*/
+.carousel.carousel-slider img{
+  width: 100%;
+}
+.carousel .slider-wrapper.axis-horizontal .slider .slide{
+  min-width: 100% !important;
+}
