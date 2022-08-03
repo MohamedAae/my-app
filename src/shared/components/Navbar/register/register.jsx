@@ -3,8 +3,9 @@ import { UserIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
 import { registerUser } from "../../../../redux/users/users.action";
 
-const Login = (props) => {
+const Register = (props) => {
   const [showModal, setShowModal] = React.useState(false);
+
   const [userData, setUserData] = useState({
     name: "",
     password: "",
@@ -59,10 +60,11 @@ const Login = (props) => {
         </div>
         <hr className="my-2" />
       </button>
+
       {showModal ? (
         <>
-          <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+          <div className="pointer-events-none justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="pointer-events-auto relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="text-right">
                 <button
@@ -202,7 +204,10 @@ const Login = (props) => {
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          <div
+            onClick={() => setShowModal(false)}
+            className="opacity-25 fixed inset-0 z-40 bg-black"
+          ></div>
         </>
       ) : null}
     </div>
@@ -221,4 +226,4 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

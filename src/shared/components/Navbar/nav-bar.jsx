@@ -1,8 +1,8 @@
-import React, { useState } from "react";
 import TopSlider from "./top-slider/top-slider";
 import Search from "./search/search";
 import Cart from "./cart/cart";
-import Login from "./login/login";
+import Register from "./register/register";
+
 import "./nav-bar.css";
 
 export default function Navbar() {
@@ -60,7 +60,7 @@ export default function Navbar() {
               );
             })}
         </ul>
-        <Login />
+        <Register />
       </div>
       <div className="flex flex-col justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 ">
         <div className="flex justify-between items-center w-full">
