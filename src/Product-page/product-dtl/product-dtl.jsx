@@ -189,7 +189,7 @@ const ProductDtl = () => {
     <section className="w-11/12 mx-auto">
       <div className="grid grid-cols-4 gap-4">
         <div className="col-span-1">
-          <Carousel interval="1000" transitionTime="1000" centerMode="true">
+          <Carousel interval="1000" transitionTime="1000">
             {ProductDtl &&
               ProductDtl.map((book) => {
                 return (
