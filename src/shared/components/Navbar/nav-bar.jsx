@@ -2,6 +2,7 @@ import TopSlider from "./top-slider/top-slider";
 import Search from "./search/search";
 import Cart from "./cart/cart";
 import Register from "./register/register";
+import Login from "./login/login";
 
 import "./nav-bar.css";
 
@@ -60,6 +61,7 @@ export default function Navbar() {
               );
             })}
         </ul>
+        <Login></Login>
         <Register />
       </div>
       <div className="flex flex-col justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 ">
