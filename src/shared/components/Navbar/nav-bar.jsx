@@ -5,6 +5,7 @@ import Register from "./register/register";
 import Login from "./login/login";
 
 import "./nav-bar.css";
+import {NavLink} from "react-router-dom";
 
 export default function Navbar() {
   const navItems = [
@@ -39,7 +40,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white border-gray-200 dark:border-gray-600 dark:bg-gray-900 relative">
+    <nav className="mb-10 bg-white border-gray-200 dark:border-gray-600 dark:bg-gray-900 relative">
       <TopSlider></TopSlider>
       <div
         id="mega-menu-full-cta"
@@ -66,7 +67,7 @@ export default function Navbar() {
       </div>
       <div className="flex flex-col justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 ">
         <div className="flex justify-between items-center w-full">
-          <a href="https://flowbite.com" className="flex items-center">
+          <NavLink to={"/"} className="flex items-center">
             <svg
               width="248"
               height="22"
@@ -106,10 +107,7 @@ export default function Navbar() {
                 </g>
               </g>
             </svg>
-            {/* <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-              Flowbite
-            </span> */}
-          </a>
+          </NavLink>
           <Search></Search>
           <Cart></Cart>
         </div>

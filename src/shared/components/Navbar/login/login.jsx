@@ -1,9 +1,11 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {connect} from "react-redux";
 
 import {loginUser} from "../../../../redux/users/users.action";
 
 import {LockClosedIcon, UserIcon} from '@heroicons/react/solid'
+
+let token = "";
 
 const Login = (props) => {
     const [showModal, setShowModal] = useState(false);
@@ -37,8 +39,10 @@ const Login = (props) => {
     const submitData = (event) => {
         event.preventDefault();
         props.loginUser(userCredentials);
-        console.log(props.user);
-        // console.log(userCredentials);
+        if ( props.user.length ) {
+            token = props.user.token;
+            localStorage.setItem("token", JSON.stringify(token));
+        }
     }
 
     return (
@@ -168,7 +172,7 @@ const Login = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        user: state.user,
+        user: state.user.user,
     };
 };
 

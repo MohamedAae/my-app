@@ -16,10 +16,13 @@ export const registerUser = (user) => async (dispatch) => {
 export const loginUser = (userCredentials) => async (dispatch) => {
   try {
     const res = await axios.post(`http://127.0.0.1:5003/users/login`, userCredentials);
-    dispatch({
-      type: LOGINUSER,
-      user: res.data.error,
-    });
+    if( res.data.success ) {
+      dispatch({
+        type: LOGINUSER,
+        user: res.data.user,
+        token: res.data.user.token
+      });
+    }
   } catch (e) {
     console.log(e.message);
   }
