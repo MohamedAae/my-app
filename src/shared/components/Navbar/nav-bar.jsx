@@ -3,11 +3,24 @@ import Search from "./search/search";
 import Cart from "./cart/cart";
 import Register from "./register/register";
 import Login from "./login/login";
-
+import { connect } from "react-redux";
+import { loginUser, checkIfLoggedIn } from "../../../redux/users/users.action";
 import "./nav-bar.css";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function Navbar() {
+let user = {};
+const Navbar = (props) => {
+  // console.log(props);
+
+  if (Object.keys(props.user).length !== 0) {
+    user = props.user;
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+  }
+  useEffect(() => {
+    props.checkIfLoggedIn()
+  }, []);
+
   const navItems = [
     {
       id: 1,
@@ -62,8 +75,14 @@ export default function Navbar() {
               );
             })}
         </ul>
-        <Login></Login>
-        <Register />
+        {props.loggedIn ? (
+          `Hi ${props.user.name}`
+        ) : (
+          <>
+            <Login loginFunction={props.loginUser} />
+            <Register />
+          </>
+        )}
       </div>
       <div className="flex flex-col justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 ">
         <div className="flex justify-between items-center w-full">
@@ -290,4 +309,20 @@ export default function Navbar() {
       </div>
     </nav>
   );
-}
+};
+
+let mapStateToProps = (state) => {
+  return {
+    user: state.user.user,
+    loggedIn: state.user.loggedIn,
+  };
+};
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    checkIfLoggedIn: () => dispatch(checkIfLoggedIn()),
+    loginUser: (user) => dispatch(loginUser(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
