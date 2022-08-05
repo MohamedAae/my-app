@@ -11,7 +11,6 @@ import { useEffect } from "react";
 
 let user = {};
 const Navbar = (props) => {
-  // console.log(props);
 
   if (Object.keys(props.user).length !== 0) {
     user = props.user;
@@ -57,24 +56,8 @@ const Navbar = (props) => {
       <TopSlider></TopSlider>
       <div
         id="mega-menu-full-cta"
-        className="justify-between w-full md:flex md:order-1 mx-auto max-w-screen-xl px-4 md:px-6"
+        className="mb-3 justify-end w-full md:flex md:order-1 mx-auto max-w-screen-xl px-4 md:px-6"
       >
-        <ul className="flex flex-col mt-4 text-sm font-medium md:flex-row md:space-x-8 md:mt-0">
-          {navItems &&
-            navItems.map((navItem) => {
-              return (
-                <li className="py-4" key={navItem.id}>
-                  <a
-                    href="#"
-                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
-                    aria-current="page"
-                  >
-                    {navItem.item} <span className="ml-3">|</span>
-                  </a>
-                </li>
-              );
-            })}
-        </ul>
         {props.loggedIn ? (
           `Hi ${props.user.name}`
         ) : (

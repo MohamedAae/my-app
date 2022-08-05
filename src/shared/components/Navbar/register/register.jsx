@@ -50,7 +50,7 @@ const Register = (props) => {
   return (
     <div>
       <button
-        className="text-gray-700 uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        className="text-gray-400 bg-gray-200 uppercase text-sm px-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -58,7 +58,6 @@ const Register = (props) => {
           <UserIcon width={20} height={20}></UserIcon>
           <span className="pl-3">Sign Up</span>
         </div>
-        <hr className="my-2" />
       </button>
 
       {showModal ? (

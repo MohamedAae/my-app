@@ -1,53 +1,60 @@
-import React from "react";
-import classes from "./top-slider.module.css";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, {useEffect} from "react";
+import {connect} from "react-redux";
+
+import {getOffers} from "../../../../redux/offers/offers.actions";
+
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Navigation} from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Navigation } from "swiper";
+import classes from "./top-slider.module.css";
 
-export default function TopSlider() {
-  const SliderData = [
-    {
-      id: 1,
-      title: "25% Off All Harry Potter Paperbacks",
-      url: "",
-    },
-    {
-      id: 2,
-      title:
-        "10% Off 2 or More Books, eBooks, or Audiobooks With Code: JULYREADS",
-      url: "",
-    },
-    {
-      id: 3,
-      title: "Buy 1, Get 1 50% Off Books for All Ages",
-      url: "",
-    },
-  ];
-  return (
-    <div>
-      <Swiper
-        navigation={true}
-        modules={[Navigation]}
-        className={`${classes.swiper} text-center bg-gray-700 mb-3`}
-        loop={true}
-        speed={1000}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-        }}
-      >
-        {SliderData.map((slide, index) => {
-          return (
-            <SwiperSlide key={slide.id} className={`py-2`}>
-              <a href={slide.url} className="text-gray-50">
-                {slide.title}
-              </a>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
-    </div>
-  );
+let textOffers = [];
+const TopSlider = (props) => {
+
+    useEffect(() => {
+        props.getOffers();
+    }, [])
+    textOffers = props.offers.offers;
+
+    return (
+        <div>
+            <Swiper
+                navigation  = {true}
+                modules     = {[Navigation]}
+                className   = {`${classes.swiper} text-center bg-gray-700 mb-3`}
+                loop        = {true}
+                speed       = {1000}
+                autoplay    = {{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                }}
+            >
+                {
+                    textOffers.length && textOffers.map((offer, index) => {
+                        return (
+                            <SwiperSlide key={index} className={`py-2`}>
+                                <a href={offer.url} className="text-gray-50">{offer.title}</a>
+                            </SwiperSlide>
+                        );
+                    })
+                }
+            </Swiper>
+        </div>
+    );
 }
+
+const mapStateToProps = (state) => {
+    return ({
+        offers: state.offers,
+    });
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return ({
+        getOffers: () => dispatch(getOffers()),
+    })
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopSlider);
