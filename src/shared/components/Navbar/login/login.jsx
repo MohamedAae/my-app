@@ -47,7 +47,7 @@ const Login = (props) => {
   return (
     <>
       <button
-        className="text-gray-700 bg-gray-200 hoverable hover:text-gray-200 hover:bg-gray-700 capitalize text-sm mx-2 px-2 py-2 rounded-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        className="text-gray-700 bg-gray-200 hoverable hover:text-gray-200 hover:bg-gray-700 capitalize text-sm mx-2 px-2 rounded-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -71,9 +71,9 @@ const Login = (props) => {
                 onSubmit={(event) => submitData(event)}
               >
                 <input
-                    type="hidden"
-                    name="remember"
-                    defaultValue={userCredentials.rememberMe}
+                  type="hidden"
+                  name="remember"
+                  defaultValue={userCredentials.rememberMe}
                 />
                 <div className="rounded-md shadow-sm -space-y-px">
                   <div>
@@ -112,7 +112,9 @@ const Login = (props) => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <input
-                      onChange={(event) => changeDataHandler(event, "rememberme")}
+                      onChange={(event) =>
+                        changeDataHandler(event, "rememberme")
+                      }
                       id="remember-me"
                       name="remember-me"
                       type="checkbox"
@@ -142,8 +144,8 @@ const Login = (props) => {
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-background bg-theme hover:bg-theme-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     <LockClosedIcon
-                        className="h-5 w-5 text-background"
-                        aria-hidden="true"
+                      className="h-5 w-5 text-background"
+                      aria-hidden="true"
                     />
                     Sign in
                   </button>
