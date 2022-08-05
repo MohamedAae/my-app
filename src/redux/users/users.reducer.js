@@ -5,6 +5,7 @@ const initialState = {
   token: "",
   loading: true,
   loggedIn: false,
+  rememberMe: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +24,7 @@ const reducer = (state = initialState, action) => {
         token: action.token,
         loading: false,
         loggedIn: action.loggedIn,
+        rememberMe: action.rememberMe
       };
 
     case CHECKIFLOGGEDIN:

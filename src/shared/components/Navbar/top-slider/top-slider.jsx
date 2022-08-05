@@ -23,7 +23,7 @@ const TopSlider = (props) => {
             <Swiper
                 navigation  = {true}
                 modules     = {[Navigation]}
-                className   = {`${classes.swiper} text-center bg-gray-700 mb-3`}
+                className   = {`${classes.swiper} text-center bg-background mb-3`}
                 loop        = {true}
                 speed       = {1000}
                 autoplay    = {{

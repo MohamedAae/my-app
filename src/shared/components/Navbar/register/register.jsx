@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UserIcon } from "@heroicons/react/solid";
+import {LockClosedIcon, UserIcon} from "@heroicons/react/solid";
 import { connect } from "react-redux";
 import { registerUser } from "../../../../redux/users/users.action";
 
@@ -48,15 +48,15 @@ const Register = (props) => {
   };
 
   return (
-    <div>
+    <>
       <button
-        className="text-gray-400 bg-gray-200 uppercase text-sm px-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        type="button"
-        onClick={() => setShowModal(true)}
+          className="text-background bg-theme hover:bg-theme-hover capitalize text-sm mx-2 px-2 py-2 rounded-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+          onClick={() => setShowModal(true)}
       >
         <div className="flex">
           <UserIcon width={20} height={20}></UserIcon>
-          <span className="pl-3">Sign Up</span>
+          <span className="pl-1">Sign Up</span>
         </div>
       </button>
 
@@ -196,7 +196,7 @@ const Register = (props) => {
           ></div>
         </>
       ) : null}
-    </div>
+    </>
   );
 };
 

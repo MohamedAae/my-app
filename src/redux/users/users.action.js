@@ -25,6 +25,7 @@ export const loginUser = (userCredentials) => async (dispatch) => {
         user: res.data.user,
         token: res.data.user.token,
         loggedIn: true,
+        rememberMe: res.data.user.rememberMe
       });
     }
   } catch (e) {
@@ -34,15 +35,14 @@ export const loginUser = (userCredentials) => async (dispatch) => {
 
 export const checkIfLoggedIn = () => async (dispatch) => {
   try {
-    const checkLocalStorage = await localStorage.getItem("loggedInUser");
+    const checkLocalStorage = localStorage.getItem("loggedInUser") || sessionStorage.getItem("loggedInUser");
     if (checkLocalStorage) {
       const user = JSON.parse(checkLocalStorage);
-      // console.log(user);
       dispatch({
         type: CHECKIFLOGGEDIN,
         user,
         token: user.token,
-        loggedIn: true,
+        loggedIn: true
       });
     }
   } catch (e) {

@@ -12,10 +12,16 @@ import { useEffect } from "react";
 let user = {};
 const Navbar = (props) => {
 
-  if (Object.keys(props.user).length !== 0) {
+  if (Object.keys(props.user).length !== 0 && props.rememberMe) {
     user = props.user;
     localStorage.setItem("loggedInUser", JSON.stringify(user));
   }
+
+  if (Object.keys(props.user).length !== 0 && !props.rememberMe) {
+    user = props.user;
+    sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+  }
+
   useEffect(() => {
     props.checkIfLoggedIn()
   }, []);
@@ -298,6 +304,7 @@ let mapStateToProps = (state) => {
   return {
     user: state.user.user,
     loggedIn: state.user.loggedIn,
+    rememberMe: state.user.rememberMe,
   };
 };
 

@@ -7,6 +7,7 @@ const Login = (props) => {
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
+    rememberMe: false,
   });
 
   const changeDataHandler = (event, init) => {
@@ -26,6 +27,13 @@ const Login = (props) => {
         });
         break;
 
+      case "rememberme":
+        setUserCredentials({
+          ...userCredentials,
+          rememberMe: !userCredentials.rememberMe,
+        });
+        break;
+
       default:
         break;
     }
@@ -34,45 +42,39 @@ const Login = (props) => {
   const submitData = (event) => {
     event.preventDefault();
     props.loginFunction(userCredentials);
-    // props.loginUser(userCredentials);
   };
 
   return (
     <>
       <button
-        className="text-gray-400 bg-gray-200 uppercase text-sm mx-2 px-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        className="text-gray-700 bg-gray-200 hoverable hover:text-gray-200 hover:bg-gray-700 capitalize text-sm mx-2 px-2 py-2 rounded-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
         <div className="flex">
           <LockClosedIcon width={20} height={20}></LockClosedIcon>
-          <span className="pl-3">Sign In</span>
+          <span className="pl-1">Sign In</span>
         </div>
       </button>
 
       {showModal ? (
         <>
-          <div className="z-50 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+          <div className="z-50 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg bg-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
               <div>
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                <h2 className="capitalize text-center text-3xl font-bold text-background">
                   Sign in to your account
                 </h2>
-                <p className="mt-2 text-center text-sm text-gray-600">
-                  Or{" "}
-                  <a
-                    href="#"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    start your 14-day free trial
-                  </a>
-                </p>
               </div>
               <form
-                className="mt-8 space-y-6"
+                className="mt-8 mb-8 space-y-6"
                 onSubmit={(event) => submitData(event)}
               >
-                <input type="hidden" name="remember" defaultValue="true" />
+                <input
+                    type="hidden"
+                    name="remember"
+                    defaultValue={userCredentials.rememberMe}
+                />
                 <div className="rounded-md shadow-sm -space-y-px">
                   <div>
                     <label htmlFor="email-address" className="sr-only">
@@ -86,8 +88,8 @@ const Login = (props) => {
                       type="email"
                       autoComplete="email"
                       required
-                      className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                      placeholder="Email address"
+                      className="mb-5 appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                      placeholder="Email Address"
                     />
                   </div>
                   <div>
@@ -101,7 +103,7 @@ const Login = (props) => {
                       name="password"
                       type="password"
                       required
-                      className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                      className="mb-8 appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                       placeholder="Password"
                     />
                   </div>
@@ -110,6 +112,7 @@ const Login = (props) => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <input
+                      onChange={(event) => changeDataHandler(event, "rememberme")}
                       id="remember-me"
                       name="remember-me"
                       type="checkbox"
@@ -126,7 +129,7 @@ const Login = (props) => {
                   <div className="text-sm">
                     <a
                       href="#"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                      className="font-medium text-background hover:text-indigo-500"
                     >
                       Forgot your password?
                     </a>
@@ -136,14 +139,12 @@ const Login = (props) => {
                 <div>
                   <button
                     type="submit"
-                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-background bg-theme hover:bg-theme-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
-                    <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                      <LockClosedIcon
-                        className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                    <LockClosedIcon
+                        className="h-5 w-5 text-background"
                         aria-hidden="true"
-                      />
-                    </span>
+                    />
                     Sign in
                   </button>
                 </div>
@@ -161,19 +162,5 @@ const Login = (props) => {
     </>
   );
 };
-
-// let mapStateToProps = (state) => {
-//   console.log(state);
-//   return {
-//     user: state.user.user,
-//     loggedIn: state.user.loggedIn,
-//   };
-// };
-
-// let mapDispatchToProps = (dispatch) => {
-//   return {
-//     loginUser: (user) => dispatch(loginUser(user)),
-//   };
-// };
 
 export default Login;
