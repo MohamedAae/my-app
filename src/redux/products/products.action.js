@@ -1,5 +1,5 @@
 import axios from "axios";
-import {GETPRODUCTS, GETPRODUCTBYID, GETBESTBOOKS} from "./products.types"
+import {GETPRODUCTS, GETPRODUCTBYID, GETBESTBOOKS,GETDISCOUNTBOOKS} from "./products.types"
 
 export const getProducts = () => async dispatch => {
     try {
@@ -31,6 +31,19 @@ export const getProductById = (id) => async dispatch => {
         dispatch({
             type: GETPRODUCTBYID,
             product: res.data.product
+        })
+    } catch (e) {
+        console.log(e.message);
+    }
+}
+
+
+export const getdiscountbook= (rate) => async dispatch => {
+    try {
+        const res = await axios.get(`http://127.0.0.1:5003/products/discount/${rate}`);
+        dispatch({
+            type: GETDISCOUNTBOOKS,
+            discountbook: res.data.discontbook
         })
     } catch (e) {
         console.log(e.message);
