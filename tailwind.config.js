@@ -10,6 +10,7 @@ module.exports = {
             'background': '#003049',
             'theme': '#fcBf49',
             'theme-hover': '#eba210',
+            'cart-bg':'#f8f8f8',
             'dark-red': '#d62828',
             'orange': '#f77f00',
             'lemon': '#eae2b7',

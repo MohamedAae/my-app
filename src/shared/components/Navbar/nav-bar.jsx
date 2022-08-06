@@ -8,6 +8,7 @@ import { loginUser, checkIfLoggedIn } from "../../../redux/users/users.action";
 import "./nav-bar.css";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
+import { RemoveFromCart } from "../../../redux/cart/cart.action";
 
 let user = {};
 const Navbar = (props) => {
@@ -50,7 +51,6 @@ const Navbar = (props) => {
     { id: 2, item: "Shop", url: "/shop", hasMegaMenu: false },
     { id: 3, item: "About", url: "/about", hasMegaMenu: false },
     { id: 4, item: "Contact Us", url: "/contactus", hasMegaMenu: false },
- 
   ];
 
   return (
@@ -100,7 +100,12 @@ const Navbar = (props) => {
             </svg>
           </NavLink>
           <Search></Search>
-          <Cart></Cart>
+          <Cart
+            removeFunction={props.RemoveFromCart}
+            item={props.items}
+            totalPrice={props.price}
+            totalItems={props.totalItems}
+          />
         </div>
         <button
           id="mega-menu-full-cta-button"
@@ -140,7 +145,10 @@ const Navbar = (props) => {
               if (navItem.hasMegaMenu) {
                 return (
                   <li className="hoverable py-2">
-                    <a href="#" className="relative block text-base font-sans hover:text-theme-hover">
+                    <a
+                      href="#"
+                      className="relative block text-base font-sans hover:text-theme-hover"
+                    >
                       <button className="flex justify-between items-center  pr-4 pl-3  font-medium text-gray-700 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
                         Company{" "}
                         <svg
@@ -269,21 +277,19 @@ const Navbar = (props) => {
               }
               return (
                 <>
-                
-                <li className="py-2  " key={navItem.id}>
-                  <a
-                    href="#"
-                    className=" text-base  font-sans text-background hover:text-theme-hover "
-                    aria-current="page"
-                  >
-                    {navItem.item} 
-                  </a>
-                </li>
-                <li className=" text-gray-400 flex justify-center items-center">
-                &#9672;
-                </li>
-            </>
-
+                  <li className="py-2  " key={navItem.id}>
+                    <a
+                      href="#"
+                      className=" text-base  font-sans text-background hover:text-theme-hover "
+                      aria-current="page"
+                    >
+                      {navItem.item}
+                    </a>
+                  </li>
+                  <li className=" text-gray-400 flex justify-center items-center">
+                    &#9672;
+                  </li>
+                </>
               );
             })}
         </ul>
@@ -307,6 +313,9 @@ let mapStateToProps = (state) => {
     user: state.user.user,
     loggedIn: state.user.loggedIn,
     rememberMe: state.user.rememberMe,
+    items: state.cart.cartItems,
+    price: state.cart.totalPrice,
+    totalItems: state.cart.totalItems,
   };
 };
 
@@ -314,6 +323,7 @@ let mapDispatchToProps = (dispatch) => {
   return {
     checkIfLoggedIn: () => dispatch(checkIfLoggedIn()),
     loginUser: (user) => dispatch(loginUser(user)),
+    RemoveFromCart: (id, price) => dispatch(RemoveFromCart(id, price)),
   };
 };
 
