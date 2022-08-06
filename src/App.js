@@ -7,6 +7,7 @@ import Home from "./Home/screen/Home";
 import "./App.css";
 import Product from "./Product-page/screen/Product";
 import ErrorPage from "./shared/components/error-page/error-page";
+import CategoryBook from "./shared/components/categories-books/category-book";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/category/:id" element={<CategoryBook />} />
         <Route path="/product" element={<Product />}>
             <Route path=":id" element={<Product />} />
         </Route>

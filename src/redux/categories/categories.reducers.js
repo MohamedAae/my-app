@@ -1,7 +1,9 @@
-import {GETCATEGORIES} from "./categories.types";
+import {GETCATEGORIES,GETCATEGORIYBOOKS} from "./categories.types";
 const intialState = {
     loading : true,
-    categories  : []
+    categories  : [],
+     loadingCategoryBooks : true,
+    categoryBooks  : []
 }
 const reducer = (state = intialState, action) => {
     switch (action.type) {
@@ -11,7 +13,12 @@ const reducer = (state = intialState, action) => {
                 loading : false,
                 categories  : action.categories
             })
-
+                case GETCATEGORIYBOOKS:
+            return({
+                ...state,
+                loadingCategoryBooks : false,
+                categoryBooks  : action.categoryBooks
+            })
         default:
             return state;
     }
