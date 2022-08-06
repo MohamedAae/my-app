@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
 import { registerUser } from "../../../../redux/users/users.action";
@@ -19,11 +19,18 @@ const Register = (props) => {
     confirmPassword: "",
   });
 
+
+  useEffect(()=>{
+    checkData(userData.name.length >= 3, "name");
+    checkData(validateEmail(userData.email), "email");
+    checkData(userData.password.length >= 5, "password");
+    checkData(userData.password === userData.confirmPassword, "confirmPassword");
+  },[userData])
+  
   const changeDataHandler = (event, init) => {
     const value = event.target.value;
     switch (init) {
       case "name":
-        checkData(value.length >= 3, "name");
         setUserData({
           ...userData,
           name: value,
@@ -31,7 +38,6 @@ const Register = (props) => {
         break;
 
       case "email":
-        checkData(validateEmail(value), "email");
         setUserData({
           ...userData,
           email: value,
@@ -39,14 +45,7 @@ const Register = (props) => {
         break;
 
       case "password":
-        console.log(
-          value,
-          value.length,
-          userData.confirmPassword,
-          value.length >= 5,
-          value === userData.confirmPassword
-        );
-        checkData(value.length >= 5, "password");
+       
         setUserData({
           ...userData,
           password: value,
@@ -54,15 +53,7 @@ const Register = (props) => {
         break;
 
       case "confirmPassword":
-        console.log(
-          value,
-          value.length,
-          userData.password,
-          userData.password.length,
-          userData.password === value,
-          userData.password.length >= 5
-        );
-        checkData(userData.password === value, "confirmPassword");
+       
         setUserData({
           ...userData,
           confirmPassword: value,
@@ -74,14 +65,15 @@ const Register = (props) => {
     }
   };
   const checkData = (condition, property) => {
-    setValidForm({
-      ...validForm,
-      [property]: false,
-    });
     if (condition) {
       setValidForm({
         ...validForm,
         [property]: true,
+      })
+    }else{
+      setValidForm({
+        ...validForm,
+        [property]: false,
       });
     }
   };
@@ -93,8 +85,15 @@ const Register = (props) => {
   const submitData = (event) => {
     console.log(validForm);
     event.preventDefault();
+    // checkData(userData.name.length >= 3, "name");
+    // checkData(validateEmail(userData.email), "email");
+    // checkData(userData.password.length >= 5, "password");
+    // checkData(userData.password === userData.confirmPassword, "confirmPassword");
+    console.log(userData.name);
+
+    console.log(validForm);
+
     props.registerUser(userData);
-    console.log(props.user);
   };
 
   return (

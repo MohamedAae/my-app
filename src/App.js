@@ -6,6 +6,7 @@ import Home from "./Home/screen/Home";
 
 import "./App.css";
 import Product from "./Product-page/screen/Product";
+import ErrorPage from "./shared/components/error-page/error-page";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route path="/product" element={<Product />}>
             <Route path=":id" element={<Product />} />
         </Route>
-        {/* <Route path="/product" element={<Product />} /> */}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </>

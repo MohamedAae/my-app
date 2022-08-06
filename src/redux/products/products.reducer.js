@@ -1,10 +1,12 @@
-import {GETPRODUCTS, GETPRODUCTBYID} from "./products.types"
+import {GETPRODUCTS, GETPRODUCTBYID,GETBESTBOOKS} from "./products.types"
 
 const initialState = {
     product         : {},
     productLoading  : true,
     products        : [],
     productsLoading : true,
+    bestSellerBooks:[],
+    bestSellerBooksLoading:true,
 }
 
 const reducer = (state = initialState, action) => {
@@ -21,6 +23,12 @@ const reducer = (state = initialState, action) => {
                 product         : action.product,
                 productLoading  : false
             }
+            case GETBESTBOOKS:
+                return {
+                    ...state,
+                    bestSellerBooks:action.bestSellerBooks,
+                    bestSellerBooksLoading:false
+                }
         default:
             return state
     }

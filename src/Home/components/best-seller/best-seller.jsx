@@ -1,17 +1,17 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import "./best-seller.css";
-import {getProducts} from "../../../redux/products/products.action";
+import {getBestBooks, getProducts} from "../../../redux/products/products.action";
 import {NavLink} from "react-router-dom";
 
 let bestBooks = [];
 
 const BestSeller = (props) => {
     useEffect(() => {
-        props.getProducts();
+        props.getBestBooks();
     }, []);
 
-    bestBooks = props.products;
+    bestBooks = props.bestSellerBooks;
 
     function forloop(bookRating) {
         let starsarr = [],
@@ -40,16 +40,17 @@ const BestSeller = (props) => {
     }
 
     return (
-        <section className="">
+        <section className="w-11/12 mx-auto">
+            <h1 className="py-6 text-3xl italic font-serif">Our Booksellers Recommend</h1>
             <aside
-                className="w-11/12 grid grid-cols-4 text-center gap-2 mx-auto w-11/12">
+                className="w-11/12 grid grid-cols-4 text-center gap-2  mx-auto w-11/12 ">
                 <div className="grid gap-2">
                     <div
-                        className="max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                        className="max-w-sm bg-white rounded-lg  dark:bg-gray-800 dark:border-gray-700">
                         <div className=" group relative overflow-hidden">
                             <a href="#">
                                 <img
-                                    className="object-cover w-full p-5 rounded-t-lg"
+                                    className=" h-94 w-full px-5  rounded-t-lg"
                                     src={
                                         bestBooks.length
                                             ?
@@ -57,7 +58,7 @@ const BestSeller = (props) => {
                                                 ?
                                                 bestBooks[0].thumbnail[0]
                                                 :
-                                                bestBooks[0].imageUrl
+                                                bestBooks[0].image
                                             :
                                             ""
                                     }
@@ -72,7 +73,7 @@ const BestSeller = (props) => {
                         <div className="px-5 pb-5">
                             <NavLink
                                 to={`/product/${bestBooks.length && bestBooks[0]._id}`}>
-                                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                <h5 className="text-2xl  font-semibold py-2 tracking-tight text-gray-900 dark:text-white">
                                     {bestBooks.length && bestBooks[0].name}
                                 </h5>
                             </NavLink>
@@ -81,26 +82,26 @@ const BestSeller = (props) => {
                                 {forloop(bestBooks.length && bestBooks[0].rating)}
                             </div>
                             <div>
-                                <p>{bestBooks.length && bestBooks[0].description}</p>
+                                <p>{bestBooks.length && bestBooks[0].description.slice(0,300)}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="grid col-span-3 gap-2 mx-auto text-center">
-                    <div className=" grid grid-cols-4 gap-2 mx-auto">
+                    <div className=" grid grid-cols-4 gap-4  mx-auto">
                         {bestBooks.map((book, i) => {
                             if (i != 0) {
                                 return (
-                                    <div className=" rounded">
                                         <div
-                                            className="max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                                            className=" px-4 max-w-sm bg-white rounded-lg  dark:bg-gray-800 dark:border-gray-700 rounded mb-4">
                                             <div
                                                 className=" group relative overflow-hidden">
                                                 <a href="#">
                                                     <img
-                                                        className="object-cover w-full p-5 rounded-t-lg"
-                                                        src={bestBooks.length && book.imageUrl}
+                                                        
+                                                        className="object-cover h-60  w-full  rounded-t-lg"
+                                                        src={bestBooks.length && book.image}
                                                         alt="product image"
                                                     />
                                                 </a>
@@ -111,8 +112,8 @@ const BestSeller = (props) => {
                                             </div>
                                             <div className="px-5 pb-5">
                                                 <a href="#">
-                                                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                                        {bestBooks.length && book.name}
+                                                    <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-14 my-4">
+                                                        {bestBooks.length && book.name.slice(0,25)}
                                                     </h5>
                                                 </a>
                                                 <a href="#"
@@ -125,7 +126,6 @@ const BestSeller = (props) => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                 );
                             }
                         })}
@@ -139,12 +139,14 @@ const BestSeller = (props) => {
 let mapStateToProps = (state) => {
     return {
         products: state.products.products,
+        bestSellerBooks:state.products.bestSellerBooks
     };
 };
 
 let mapDispatchToProps = (dispatch) => {
     return {
         getProducts: () => dispatch(getProducts()),
+        getBestBooks:()=>dispatch(getBestBooks())
     };
 };
 

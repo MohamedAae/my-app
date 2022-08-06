@@ -47,13 +47,10 @@ const Navbar = (props) => {
         },
       ],
     },
-    { id: 2, item: "Books", url: "/category/books", hasMegaMenu: false },
-    { id: 3, item: "Books", url: "/category/books", hasMegaMenu: false },
-    { id: 4, item: "Books", url: "/category/books", hasMegaMenu: false },
-    { id: 5, item: "Books", url: "/category/books", hasMegaMenu: false },
-    { id: 6, item: "Books", url: "/category/books", hasMegaMenu: false },
-    { id: 7, item: "Books", url: "/category/books", hasMegaMenu: false },
-    { id: 8, item: "Books", url: "/category/books", hasMegaMenu: false },
+    { id: 2, item: "Shop", url: "/shop", hasMegaMenu: false },
+    { id: 3, item: "About", url: "/about", hasMegaMenu: false },
+    { id: 4, item: "Contact Us", url: "/contactus", hasMegaMenu: false },
+ 
   ];
 
   return (
@@ -143,7 +140,7 @@ const Navbar = (props) => {
               if (navItem.hasMegaMenu) {
                 return (
                   <li className="hoverable py-2">
-                    <a href="#" className="relative block ">
+                    <a href="#" className="relative block text-base font-sans hover:text-theme-hover">
                       <button className="flex justify-between items-center  pr-4 pl-3  font-medium text-gray-700 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
                         Company{" "}
                         <svg
@@ -271,15 +268,22 @@ const Navbar = (props) => {
                 );
               }
               return (
-                <li className="py-2" key={navItem.id}>
+                <>
+                
+                <li className="py-2  " key={navItem.id}>
                   <a
                     href="#"
-                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700"
+                    className=" text-base  font-sans text-background hover:text-theme-hover "
                     aria-current="page"
                   >
-                    {navItem.item} <span className="ml-3">|</span>
+                    {navItem.item} 
                   </a>
                 </li>
+                <li className=" text-gray-400 flex justify-center items-center">
+                &#9672;
+                </li>
+            </>
+
               );
             })}
         </ul>
