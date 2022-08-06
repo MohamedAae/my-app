@@ -1,53 +1,65 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import OffersSlider from "../components/offers-slider/offers-slider";
 import TrindingSlider from "../components/trinding-slider/trinding-slider";
 import ImageSection from "../components/image-section";
 import BestSeller from "../components/best-seller/best-seller";
 import ShopByCategory from "../components/shop-by-category/shop-by-category";
-import { getdiscountbook } from "../../redux/products/products.action";
-import { connect } from "react-redux";
+import {getdiscountbook} from "../../redux/products/products.action";
+import {connect} from "react-redux";
 
-let discountbook = [];
+let discountBy80 = [],
+    discountBy60 = [],
+    discountBy30 = [];
+
 const Home = (props) => {
-  let rate = 60;
-  useEffect(() => {
-    props.getdiscountbook(rate);
-  }, []);
-  discountbook = props.discountbook;
-  console.log(discountbook);
 
-  const title = [
-    {
-      id: 1,
-      title1: "Get 60% Off on this Books",
-    },
-    {
-      id: 2,
-      title2: "30% Off",
-    },
-  ];
-  return (
-    <>
-      <OffersSlider />
+    let rates = [60, 30, 80];
 
-      <TrindingSlider book={discountbook} title={title[0]} />
+    useEffect(() => {
+        rates.map(rate => {
+            props.getdiscountbook(rate);
+        });
+    }, []);
 
-      <BestSeller />
-      <ImageSection />
-      <ShopByCategory />
-    </>
-  );
+    const getRateBooks = (rate) => {
+        if ( Object.keys(props.discountbook).length && props.discountbook[rate] ) {
+            return props.discountbook[rate];
+        }
+        return [];
+    }
+
+    discountBy80 = getRateBooks('80');
+    discountBy60 = getRateBooks('60');
+    discountBy30 = getRateBooks('30');
+
+
+    const generateTitle = (rate) => {
+        return `Get ${rate}% Off on this Books`
+    }
+
+    return (
+        <>
+            <OffersSlider/>
+            <TrindingSlider book={discountBy80} title={generateTitle(80)}/>
+            <BestSeller/>
+            <ImageSection/>
+            <TrindingSlider book={discountBy60} title={generateTitle(60)}/>
+            <ImageSection/>
+            <ImageSection/>
+            <TrindingSlider book={discountBy30} title={generateTitle(30)}/>
+        </>
+    );
 };
 let mapStateToProps = (state) => {
-  return {
-    discountbook: state.products.discountbook,
-  };
+    return {
+        discountbook: state.products.discountbook,
+    };
 };
 
 let mapDispatchToProps = (dispatch) => {
-  return {
-    getdiscountbook: (rate) => dispatch(getdiscountbook(rate)),
-  };
+    return {
+        getdiscountbook: (rate) => dispatch(getdiscountbook(rate)),
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

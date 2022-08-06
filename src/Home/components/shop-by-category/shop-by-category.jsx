@@ -10,7 +10,6 @@ const ShopByCategory = (props) => {
     props.getCategoryBooks("62ee7d0a4d3ca74e4a03fcb6");
   }, []);
   categoryArray = props.categories;
-console.log(categoryArray,"ssssssssss");
   // let categoryArray = [
   //   {
   //     id: 1,
@@ -68,7 +67,6 @@ console.log(categoryArray,"ssssssssss");
   );
 };
 let mapStateToProps = (state) => {
-  console.log(state, "kkk");
   return {
     categories: state.categories.categories,
   };
