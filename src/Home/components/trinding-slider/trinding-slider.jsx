@@ -8,7 +8,8 @@ import classes from "./trinding-slider.module.css";
 
 export default function TrindingSlider(props) {
   const SliderBooks = props.book;
-
+  console.log(props);
+  const titles = props.title.title1;
   // const SliderBooks = [
   //   {
   //     id: 1,
@@ -111,6 +112,7 @@ export default function TrindingSlider(props) {
   // ];
   return (
     <section id="trinding" className="my-10 w-11/12	 mx-auto">
+      <h1 className="py-6 text-3xl italic font-serif">{titles}</h1>{" "}
       <Swiper
         slidesPerView={7}
         spaceBetween={20}
@@ -119,7 +121,7 @@ export default function TrindingSlider(props) {
         loopFillGroupWithBlank={true}
         navigation={true}
         modules={[Pagination, Navigation]}
-        className="mySwiper"
+        className="mySwiper w-11/12"
       >
         {SliderBooks.length &&
           SliderBooks.map((slide, index) => {

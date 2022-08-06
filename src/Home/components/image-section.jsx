@@ -8,9 +8,9 @@ export default function ImageSection() {
     pagelink: "#",
   };
   return (
-    <section>
+    <section className="w-11/12 mx-auto">
       <a href={imagelink.pagelink}>
-        <img src={imagelink.imgsrc} className="w-full h-80" />
+        <img src={imagelink.imgsrc} className="w-full h-4/5" />
       </a>
     </section>
   );

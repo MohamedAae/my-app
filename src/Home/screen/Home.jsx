@@ -10,26 +10,34 @@ import { connect } from "react-redux";
 let discountbook = [];
 const Home = (props) => {
   let rate = 60;
-
   useEffect(() => {
     props.getdiscountbook(rate);
   }, []);
   discountbook = props.discountbook;
   console.log(discountbook);
 
+  const title = [
+    {
+      id: 1,
+      title1: "Get 60% Off on this Books",
+    },
+    {
+      id: 2,
+      title2: "30% Off",
+    },
+  ];
   return (
     <>
       <OffersSlider />
 
-      <TrindingSlider book={discountbook} />
+      <TrindingSlider book={discountbook} title={title[0]} />
 
       <BestSeller />
-      <ShopByCategory />
       <ImageSection />
+      <ShopByCategory />
     </>
   );
 };
-// var rate=60;
 let mapStateToProps = (state) => {
   return {
     discountbook: state.products.discountbook,
