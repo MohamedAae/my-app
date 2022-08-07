@@ -43,7 +43,8 @@ export const getdiscountbook= (rate) => async dispatch => {
         const res = await axios.get(`http://127.0.0.1:5003/products/discount/${rate}`);
         dispatch({
             type: GETDISCOUNTBOOKS,
-            discountbook: res.data.discontbook
+            discountbook: res.data.discontbook,
+            rate: rate,
         })
     } catch (e) {
         console.log(e.message);

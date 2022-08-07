@@ -4,6 +4,7 @@ import {
   GETBESTBOOKS,
   GETDISCOUNTBOOKS,
 } from "./products.types";
+import {getdiscountbook} from "./products.action";
 
 const initialState = {
   product: {},
@@ -12,7 +13,7 @@ const initialState = {
   productsLoading: true,
   bestSellerBooks: [],
   bestSellerBooksLoading: true,
-  discountbook: [],
+  discountbook: {},
   discountbookLoading: true,
 };
 
@@ -40,7 +41,10 @@ const reducer = (state = initialState, action) => {
     case GETDISCOUNTBOOKS:
       return {
         ...state,
-        discountbook: action.discountbook,
+        discountbook: {
+          ...state.discountbook,
+          [action.rate]: action.discountbook
+        },
         discountbookLoading: false,
       };
     default:

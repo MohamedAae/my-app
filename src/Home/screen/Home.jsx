@@ -7,34 +7,44 @@ import ShopByCategory from "../components/shop-by-category/shop-by-category";
 import { getdiscountbook } from "../../redux/products/products.action";
 import { connect } from "react-redux";
 
-let discountbook = [];
-const Home = (props) => {
-  let rate = 60;
-  useEffect(() => {
-    props.getdiscountbook(rate);
-  }, []);
-  discountbook = props.discountbook;
-  console.log(discountbook);
+let discountBy80 = [],
+  discountBy60 = [],
+  discountBy30 = [];
 
-  const title = [
-    {
-      id: 1,
-      title1: "Get 60% Off on this Books",
-    },
-    {
-      id: 2,
-      title2: "30% Off",
-    },
-  ];
+const Home = (props) => {
+  let rates = [60, 30, 80];
+
+  useEffect(() => {
+    rates.map((rate) => {
+      props.getdiscountbook(rate);
+    });
+  }, []);
+
+  const getRateBooks = (rate) => {
+    if (Object.keys(props.discountbook).length && props.discountbook[rate]) {
+      return props.discountbook[rate];
+    }
+    return [];
+  };
+
+  discountBy80 = getRateBooks("80");
+  discountBy60 = getRateBooks("60");
+  discountBy30 = getRateBooks("30");
+
+  const generateTitle = (rate) => {
+    return `Get ${rate}% Off on this Books`;
+  };
+
   return (
     <>
       <OffersSlider />
-
-      <TrindingSlider book={discountbook} title={title[0]} />
-
+      <TrindingSlider book={discountBy80} title={generateTitle(80)} />
       <BestSeller />
       <ImageSection />
-      <ShopByCategory />
+      <TrindingSlider book={discountBy60} title={generateTitle(60)} />
+      <ImageSection />
+      <ImageSection />
+      <TrindingSlider book={discountBy30} title={generateTitle(30)} />
     </>
   );
 };

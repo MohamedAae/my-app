@@ -6,6 +6,7 @@ import {
   getProducts,
 } from "../../../redux/products/products.action";
 import { NavLink } from "react-router-dom";
+import { AddToCart } from "../../../redux/cart/cart.action";
 
 let bestBooks = [];
 
@@ -63,12 +64,19 @@ const BestSeller = (props) => {
                   alt="product image"
                 />
               </a>
-              <button className="w-11/12 bg-gray-50 hover:bg-gray-700 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:translate-y-0 hover:translate-y-0 transition ease-in-out delay-150 duration-1000 ">
+              <button
+                onClick={() => props.AddToCart(bestBooks[0])}
+                className="w-11/12 bg-gray-50 hover:bg-gray-700 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:translate-y-0 hover:translate-y-0 transition ease-in-out delay-150 duration-500"
+              >
                 Quick Add
               </button>
             </div>
             <div className="px-5 pb-5">
-              <NavLink to={`/product/${bestBooks.length && bestBooks[0]._id}`}>
+              <NavLink
+                to={`/c/${bestBooks.length && bestBooks[0].categoryId.url}/${
+                  bestBooks.length && bestBooks[0]._id
+                }`}
+              >
                 <h5 className="text-2xl  font-semibold py-2 tracking-tight text-gray-900 dark:text-white">
                   {bestBooks.length && bestBooks[0].name}
                 </h5>
@@ -100,7 +108,10 @@ const BestSeller = (props) => {
                           alt="product image"
                         />
                       </a>
-                      <button className="w-10/12 bg-gray-50 hover:bg-gray-700 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:translate-y-0 hover:translate-y-0 transition ease-in-out delay-150 duration-1000 ">
+                      <button
+                        onClick={() => props.AddToCart(book)}
+                        className="w-10/12 bg-gray-50 hover:bg-gray-700 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:translate-y-0 hover:translate-y-0 transition ease-in-out delay-150 duration-1000 "
+                      >
                         Quick Add
                       </button>
                     </div>
@@ -141,6 +152,7 @@ let mapDispatchToProps = (dispatch) => {
   return {
     getProducts: () => dispatch(getProducts()),
     getBestBooks: () => dispatch(getBestBooks()),
+    AddToCart: (book) => dispatch(AddToCart(book)),
   };
 };
 

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 
 import Skeleton from "react-loading-skeleton";
@@ -13,12 +13,20 @@ let book = {},
 
 const ProductDtl = (props) => {
 
+    const [readMore, setReadMore] = useState(false);
+
     useEffect(() => {
         props.getProductById(props.productId);
     }, []);
 
     book = props.product;
     loading = props.productLoading;
+
+    const renderHTML = (rawHTML) => {
+        return React.createElement("div", {
+            dangerouslySetInnerHTML: {__html: rawHTML},
+        });
+    }
 
     function forloop(bookRating) {
         let starsarr = [],
@@ -108,20 +116,27 @@ const ProductDtl = (props) => {
                                         `${book.price}`
                                 }
                             </h3>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            <p className={`mb-3 font-normal text-gray-700
+                                 dark:text-gray-400 ${readMore ? "line-clamp-none" : "line-clamp-8"}`}>
                                 {
                                     loading
                                         ?
                                         <Skeleton count={4}/>
                                         :
-                                        book.description
+                                        renderHTML(book.description)
                                 }
                             </p>
                             <a
                                 href="#"
+                                onClick={() => setReadMore(!readMore)}
                                 className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >
-                                Read more &rarr;
+                                {
+                                    readMore
+                                        ? "Read Less ↑"
+                                        : "Read More ↓"
+                                }
+
                             </a>
                         </div>
                     </div>
