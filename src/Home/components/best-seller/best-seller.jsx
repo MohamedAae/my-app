@@ -101,13 +101,20 @@ const BestSeller = (props) => {
                 return (
                   <div className=" px-4 max-w-sm bg-white rounded-lg  dark:bg-gray-800 dark:border-gray-700 rounded mb-4">
                     <div className=" group relative overflow-hidden">
-                      <a href="#">
-                        <img
+                      
+
+                      <NavLink
+                to={`/c/${book.categoryId.url}/${
+                  book._id
+                }`}
+              >
+                   <img
                           className="object-cover h-60  w-full  rounded-t-lg"
                           src={bestBooks.length && book.image}
                           alt="product image"
                         />
-                      </a>
+              </NavLink>
+
                       <button
                         onClick={() => props.AddToCart(book)}
                         className="w-10/12 bg-gray-50 hover:bg-gray-700 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:translate-y-0 hover:translate-y-0 transition ease-in-out delay-150 duration-1000 "

@@ -4,9 +4,9 @@ import TrindingSlider from "../components/trinding-slider/trinding-slider";
 import ImageSection from "../components/image-section";
 import BestSeller from "../components/best-seller/best-seller";
 import ShopByCategory from "../components/shop-by-category/shop-by-category";
-import { getdiscountbook } from "../../redux/products/products.action";
+import { getdiscountbook} from "../../redux/products/products.action";
 import { connect } from "react-redux";
-
+import {  AddToCart} from "../../redux/cart/cart.action";
 let discountBy80 = [],
   discountBy60 = [],
   discountBy30 = [];
@@ -38,13 +38,13 @@ const Home = (props) => {
   return (
     <>
       <OffersSlider />
-      <TrindingSlider book={discountBy80} title={generateTitle(80)} />
+      <TrindingSlider book={discountBy80} title={generateTitle(80)} addcart={props.AddToCart} />
       <BestSeller />
       <ImageSection />
-      <TrindingSlider book={discountBy60} title={generateTitle(60)} />
+      <TrindingSlider book={discountBy60} title={generateTitle(60)} addcart={props.AddToCart} />
       <ImageSection />
       <ImageSection />
-      <TrindingSlider book={discountBy30} title={generateTitle(30)} />
+      <TrindingSlider book={discountBy30} title={generateTitle(30)} addcart={props.AddToCart} />
     </>
   );
 };
@@ -57,6 +57,7 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
   return {
     getdiscountbook: (rate) => dispatch(getdiscountbook(rate)),
+    AddToCart: (book) => dispatch(AddToCart(book)),
   };
 };
 

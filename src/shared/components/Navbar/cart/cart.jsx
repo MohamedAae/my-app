@@ -103,7 +103,7 @@ const Cart = (props) => {
                                         </div>
                                       </div>
                                       <div className="flex flex-1 items-end justify-between text-sm">
-                                        <p className="text-gray-500">Qty</p>
+                                        <p className="text-gray-500">Qty:{product.quantity}</p>
 
                                         <div className="flex">
                                           <button
