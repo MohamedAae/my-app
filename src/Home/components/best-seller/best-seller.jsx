@@ -47,13 +47,13 @@ const BestSeller = (props) => {
       <h1 className="py-6 text-3xl italic font-serif">
         Our Booksellers Recommend
       </h1>
-      <aside className="w-11/12 grid grid-cols-4 text-center gap-2  mx-auto w-11/12 ">
+      <aside className="w-11/12 grid grid-cols-4 text-center gap-2 mx-auto w-11/12 ">
         <div className="grid gap-2">
-          <div className="max-w-sm bg-white rounded-lg rounded  dark:bg-gray-800 dark:border-gray-700">
+          <div className="max-w-sm bg-white rounded-lg rounded dark:bg-gray-800 dark:border-gray-700">
             <div className=" group relative overflow-hidden">
               <a href="#">
                 <img
-                  className=" h-94 w-full px-5  rounded"
+                  className=" h-94 w-full rounded"
                   src={
                     bestBooks.length
                       ? bestBooks[0].thumbnail.length
@@ -66,7 +66,7 @@ const BestSeller = (props) => {
               </a>
               <button
                 onClick={() => props.AddToCart(bestBooks[0])}
-                className="w-11/12 bg-gray-50 hover:bg-gray-700 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:translate-y-0 hover:translate-y-0 transition ease-in-out delay-150 duration-500"
+                className="w-11/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
               >
                 Quick Add
               </button>
@@ -81,7 +81,6 @@ const BestSeller = (props) => {
                   {bestBooks.length && bestBooks[0].name}
                 </h5>
               </NavLink>
-              <a href="">{/* <p>{bestBooks[0].aothr}</p> */}</a>
               <div className="flex justify-center mt-2.5 mb-5">
                 {forloop(bestBooks.length && bestBooks[0].rating)}
               </div>
@@ -101,30 +100,26 @@ const BestSeller = (props) => {
                 return (
                   <div className=" px-4 max-w-sm bg-white rounded-lg  dark:bg-gray-800 dark:border-gray-700 rounded mb-4">
                     <div className=" group relative overflow-hidden">
-                      
 
-                      <NavLink
-                to={`/c/${book.categoryId.url}/${
-                  book._id
-                }`}
-              >
+
+                      <NavLink to={`/c/${book.categoryId.url}/${book._id}`} >
                    <img
                           className="object-cover h-60  w-full  rounded-t-lg"
                           src={bestBooks.length && book.image}
                           alt="product image"
                         />
-              </NavLink>
+                    </NavLink>
 
                       <button
                         onClick={() => props.AddToCart(book)}
-                        className="w-10/12 bg-gray-50 hover:bg-gray-700 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:translate-y-0 hover:translate-y-0 transition ease-in-out delay-150 duration-1000 "
+                        className="w-10/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
                       >
                         Quick Add
                       </button>
                     </div>
                     <div className="px-5 pb-5">
                       <NavLink
-                        to={`/product/${bestBooks.length && bestBooks[i]._id}`}
+                        to={`/c/${book.categoryId.url}/${book._id}`}
                       >
                         <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-14 my-4">
                           {bestBooks.length && book.name.slice(0, 25)}

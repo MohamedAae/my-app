@@ -8,7 +8,11 @@ import { loginUser, checkIfLoggedIn } from "../../../redux/users/users.action";
 import "./nav-bar.css";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
-import { RemoveFromCart } from "../../../redux/cart/cart.action";
+import {
+  AddToCart,
+  EditCartItem,
+  RemoveFromCart
+} from "../../../redux/cart/cart.action";
 
 let user = {};
 const Navbar = (props) => {
@@ -101,10 +105,12 @@ const Navbar = (props) => {
           </NavLink>
           <Search></Search>
           <Cart
-            removeFunction={props.RemoveFromCart}
-            item={props.items}
-            totalPrice={props.price}
-            totalItems={props.totalItems}
+              addFunction     = {props.AddToCart}
+              editFunction    = {props.EditCartItem}
+              removeFunction  = {props.RemoveFromCart}
+              item            = {props.items}
+              totalPrice      = {props.price}
+              totalItems      = {props.totalItems}
           />
         </div>
         <button
@@ -293,9 +299,9 @@ const Navbar = (props) => {
               );
             })}
         </ul>
-        <div className="flex">
+        <div className="flex capitalize">
           {props.loggedIn ? (
-            `Hi ${props.user.name}`
+            `Hi, ${props.user.name}`
           ) : (
             <>
               <Login loginFunction={props.loginUser} />
@@ -323,6 +329,8 @@ let mapDispatchToProps = (dispatch) => {
   return {
     checkIfLoggedIn: () => dispatch(checkIfLoggedIn()),
     loginUser: (user) => dispatch(loginUser(user)),
+    AddToCart: (product) => dispatch(AddToCart(product)),
+    EditCartItem: (id, price) => dispatch(EditCartItem(id, price)),
     RemoveFromCart: (id, price) => dispatch(RemoveFromCart(id, price)),
   };
 };

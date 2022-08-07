@@ -1,57 +1,90 @@
-import {ADDTOCART,REMOVEFROMCART} from "./cart.types"
+import { ADDTOCART, EDITCARTITEM, REMOVEFROMCART } from "./cart.types"
 
-const intialState ={
-    cartItems  : [],
-    totalPrice : 0,
-    totalItems : 0,
-    
+const initialState = {
+    cartItems   : [],
+    totalPrice  : 0,
+    totalItems  : 0,
 }
 
-const reducer = (state = intialState , action) =>{
-    switch(action.type){
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
         case ADDTOCART :
-            
             return ({
                 ...state,
-                cartItems : handalquantity(state.cartItems,action.book),
-                totalPrice : state.totalPrice + action.book.price,
-                totalItems : state.totalItems + 1
+                cartItems   : handleQuantity(state.cartItems, action.book, true),
+                totalPrice  : state.totalPrice + action.book.price,
+                totalItems  : state.cartItems.length
             })
+
+        case EDITCARTITEM :
+            return ({
+                ...state,
+                cartItems   : handleQuantity(state.cartItems, action.id, false),
+                totalPrice  : state.totalPrice - action.price,
+                totalItems  : state.cartItems.length,
+            })
+
         case REMOVEFROMCART :
+            const currentQuantity = getQuantity(state.cartItems, action.id);
             return ({
                 ...state,
-                cartItems : state.cartItems.filter((item)=>{
-                   return item._id !== action.id
+                cartItems   : state.cartItems.filter((item) => {
+                    return item._id !== action.id;
                 }),
-                totalPrice : state.totalPrice - action.price,
-                totalItems : state.totalItems - 1,
+                totalPrice  : state.totalPrice - (currentQuantity * action.price),
+                totalItems  : state.cartItems.length - 1,
             })
+
         default:
             return state;
     }
-
-
-
-} 
-
-const handalquantity=(arr,book)=>{
-   let flag=true
-   arr.map((itms)=>{
-    if(itms._id==book._id){
-      itms.quantity=itms.quantity+1
-      flag =false
-    
-    }
-   })
-    if(flag){
-    book.quantity=1
-    arr.push(book)
-    console.log(arr)
-     
-    }
-return arr  
-    
 }
 
+const getQuantity = (cartItems, bookId) => {
+    const book = cartItems.filter((item) => {
+        return item._id === bookId;
+    });
+    return book[0].quantity;
+}
+
+
+const handleQuantity = (arr, book, isAdd) => {
+    let flag = true;
+    arr.map((item) => {
+        if (item._id === book._id && isAdd) {
+            item.quantity = item.quantity + 1;
+            flag = false;
+        }
+
+        if (item._id === book && !isAdd) {
+            switch (item.quantity) {
+                case 1:
+                    arr = arr.filter((item) => {
+                        return item._id !== book
+                    });
+                    flag = false;
+                    break;
+
+                default:
+                    item.quantity = item.quantity - 1;
+                    flag = false;
+                    break;
+            }
+        }
+    })
+
+    if (flag && isAdd) {
+        book.quantity = 1;
+        arr.push(book);
+    }
+
+    if (flag && !isAdd) {
+        arr = arr.filter((item) => {
+            return item._id !== book;
+        });
+    }
+
+    return arr;
+}
 
 export default reducer;

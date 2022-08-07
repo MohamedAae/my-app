@@ -1,4 +1,4 @@
-import {ADDTOCART,REMOVEFROMCART} from "./cart.types";
+import { ADDTOCART, EDITCARTITEM, REMOVEFROMCART } from "./cart.types";
 
 export const AddToCart = (book)=>{
     return ({
@@ -6,6 +6,15 @@ export const AddToCart = (book)=>{
         book,
     })
 }
+
+export const EditCartItem = (id,price)=>{
+    return ({
+        type : EDITCARTITEM,
+        id,
+        price,
+    })
+}
+
 export const RemoveFromCart = (id,price)=>{
     return ({
         type : REMOVEFROMCART,
