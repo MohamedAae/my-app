@@ -4,9 +4,9 @@ import TrindingSlider from "../../shared/components/trinding-slider/trinding-sli
 import ImageSection from "../components/image-section";
 import BestSeller from "../components/best-seller/best-seller";
 import ShopByCategory from "../components/shop-by-category/shop-by-category";
-import { getdiscountbook} from "../../redux/products/products.action";
+import { getdiscountbook } from "../../redux/products/products.action";
 import { connect } from "react-redux";
-import {  AddToCart} from "../../redux/cart/cart.action";
+import { AddToCart } from "../../redux/cart/cart.action";
 let discountBy80 = [],
   discountBy60 = [],
   discountBy30 = [];
@@ -38,13 +38,37 @@ const Home = (props) => {
   return (
     <>
       <OffersSlider />
-      <TrindingSlider book={discountBy80} title={generateTitle(80)} addcart={props.AddToCart} />
+      <TrindingSlider
+        book={discountBy80}
+        title={generateTitle(80)}
+        addcart={props.AddToCart}
+      />
+      <ImageSection
+        imgSrc={
+          "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/07/26/23992_BB_D_Back_to_School_07-26.jpg"
+        }
+      />
       <BestSeller />
-      <ImageSection />
-      <TrindingSlider book={discountBy60} title={generateTitle(60)} addcart={props.AddToCart} />
-      <ImageSection />
-      <ImageSection />
-      <TrindingSlider book={discountBy30} title={generateTitle(30)} addcart={props.AddToCart} />
+      <ImageSection
+        imgSrc={
+          "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/08/02/23996_BB_C_nook_08-02_r1.jpg"
+        }
+      />
+      <TrindingSlider
+        book={discountBy60}
+        title={generateTitle(60)}
+        addcart={props.AddToCart}
+      />
+      <ImageSection
+        imgSrc={
+          "https://dispatch.barnesandnoble.com/content/dam/ccr/homepage/daily/2022/08/01/23995_BB_B_OMP_08-01.jpg"
+        }
+      />
+      <TrindingSlider
+        book={discountBy30}
+        title={generateTitle(30)}
+        addcart={props.AddToCart}
+      />
     </>
   );
 };

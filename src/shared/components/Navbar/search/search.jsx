@@ -1,4 +1,30 @@
-export default function Search() {
+import { useState } from "react";
+import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { searchProducts } from "../../../../redux/search/search.action";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
+let searchResult = [];
+const Search = (props) => {
+  const [resultDropdown, setResultDropdown] = useState(false);
+  // const [searchKeyword, setSearchKeyword] = useState("");
+
+  searchResult = props.searchResult;
+
+  const searchChangeHandler = (event) => {
+    console.log(event.target.value);
+    if (event.target.value.length === 0) {
+      setResultDropdown(false);
+    } else {
+      setResultDropdown(true);
+    }
+    // setSearchKeyword(event.target.value);
+    props.getSearchResult(event.target.value);
+  };
+
+  const loading = props.searchResultLoading;
+
   return (
     <form className="w-3/4">
       <div className="flex">
@@ -77,12 +103,51 @@ export default function Search() {
         </div>
         <div className="relative w-full">
           <input
+            autoComplete="off"
             type="search"
             id="search-dropdown"
             className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
             placeholder="Search Mockups, Logos, Design Templates..."
             required=""
+            onChange={searchChangeHandler}
           />
+          {resultDropdown && (
+            <div className="absolute bg-white shadow-md z-50 w-full p-2">
+              <ul>
+                {loading ? (
+                  <Skeleton variant="rectangular" width={"100%"} height={25} />
+                ) : (
+                  searchResult.map((item) => {
+                    return (
+                      <li>
+                        <NavLink
+                          to={""}
+                          className="flex justify-between items-center"
+                        >
+                          <div className="flex justify-between items-center">
+                            <img
+                              height={25}
+                              width={25}
+                              alt="123"
+                              src={item.image}
+                            />
+                            <h5 className="text-base font-bold text-background ml-2">
+                              {item.name}
+                            </h5>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-gray-500">
+                              ${item.price}
+                            </span>
+                          </div>
+                        </NavLink>
+                      </li>
+                    );
+                  })
+                )}
+              </ul>
+            </div>
+          )}
           <button
             type="submit"
             className="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-gray-700 border hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -108,4 +173,21 @@ export default function Search() {
       </div>
     </form>
   );
-}
+};
+
+let mapStateToProps = (state) => {
+  return {
+    searchResult: state.search.searchResult,
+    searchResultLoading: state.search.searchResultLoading,
+  };
+};
+
+let mapDispatchToProps = (dispatch) => {
+  return {
+    getSearchResult: (keyword) => {
+      dispatch(searchProducts(keyword));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
