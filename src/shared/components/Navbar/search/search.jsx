@@ -4,13 +4,14 @@ import { NavLink } from "react-router-dom";
 import { searchProducts } from "../../../../redux/search/search.action";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useRef } from "react";
 
 let searchResult = [];
 const Search = (props) => {
   const [resultDropdown, setResultDropdown] = useState(false);
   // const [searchKeyword, setSearchKeyword] = useState("");
-
-  searchResult = props.searchResult;
+  const searchInput = useRef();
+  searchResult = props.searchResult.slice(0, 5);
 
   const searchChangeHandler = (event) => {
     console.log(event.target.value);
@@ -110,6 +111,7 @@ const Search = (props) => {
             placeholder="Search Mockups, Logos, Design Templates..."
             required=""
             onChange={searchChangeHandler}
+            ref={searchInput}
           />
           {resultDropdown && (
             <div className="absolute bg-white shadow-md z-50 w-full p-2">
@@ -121,8 +123,14 @@ const Search = (props) => {
                     return (
                       <li>
                         <NavLink
-                          to={""}
-                          className="flex justify-between items-center"
+                          to={`/c/${item.categoryId.url || undefined}/${
+                            item._id
+                          }`}
+                          className="flex justify-between items-center py-1"
+                          onClick={() => {
+                            searchInput.current.value = "";
+                            setResultDropdown(false);
+                          }}
                         >
                           <div className="flex justify-between items-center">
                             <img
@@ -141,6 +149,7 @@ const Search = (props) => {
                             </span>
                           </div>
                         </NavLink>
+                        {searchResult.length !== 1 && <hr />}
                       </li>
                     );
                   })
