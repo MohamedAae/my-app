@@ -1,4 +1,4 @@
-import { LOGINUSER, REGISTERUSER, CHECKIFLOGGEDIN } from "./users.types";
+import { LOGINUSER, REGISTERUSER, CHECKIFLOGGEDIN,LOGOUT } from "./users.types";
 
 const initialState = {
   user: {},
@@ -28,6 +28,14 @@ const reducer = (state = initialState, action) => {
       };
 
     case CHECKIFLOGGEDIN:
+      return {
+        ...state,
+        user: action.user,
+        token: action.token,
+        loading: false,
+        loggedIn: action.loggedIn,
+      }; 
+      case LOGOUT:
       return {
         ...state,
         user: action.user,

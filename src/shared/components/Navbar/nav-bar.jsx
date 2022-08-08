@@ -4,7 +4,7 @@ import Cart from "./cart/cart";
 import Register from "./register/register";
 import Login from "./login/login";
 import { connect } from "react-redux";
-import { loginUser, checkIfLoggedIn } from "../../../redux/users/users.action";
+import { loginUser, checkIfLoggedIn ,logOut} from "../../../redux/users/users.action";
 import "./nav-bar.css";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
@@ -20,6 +20,7 @@ import {
   MenuItem,
   Button,
 } from "@material-tailwind/react";
+import {ChevronDownIcon} from "@heroicons/react/solid";
 
 let user = {};
 const Navbar = (props) => {
@@ -291,13 +292,12 @@ const Navbar = (props) => {
               return (
                 <>
                   <li className="py-2  " key={navItem.id}>
-                    <a
-                      href="#"
+                    <NavLink to={navItem.url}
                       className=" text-base  font-sans text-background hover:text-theme-hover "
                       aria-current="page"
                     >
                       {navItem.item}
-                    </a>
+                    </NavLink>
                   </li>
                   <li className=" text-gray-400 flex justify-center items-center">
                     &#9672;
@@ -306,32 +306,26 @@ const Navbar = (props) => {
               );
             })}
         </ul>
-        <div className="flex capitalize">
+        <div className="flex capitalize ">
           {props.loggedIn ? (
             <div>
-              <Menu>
+              <Menu >
                 <MenuHandler>
                   <Button variant="gradient" className="text-black">
-                    Open Menu
+                  {`Hi, ${props.user.name}`}<ChevronDownIcon className="inline" width={15} height={15}/>
                   </Button>
                 </MenuHandler>
-                <MenuList>
-                  <MenuItem className="bg-red-300">
+                <MenuList className="z-50 w-40">
+                  <MenuItem>Account</MenuItem>
+                  <MenuItem >
                     <button
-                      onClick={() => {
-                        localStorage.removeItem("loggedInUser");
-                        sessionStorage.removeItem("loggedInUser");
-                      }}
+                      onClick={() => {props.LogOutUser()}}
                     >
                       Logout
                     </button>
                   </MenuItem>
-                  <MenuItem>Menu Item 2</MenuItem>
-                  <MenuItem>Menu Item 3</MenuItem>
                 </MenuList>
               </Menu>
-
-              {`Hi, ${props.user.name}`}
             </div>
           ) : (
             <>
@@ -360,6 +354,7 @@ let mapDispatchToProps = (dispatch) => {
   return {
     checkIfLoggedIn: () => dispatch(checkIfLoggedIn()),
     loginUser: (user) => dispatch(loginUser(user)),
+    LogOutUser: () => dispatch(logOut()),
     AddToCart: (product) => dispatch(AddToCart(product)),
     EditCartItem: (id, price) => dispatch(EditCartItem(id, price)),
     RemoveFromCart: (id, price) => dispatch(RemoveFromCart(id, price)),

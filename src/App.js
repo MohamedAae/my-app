@@ -6,10 +6,10 @@ import Home from "./Home/screen/Home";
 import ScrollToTop from "./shared/components/scroll-top/scroll-top"
 import "./App.css";
 import Product from "./Product-page/screen/Product";
+import Shop from "./shop/screen/Shop";
 import ErrorPage from "./shared/components/error-page/error-page";
 import CategoryBook from "./shared/components/categories-books/category-book";
-import ShopByCategory
-    from "./Home/components/shop-by-category/shop-by-category";
+import ShopByCategory from "./Home/components/shop-by-category/shop-by-category";
 
 function App() {
     return (
@@ -19,6 +19,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Navigate to="/home"/>}/>
                 <Route path="/home" element={<Home/>}/>
+                <Route path="/shop" element={<Shop/>}/>
                 <Route path="/category/:id" element={<CategoryBook/>}/>
                 <Route path="/c/:category">
                     <Route path=":id" element={<Product/>}/>

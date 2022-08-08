@@ -43,7 +43,7 @@ const BestSeller = (props) => {
   }
 
   return (
-    <section className="w-11/12 mx-auto">
+    <section className="w-11/12 mx-auto my-5">
       <h1 className="py-6 text-3xl italic font-serif">
         Our Booksellers Recommend
       </h1>
@@ -121,7 +121,7 @@ const BestSeller = (props) => {
                       <NavLink
                         to={`/c/${book.categoryId.url}/${book._id}`}
                       >
-                        <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-14 my-4">
+                        <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-14 my-5 ">
                           {bestBooks.length && book.name.slice(0, 25)}
                         </h5>
                       </NavLink>

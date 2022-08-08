@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REGISTERUSER, LOGINUSER, CHECKIFLOGGEDIN } from "./users.types";
+import { REGISTERUSER, LOGINUSER, CHECKIFLOGGEDIN,LOGOUT } from "./users.types";
 
 export const registerUser = (user) => async (dispatch) => {
   try {
@@ -32,6 +32,19 @@ export const loginUser = (userCredentials) => async (dispatch) => {
     console.log(e.message);
   }
 };
+
+export const logOut=()=>async (dispatch)=> {
+  localStorage.removeItem("loggedInUser");
+  sessionStorage.removeItem("loggedInUser");
+
+  dispatch({
+    type: LOGOUT,
+    user:{},
+    token: "",
+    loggedIn: false
+  });
+}
+
 
 export const checkIfLoggedIn = () => async (dispatch) => {
   try {
