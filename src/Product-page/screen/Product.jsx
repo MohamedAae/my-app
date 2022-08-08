@@ -9,7 +9,7 @@ export default function Product() {
   return (
     <div>
       <ProductDtl productId={id} />
-      <CustomerReviews />
+      <CustomerReviews productId={id} />
     </div>
   );
 }
