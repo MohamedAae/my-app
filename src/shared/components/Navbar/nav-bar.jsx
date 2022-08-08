@@ -11,8 +11,15 @@ import { useEffect } from "react";
 import {
   AddToCart,
   EditCartItem,
-  RemoveFromCart
+  RemoveFromCart,
 } from "../../../redux/cart/cart.action";
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+} from "@material-tailwind/react";
 
 let user = {};
 const Navbar = (props) => {
@@ -105,12 +112,12 @@ const Navbar = (props) => {
           </NavLink>
           <Search></Search>
           <Cart
-              addFunction     = {props.AddToCart}
-              editFunction    = {props.EditCartItem}
-              removeFunction  = {props.RemoveFromCart}
-              item            = {props.items}
-              totalPrice      = {props.price}
-              totalItems      = {props.totalItems}
+            addFunction={props.AddToCart}
+            editFunction={props.EditCartItem}
+            removeFunction={props.RemoveFromCart}
+            item={props.items}
+            totalPrice={props.price}
+            totalItems={props.totalItems}
           />
         </div>
         <button
@@ -301,7 +308,31 @@ const Navbar = (props) => {
         </ul>
         <div className="flex capitalize">
           {props.loggedIn ? (
-            `Hi, ${props.user.name}`
+            <div>
+              <Menu>
+                <MenuHandler>
+                  <Button variant="gradient" className="text-black">
+                    Open Menu
+                  </Button>
+                </MenuHandler>
+                <MenuList>
+                  <MenuItem className="bg-red-300">
+                    <button
+                      onClick={() => {
+                        localStorage.removeItem("loggedInUser");
+                        sessionStorage.removeItem("loggedInUser");
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </MenuItem>
+                  <MenuItem>Menu Item 2</MenuItem>
+                  <MenuItem>Menu Item 3</MenuItem>
+                </MenuList>
+              </Menu>
+
+              {`Hi, ${props.user.name}`}
+            </div>
           ) : (
             <>
               <Login loginFunction={props.loginUser} />
