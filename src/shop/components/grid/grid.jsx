@@ -2,27 +2,30 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getProducts } from "../../../redux/products/products.action";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
-let allBooks = [];
+import { NavLink } from "react-router-dom";
+import { Helpers } from "../../../shared/helpers";
 
+let allBooks = [];
 const Grid = (props) => {
   const [page, setpage] = useState(1),
     numberofpages = 5;
   console.log(page);
   useEffect(() => {
-    props.getAllBooks(5, page);
+    props.getAllBooks(10, page);
   }, [page]);
-  console.log((allBooks = props.products));
-
+  allBooks = props.products;
+  let currentPage = page;
   const displayPages = (numberofpages) => {
     let pages = [];
     for (let i = 1; i <= numberofpages; i++) {
+      const active = i === currentPage ? "text-background bg-theme" : "";
       pages.push(
         <a
           onClick={() => {
             setpage(i);
           }}
           aria-current="page"
-          className="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+          className={`cursor-pointer z-10 ${active} relative inline-flex items-center px-4 py-2 border text-sm font-medium`}
         >
           {i}
         </a>
@@ -32,26 +35,52 @@ const Grid = (props) => {
   };
   return (
     <>
-      <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-        <div className="flex-1 flex justify-between sm:hidden">
-          <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-            Previous
-          </span>
-          <span className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-            Next
-          </span>
-        </div>
-        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+      <div className="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
+        <div className="">
           <div>
-            <p className="text-sm text-gray-700">
-              Showing <span className="font-medium">1</span> to{" "}
-              <span className="font-medium">10</span> of{" "}
-              <span className="font-medium">97</span> results
-            </p>
+            <div className="grid col-span-3 gap-2 mx-auto text-center mt-5 mb-10">
+              <div className=" grid grid-cols-4 gap-4  mx-auto">
+                {allBooks.map((book, i) => {
+                  return (
+                    <div className=" px-4 max-w-sm bg-white rounded-lg  dark:bg-gray-800 dark:border-gray-700 rounded mb-4">
+                      <div className=" group relative overflow-hidden">
+                        <NavLink to={`/c/${book.categoryId.url}/${book._id}`}>
+                          <img
+                            className="object-cover h-60  w-full  rounded-t-lg"
+                            src={allBooks.length && book.image}
+                            alt="product image"
+                          />
+                        </NavLink>
+
+                        <button
+                          onClick={() => props.AddToCart(book)}
+                          className="w-10/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
+                        >
+                          Quick Add
+                        </button>
+                      </div>
+                      <div className="flex justify-center mt-2.5 ">
+                        {Helpers.displayRating(allBooks.length && book.rating)}
+                      </div>
+                      <div className="px-5">
+                        <NavLink to={`/c/${book.categoryId.url}/${book._id}`}>
+                          <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-5 my-1 ">
+                            {allBooks.length && book.name.slice(0, 25)}
+                          </h5>
+                        </NavLink>
+                        <a href="#" className="underline text-gray-500">
+                          <p>{book.author}</p>
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
           <div>
             <nav
-              className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+              className="relative z-0 inline-flex rounded-md -space-x-px justify-center items-center w-full"
               aria-label="Pagination"
             >
               <a
