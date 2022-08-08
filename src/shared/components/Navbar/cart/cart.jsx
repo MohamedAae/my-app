@@ -10,7 +10,7 @@ const Cart = (props) => {
 
     const [open, setOpen] = useState(false);
     products = props.item;
-
+console.log(props)
     return (
         <>
             <span onClick={() => setOpen(true)} className="cursor-pointer relative">
@@ -127,7 +127,8 @@ const Cart = (props) => {
                                                                                 className="flex items-end justify-between text-md">
                                                                                 <div className="flex justify-center items-center text-gray-500">
                                                                                     <button
-                                                                                        onClick={() => props.editFunction(product._id, product.price)}
+                                                                                    onClick={()=>{props.editFunction(product._id, product.price)
+                                                                                    }}
                                                                                         className={`text-xl text-background h-full px-3 py-1 font-black rounded-sm flex justify-center items-center`}
                                                                                     >
                                                                                         -

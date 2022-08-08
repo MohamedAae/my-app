@@ -5,6 +5,7 @@ const initialState = {
     totalPrice  : 0,
     totalItems  : 0,
 }
+let lastItem = false;
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -17,13 +18,13 @@ const reducer = (state = initialState, action) => {
             })
 
         case EDITCARTITEM :
+            console.log(state.cartItems);
             return ({
                 ...state,
                 cartItems   : handleQuantity(state.cartItems, action.id, false),
                 totalPrice  : state.totalPrice - action.price,
-                totalItems  : state.cartItems.length,
+                totalItems  : state.cartItems.length - lastItem,
             })
-
         case REMOVEFROMCART :
             const currentQuantity = getQuantity(state.cartItems, action.id);
             return ({
@@ -63,6 +64,7 @@ const handleQuantity = (arr, book, isAdd) => {
                         return item._id !== book
                     });
                     flag = false;
+                    lastItem=true;
                     break;
 
                 default:

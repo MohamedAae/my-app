@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import {
@@ -8,14 +8,19 @@ import {
 import { map } from "lodash";
 import { AddToCart } from "../../../redux/cart/cart.action";
 import { useLocation } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import axios from "axios";
 
 let books = [];
 let categoryname = "";
 const CategoryBook = (props) => {
-  const params = useParams();
-  console.log(props.books);
+  const params = useParams(),
+  [loading,setLoading]=useState(false);
+
   useEffect(() => {
+    setLoading(true)
+    console.log(loading);
     props.getCategoryBooks(params.id);
     const getcategoryname = async () => {
       try {
@@ -23,7 +28,7 @@ const CategoryBook = (props) => {
           `http://localhost:5003/categories/${params.id}`
         );
         categoryname = res.data.category.name;
-        console.log(categoryname);
+        setLoading(false)
       } catch (err) {
         console.log(err);
       }
@@ -49,7 +54,7 @@ const CategoryBook = (props) => {
             <section className="w-11/12 mx-auto relative">
               <hr className="absolute w-2/5 top-11 " />
               <h1 className="  px-5 pt-6 text-3xl italic font-serif text-center text-background">
-                {item.name}
+                    {loading ? <Skeleton variant="text" width={200}/> : item.name}
               </h1>
               <hr className="absolute w-2/5 top-11 right-0.5 " />
               <a
@@ -61,7 +66,7 @@ const CategoryBook = (props) => {
               </a>
               <div className="flex w-8/12 mx-auto justify-between">
                 <div className="w-1/4 ">
-                  <img src={item.image} className="w-11/12" />
+                {loading ? <Skeleton variant="rectangular"  height={250} width={180}/> : <img src={item.image} className="w-11/12" />}
                 </div>
                 <div className="w-3/4  px-3">
                   <h3 className="italic font-serif text-md font-bold">
