@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {NavLink, useParams} from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   getCategories,
@@ -16,11 +16,10 @@ let books = [];
 let categoryname = "";
 const CategoryBook = (props) => {
   const params = useParams(),
-  [loading,setLoading]=useState(false);
+    [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
-    console.log(loading);
+    setLoading(true);
     props.getCategoryBooks(params.id);
     const getcategoryname = async () => {
       try {
@@ -28,13 +27,14 @@ const CategoryBook = (props) => {
           `http://localhost:5003/categories/${params.id}`
         );
         categoryname = res.data.category.name;
-        setLoading(false)
+        setLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
     getcategoryname();
   }, []);
+
   books = props.books;
 
   const renderHTML = (rawHTML) => {
@@ -42,42 +42,53 @@ const CategoryBook = (props) => {
       dangerouslySetInnerHTML: { __html: rawHTML },
     });
   };
+
   return (
     <>
-      <h1 className="  px-5 py-6 text-3xl italic font-serif text-center">
+      <h1 className="text-2xl lg:text-3xl px-3 py-4 md:px-5 md:py-6  italic font-serif text-center">
         {categoryname}
       </h1>
 
       {books.length &&
         books.map((item) => {
           return (
-            <section className="w-11/12 mx-auto relative mt-8">
+            <section className="md:w-11/12 mx-auto relative md:mt-4 lg:mt-8">
               <div className={`flex justify-center items-center`}>
-                <hr className="w-2/5 top-11" />
+                <hr className="hidden md:block w-2/5 top-11" />
                 <NavLink to={`/c/${item.categoryId.url}/${item._id}`}>
-                <h1 className="px-5 text-3xl italic font-serif text-center text-background">
-                  {loading ? <Skeleton variant="text" width={200}/> : item.name}
-                </h1>
+                  <h1 className="px-2 text-xl md:px-5 md:text-3xl italic font-serif text-center text-background">
+                    {loading ? (
+                      <Skeleton variant="text" width={200} />
+                    ) : (
+                      item.name
+                    )}
+                  </h1>
                 </NavLink>
-                <hr className="w-2/5 top-11 right-0.5" />
+                <hr className="hidden md:block w-2/5 top-11 right-0.5" />
               </div>
-              <a
-                href="#"
-                className="py-1 italic font-serif text-center w-full block mb-10 text-theme-hover font-black"
+              <button
+                className="py-1 italic font-serif text-center md:w-full w-8/12 mx-auto block mb-10 mt-2 text-theme-hover font-black md:border-none border-solid border-2 border-theme-hover rounded-lg"
                 onClick={() => props.AddToCart(item)}
               >
-                Buy Now
-              </a>
-              <div className="flex w-8/12 mx-auto justify-between">
-                <div className="w-1/4 ">
-                {loading ? <Skeleton variant="rectangular"  height={250} width={180}/> : <img src={item.image} className="w-11/12" />}
+                Add To Cart
+              </button>
+              <div className="md:flex lg:w-8/12 w-11/12 mx-auto justify-between">
+                <div className="lg:w-1/4 md:w-2/4 w-full mx-auto">
+                  {loading ? (
+                    <Skeleton variant="rectangular" height={250} width={180} />
+                  ) : (
+                    <img src={item.image} className="w-8/12 mx-auto" />
+                  )}
                 </div>
-                <div className="w-3/4  px-3">
-                  <h3 className="italic font-serif text-md font-bold">
+                <div className="md:w-3/4 px-3">
+                  <h3 className="italic font-serif text-lg md:text-md font-bold mt-3 md:mt-auto">
                     {item.name}
                   </h3>
                   <p className="font-semibold text-gray-500 mb-5">
-                    {item.author}
+                    <span className="text-black font-serif">By: </span>
+                    <span className="text-decoration-line: underline">
+                      {item.author}
+                    </span>
                   </p>
                   <div>
                     <p className="lowercase">
@@ -86,6 +97,7 @@ const CategoryBook = (props) => {
                   </div>
                 </div>
               </div>
+              <hr className="w-full md:hidden my-4" />
             </section>
           );
         })}
