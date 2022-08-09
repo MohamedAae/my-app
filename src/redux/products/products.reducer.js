@@ -10,6 +10,7 @@ const initialState = {
   product: {},
   productLoading: true,
   products: [],
+  count: 0,
   productsLoading: true,
   bestSellerBooks: [],
   bestSellerBooksLoading: true,
@@ -23,6 +24,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.products,
+        count: action.count,
         loading: false,
       };
     case GETPRODUCTBYID:

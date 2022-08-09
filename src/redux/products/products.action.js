@@ -6,14 +6,20 @@ import {
   GETDISCOUNTBOOKS,
 } from "./products.types";
 
-export const getProducts = (pageSize, page) => async (dispatch) => {
+export const getProducts = (pageSize, page, filter, dir, categoryId, discountRate) => async (dispatch) => {
   try {
+    let categoriesQuery = "";
+    (() => {
+      categoryId.forEach((id) => categoriesQuery += `&categoryId=${id}`);
+    })();
+
     const res = await axios.get(
-      `http://127.0.0.1:5003/products?pageSize=${pageSize}&page=${page}`
+      `http://127.0.0.1:5003/products?pageSize=${pageSize}&page=${page}&filter=${filter}&dir=${dir}${categoriesQuery}&dr=${discountRate}`
     );
     dispatch({
       type: GETPRODUCTS,
       products: res.data.products,
+      count: res.data.count,
     });
   } catch (e) {
     console.log(e.message);

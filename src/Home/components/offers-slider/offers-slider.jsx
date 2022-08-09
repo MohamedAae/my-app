@@ -22,9 +22,9 @@ const OffersSlider = (props) => {
         modules     = {[Navigation]}
         className   = {classes.swiper}
         loop        = {true}
-        speed       = {1000}
+        speed       = {700}
         autoplay    = {{
-          delay               : 3000,
+          delay               : 2500,
           disableOnInteraction: false,
         }}
       >

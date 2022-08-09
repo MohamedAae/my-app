@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import { connect } from "react-redux";
 import {
   getCategories,
@@ -51,12 +51,16 @@ const CategoryBook = (props) => {
       {books.length &&
         books.map((item) => {
           return (
-            <section className="w-11/12 mx-auto relative">
-              <hr className="absolute w-2/5 top-11 " />
-              <h1 className="  px-5 pt-6 text-3xl italic font-serif text-center text-background">
-                    {loading ? <Skeleton variant="text" width={200}/> : item.name}
-              </h1>
-              <hr className="absolute w-2/5 top-11 right-0.5 " />
+            <section className="w-11/12 mx-auto relative mt-8">
+              <div className={`flex justify-center items-center`}>
+                <hr className="w-2/5 top-11" />
+                <NavLink to={`/c/${item.categoryId.url}/${item._id}`}>
+                <h1 className="px-5 text-3xl italic font-serif text-center text-background">
+                  {loading ? <Skeleton variant="text" width={200}/> : item.name}
+                </h1>
+                </NavLink>
+                <hr className="w-2/5 top-11 right-0.5" />
+              </div>
               <a
                 href="#"
                 className="py-1 italic font-serif text-center w-full block mb-10 text-theme-hover font-black"
