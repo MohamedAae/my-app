@@ -101,7 +101,6 @@ const Grid = (props) => {
       })
     );
   };
-  console.log(categoryId);
 
   const displayPages = (numberofpages) => {
     let pages = [];
