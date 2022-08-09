@@ -101,7 +101,6 @@ const Grid = (props) => {
       })
     );
   };
-  console.log(categoryId);
 
   const displayPages = (numberofpages) => {
     let pages = [];
@@ -123,7 +122,7 @@ const Grid = (props) => {
   };
   return (
     <>
-      <div className="bg-white">
+      <div className="bg-transparent">
         <div>
           <Transition.Root show={mobileFiltersOpen} as={Fragment}>
             <Dialog
@@ -153,14 +152,14 @@ const Grid = (props) => {
                   leaveFrom="translate-x-0"
                   leaveTo="translate-x-full"
                 >
-                  <Dialog.Panel className="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-12 flex flex-col overflow-y-auto">
+                  <Dialog.Panel className="ml-auto relative max-w-xs w-full h-full bg-transparent shadow-xl py-4 pb-12 flex flex-col overflow-y-auto">
                     <div className="px-4 flex items-center justify-between">
                       <h2 className="text-lg font-medium text-gray-900">
                         Filters
                       </h2>
                       <button
                         type="button"
-                        className="-mr-2 w-10 h-10 bg-white p-2 rounded-md flex items-center justify-center text-gray-400"
+                        className="-mr-2 w-10 h-10 bg-transparent p-2 rounded-md flex items-center justify-center text-gray-400"
                         onClick={() => setMobileFiltersOpen(false)}
                       >
                         <span className="sr-only">Close menu</span>
@@ -198,7 +197,7 @@ const Grid = (props) => {
                           {({ open }) => (
                             <>
                               <h3 className="-mx-2 -my-3 flow-root">
-                                <Disclosure.Button className="px-2 py-3 bg-white w-full flex items-center justify-between text-gray-400 hover:text-gray-500">
+                                <Disclosure.Button className="px-2 py-3 bg-transparent w-full flex items-center justify-between text-gray-400 hover:text-gray-500">
                                   <span className="font-medium text-gray-900">
                                     {filter.name}
                                   </span>
@@ -290,7 +289,7 @@ const Grid = (props) => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-transparent ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="py-1">
                         {sortOptions.map((option) => (
                           <Menu.Item key={option.name}>
@@ -370,7 +369,7 @@ const Grid = (props) => {
                       {({ open }) => (
                         <>
                           <h3 className="-my-3 flow-root">
-                            <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
+                            <Disclosure.Button className="py-3 w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500">
                               <span className="font-medium text-gray-900">
                                 {filters.name}
                               </span>
@@ -425,14 +424,14 @@ const Grid = (props) => {
 
                 {/* Product grid */}
                 <div className="lg:col-span-3">
-                  <div className="bg-white">
+                  <div className="bg-transparent">
                     <div className="">
                       <div>
                         <div className="grid col-span-3 gap-2 mx-auto text-center mb-10">
                           <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-16 gap-y-10  mx-auto">
                             {allBooks.map((book, i) => {
                               return (
-                                <div className="max-w-sm bg-white rounded-lg  dark:bg-gray-800 dark:border-gray-700 rounded mb-4">
+                                <div className="max-w-sm bg-transparent rounded-lg  dark:bg-gray-800 dark:border-gray-700 rounded mb-4">
                                   <div className=" group relative overflow-hidden">
                                     <NavLink
                                       to={`/c/${book.categoryId.url}/${book._id}`}
@@ -446,7 +445,7 @@ const Grid = (props) => {
 
                                     <button
                                       onClick={() => props.AddToCart(book)}
-                                      className="w-10/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
+                                      className="w-10/12 bg-transparent hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
                                     >
                                       Quick Add
                                     </button>
@@ -496,7 +495,7 @@ const Grid = (props) => {
                                 setpage(page - 1);
                               }
                             }}
-                            className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                            className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-transparent text-sm font-medium text-gray-500 hover:bg-gray-50"
                           >
                             <span className="sr-only">Previous</span>
                             <ChevronLeftIcon
@@ -511,7 +510,7 @@ const Grid = (props) => {
                                 setpage(page + 1);
                               }
                             }}
-                            className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                            className="cursor-pointer relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-transparent text-sm font-medium text-gray-500 hover:bg-gray-50"
                           >
                             <span className="sr-only">Next</span>
                             <ChevronRightIcon
