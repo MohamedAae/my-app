@@ -17,8 +17,10 @@ const ShopByCategory = (props) => {
     <section className="mb-10 w-11/12 mx-auto">
       <div className="container mx-auto px-2">
         <section className="px-2">
-          <h1 className="py-6 text-3xl italic font-serif">Shop by category</h1>
-          <div className="grid md:grid-cols-4 w-3/4 mx-auto">
+          <h1 className="py-6 text-3xl italic font-serif text-center md:text-left">
+            Shop by category
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 w-3/4 mx-auto lg:grid-cols-4 gap-20">
             {categoryArray.map((item, index) => {
               return (
                 <div

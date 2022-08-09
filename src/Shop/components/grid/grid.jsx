@@ -125,7 +125,10 @@ const Grid = (props) => {
     <>
       <div className="bg-white">
         <div>
+<<<<<<< HEAD
           {/* Mobile filter dialog */}
+=======
+>>>>>>> c1acc7ea62c5e722f9c07ea6fdb9780ad9ccd916
           <Transition.Root show={mobileFiltersOpen} as={Fragment}>
             <Dialog
               as="div"
@@ -257,7 +260,10 @@ const Grid = (props) => {
                           )}
                         </Disclosure>
                       }
+<<<<<<< HEAD
                       )}
+=======
+>>>>>>> c1acc7ea62c5e722f9c07ea6fdb9780ad9ccd916
                     </form>
                   </Dialog.Panel>
                 </Transition.Child>
@@ -266,12 +272,21 @@ const Grid = (props) => {
           </Transition.Root>
 
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<<<<<<< HEAD
             <div className="relative z-10 flex items-baseline justify-between pt-14 pb-6 border-b border-gray-200">
               <h1 className="text-4xl font-extrabold tracking-tight text-background">
                 Shop Book
               </h1>
 
               <div className="flex items-center">
+=======
+            <div className="relative z-10 md:flex md:items-baseline  md:justify-between pt-14 pb-6 border-b border-gray-200">
+              <h1 className="text-4xl text-center font-extrabold tracking-tight text-background">
+                Shop Book
+              </h1>
+
+              <div className="flex items-center justify-end mt-5">
+>>>>>>> c1acc7ea62c5e722f9c07ea6fdb9780ad9ccd916
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
                     <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
@@ -431,7 +446,11 @@ const Grid = (props) => {
                     <div className="">
                       <div>
                         <div className="grid col-span-3 gap-2 mx-auto text-center mb-10">
+<<<<<<< HEAD
                           <div className=" grid grid-cols-4 gap-x-16 gap-y-10  mx-auto">
+=======
+                          <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-16 gap-y-10  mx-auto">
+>>>>>>> c1acc7ea62c5e722f9c07ea6fdb9780ad9ccd916
                             {allBooks.map((book, i) => {
                               return (
                                 <div className="max-w-sm bg-white rounded-lg  dark:bg-gray-800 dark:border-gray-700 rounded mb-4">
