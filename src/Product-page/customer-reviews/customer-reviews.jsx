@@ -147,15 +147,15 @@ const CustomerReviews = (props) => {
 
   return (
     <section className="w-11/12 mx-auto mt-5">
-      <div className="flex justify-between mb-10">
+      <div className="block md:flex justify-between mb-10">
         <h1 className="text-3xl italic font-serif">Customer Reviews</h1>
         {userId ? (
           <button
-            className="text-gray-100 bg-background hoverable  capitalize text-sm mx-2 px-2 rounded-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            className="text-gray-100  w-8/12 py-3 text-center mt-4 md:text-start md:py-1 md:mt-1 md:w-3/12 xl:w-2/12 bg-background hoverable  capitalize text-sm mx-2 px-2 rounded-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
             onClick={() => setShowModal(true)}
           >
-            <div className="flex">
+            <div className="block md:flex">
               <span className="px-2 py-2">Write A Review</span>
             </div>
           </button>
@@ -166,7 +166,7 @@ const CustomerReviews = (props) => {
 
       {showModal ? (
         <>
-          <div className="z-50 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg bg-white py-12 px-4 sm:px-6 lg:px-8">
+          <div className=" wz-50 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg bg-white py-12 px-4 sm:px-6 lg:px-8">
             <form onSubmit={(event) => submitData(event)}>
               <div className="flex justify-between items-center">
                 <h4 className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
@@ -194,7 +194,7 @@ const CustomerReviews = (props) => {
                 </div>
                 <p className="text-xs">Click To Rate!</p>
               </div>
-              <div className="flex justify-between w-96 items-center my-5">
+              <div className="flex justify-between w-80 md:w-96 items-center my-5">
                 <label
                   for="default-input"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 w-1/4"
@@ -251,7 +251,7 @@ const CustomerReviews = (props) => {
         reviews.map((review) => {
           return (
             <div className="w-10/12 mx-auto">
-              <section className="flex jusrify-center my-10">
+              <section className=" lg:flex jusrify-center my-10">
                 <div className="w-1/4">
                   <h3 className="font-bold capitalize">{review.userId.name}</h3>
                   <p>{new Date(review.date).toLocaleString()}</p>

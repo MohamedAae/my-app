@@ -53,9 +53,9 @@ const ProductDtl = (props) => {
   }
 
   return (
-    <section className="w-11/12 mx-auto mt-10">
-      <div className="w-8/12 grid grid-cols-6 gap-40 mx-auto">
-        <div className="col-span-2 w-80">
+    <section className="mt-10    lg:w-11/12 lg:mx-auto">
+      <div className="lg:w-8/12 lg:grid lg:grid-cols-6 lg:gap-40 lg:mx-auto">
+        <div className=" w-8/12 mx-auto md:5/12  lg:col-span-2 lg:w-80">
           <Carousel interval="500" transitionTime="500">
             {loading ? (
               <Skeleton variant="rectangular" width={210} height={118} />
@@ -74,21 +74,21 @@ const ProductDtl = (props) => {
             )}
           </Carousel>
         </div>
-        <div className="col-span-4">
+        <div className="lg:col-span-4">
           <div>
             <div class="p-6 ">
               <a href="#">
-                <h5 className="mb-2 text-4xl font-black tracking-tight text-gray-900 dark:text-white">
+                <h5 className="mb-2  text-4xl font-black tracking-tight text-gray-900 dark:text-white">
                   {loading ? <Skeleton /> : book.name}
                 </h5>
               </a>
-              <div className="flex mt-2.5 mb-5">
+              <div className="flex lg:mt-2.5 Lg:mb-5">
                 {loading ? <Skeleton /> : forloop(book.rating)}
                 <span></span>
               </div>
               <hr className="my-2" />
-              <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-800">
-                <span className={"block text-xl"}>Paperback</span>
+              <h3 className="lg:mb-2 lg:text-2xl font-bold tracking-tight text-gray-800">
+                <span className={"block lg:text-xl"}>Paperback</span>
                 &#36;
                 {loading ? (
                   <Skeleton width={20} height={20} />
@@ -97,7 +97,7 @@ const ProductDtl = (props) => {
                 )}
               </h3>
               <p
-                className={`mb-3 font-normal text-gray-700
+                className={`lg:mb-3 font-normal text-gray-700
                                  dark:text-gray-400 ${
                                    readMore ? "line-clamp-none" : "line-clamp-5"
                                  }`}
@@ -111,14 +111,15 @@ const ProductDtl = (props) => {
               <a
                 href="#"
                 onClick={() => setReadMore(!readMore)}
-                className="inline-flex items-center py-2 px-3 text-sm text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 bg-background dark:focus:ring-blue-800"
+                className="block py-3 mb-5 md:w-5/12 md:mr-10 md:inline-flex items-center lg:py-2 px-3 text-sm text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 bg-background dark:focus:ring-blue-800"
               >
                 {readMore ? "Read Less ↑" : "Read More ↓"}
               </a>
               <a
                 href="#"
                 onClick={() => props.AddToCart(book)}
-                className="bg-theme px-16 py-2 text-background hover:bg-theme-hover ml-5 rounded"
+                className="block text-center md:mt-6 md:w-5/12 md:text-center
+                 md:inline-flex md:px-4 py-2 lg:px-1 bg-theme lg:text-start lg:px-16 lg:py-2 text-background hover:bg-theme-hover lg:ml-5 rounded"
               >
                 ADD TO CART
               </a>
