@@ -47,7 +47,7 @@ const Login = (props) => {
   return (
     <>
       <button
-        className="text-gray-700 bg-gray-200 hoverable hover:text-gray-200 hover:bg-gray-700 capitalize text-sm mx-2 px-2 rounded-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        className="py-2 text-gray-700 bg-gray-200 hoverable hover:text-gray-200 hover:bg-gray-700 capitalize text-sm mx-2 px-2 rounded-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >

@@ -10,10 +10,10 @@ const Cart = (props) => {
 
     const [open, setOpen] = useState(false);
     products = props.item;
-console.log(props)
+
     return (
         <>
-            <span onClick={() => setOpen(true)} className="cursor-pointer relative">
+            <span onClick={() => setOpen(true)} className="ml-auto md:m-0 cursor-pointer relative">
                 <ShoppingCartIcon
                     width={28}
                     height={28}

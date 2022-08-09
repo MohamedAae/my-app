@@ -30,7 +30,7 @@ const Search = (props) => {
   const loading = props.searchResultLoading;
 
   return (
-    <form className="w-3/4">
+    <form className="w-3/4 hidden md:block">
       <div className="flex">
         <label
           htmlFor="search-dropdown"
