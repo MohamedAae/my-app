@@ -1,39 +1,43 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import {NavLink, useParams, useLocation} from "react-router-dom";
 import { connect } from "react-redux";
-import { getProducts } from "../../../redux/products/products.action";
-import { XIcon } from '@heroicons/react/outline';
-import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, ViewGridIcon } from "@heroicons/react/solid";
-import { NavLink } from "react-router-dom";
 import { Helpers } from "../../../shared/helpers";
-import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
-import {getCategoryBooks} from "../../../redux/categories/categories.action";
+
 import {AddToCart} from "../../../redux/cart/cart.action";
+import {searchProducts} from "../../../redux/search/search.action";
 
-const pageSize = 12;
-let allBooks = [];
+import { ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/solid";
 
-
-const filters =   {
-    id: 'category',
-    name: 'Category',
-    options: []
-}
+const pageSize  = 12;
+let allBooks    = [],
+    redirected  = true,
+    fromNavBar;
 
 const SearchGrid = (props) => {
 
-    filters.options = props.categories;
-    const [categoryId, setCategoryId]                   = useState([]),
-        [discountRate, setDiscountRate]               = useState(0),
-        [filter, setFilter]                           = useState(""),
-        [filterDirection, setFilterDirection]           = useState(0),
-        [page, setpage]                                 = useState(1),
-        numberofpages                                   = Math.ceil(props.count / pageSize ? props.count / pageSize : 0);
+    const location          = useLocation(),
+        params              = useParams(),
+        keyword             = params.keyword,
+        [page, setpage]     = useState(1),
+        numberofpages       = Math.ceil(props.totalResults / pageSize ? props.totalResults / pageSize : 0);
+
+    fromNavBar = false;
+    if (redirected) {
+        fromNavBar  = location?.state?.fromNavbar ? location.state.fromNavbar : false;
+        if(fromNavBar) {
+            setpage(1);
+        }
+
+        redirected  = false;
+    }
 
     useEffect(() => {
-        props.getAllBooks(pageSize, page, filter, filterDirection, categoryId, discountRate);
-    }, [page, filter, filterDirection, categoryId, discountRate]);
+        if (!fromNavBar || page !== 1) {
+            return props.getSearchResult(keyword, page, pageSize);
+        }
+    }, [page]);
 
-    allBooks = props.products;
+    allBooks        = props.searchResult;
     let currentPage = page;
 
     const displayPages = (numberofpages) => {
@@ -54,12 +58,14 @@ const SearchGrid = (props) => {
         }
         return pages;
     };
+
+
     return (
         <>
             <div className="bg-white mt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div>
                     <div className="relative z-10 flex items-baseline justify-between pt-14 pb-6 border-b border-gray-200">
-                        <h1 className="text-4xl font-extrabold tracking-tight text-background">Search Results: keywords</h1>
+                        <h1 className="text-4xl font-extrabold tracking-tight text-background">Search Results: {keyword}</h1>
                     </div>
 
                     <main className="max-w-7xl mx-auto mt-5 sm:px-6 lg:px-8">
@@ -142,9 +148,6 @@ const SearchGrid = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            {/*/!* Replace with your content *!/*/}
-                            {/*<div className="border-4 border-dashed border-gray-200 rounded-lg h-96 lg:h-full" />*/}
-                            {/*/!* /End replace *!/*/}
                         </div>
                     </main>
                 </div>
@@ -155,19 +158,19 @@ const SearchGrid = (props) => {
 
 let mapStateToProps = (state) => {
     return {
-        products: state.products.products,
-        count: state.products.count,
-        categories: state.categories.categories
+        count               : state.products.count,
+        searchResult        : state.search.searchResult,
+        totalResults        : state.search.totalResults,
+        searchResultLoading : state.search.searchResultLoading,
     };
 };
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        getAllBooks:
-            (pageSize, page, filter, filterDirection, categoryId, discountRate) => {
-                dispatch(getProducts(pageSize, page, filter, filterDirection, categoryId, discountRate))
-            },
         AddToCart: (book) => dispatch(AddToCart(book)),
+        getSearchResult: (keyword, page, pageSize) => {
+            dispatch(searchProducts(keyword, page, pageSize));
+        },
     };
 };
 

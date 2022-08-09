@@ -2,6 +2,7 @@ import { SEARCHPRODUCTS } from "./search.types";
 
 const initialState = {
   searchResult: [],
+  totalResults: 0,
   searchResultLoading: true,
 };
 
@@ -11,6 +12,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         searchResult: action.searchResult,
+        totalResults: action.totalResults,
         searchResultLoading: false,
       };
 

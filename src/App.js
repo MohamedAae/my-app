@@ -19,7 +19,7 @@ function App() {
             <ScrollToTop>
             <Routes>
                 <Route path="/" element={<Navigate to="/home"/>}/>
-                <Route path="/search" element={<Search/>} />
+                <Route path="/search/:keyword" element={<Search/>} />
                 <Route path="/home" element={<Home/>}/>
                 <Route path="/shop" element={<Shop/>}/>
                 <Route path="/category/:id" element={<CategoryBook/>}/>

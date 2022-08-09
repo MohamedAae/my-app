@@ -1,27 +1,30 @@
-import { useState } from "react";
-import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { searchProducts } from "../../../../redux/search/search.action";
+import {useRef, useState} from "react";
+import {connect} from "react-redux";
+import {Link, NavLink} from "react-router-dom";
+import {searchProducts} from "../../../../redux/search/search.action";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useRef } from "react";
 
-let searchResult = [];
+const page      = 1,
+    pageSize    = 12;
+let searchResult  = [];
+
 const Search = (props) => {
-  const [resultDropdown, setResultDropdown] = useState(false);
-  // const [searchKeyword, setSearchKeyword] = useState("");
+
+  const [resultDropdown, setResultDropdown] = useState(false),
+    [searchKeyword, setSearchKeyword] = useState("");
   const searchInput = useRef();
   searchResult = props.searchResult.slice(0, 5);
 
   const searchChangeHandler = (event) => {
-    console.log(event.target.value);
-    if (event.target.value.length === 0) {
+    const keyword = event.target.value;
+    if (keyword.length === 0) {
       setResultDropdown(false);
     } else {
       setResultDropdown(true);
     }
-    // setSearchKeyword(event.target.value);
-    props.getSearchResult(event.target.value);
+    props.getSearchResult(keyword, page, pageSize);
+    setSearchKeyword(keyword);
   };
 
   const loading = props.searchResultLoading;
@@ -59,7 +62,6 @@ const Search = (props) => {
         <div
           id="dropdown"
           className="hidden z-10 w-44 bg-white divide-y divide-gray-100 shadow dark:bg-gray-700 block outline-none focus:outline-none focus:border-0 border-0"
-          // style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(5px, 72px);"
           data-popper-reference-hidden=""
           data-popper-escaped=""
           data-popper-placement="bottom"
@@ -154,6 +156,29 @@ const Search = (props) => {
                     );
                   })
                 )}
+                {
+                  props.searchResult.length > 5
+                    ?
+                      <li>
+                        <Link
+                            onClick={() => setResultDropdown(false)}
+                            to={`/search/${searchKeyword}`} state={{ fromNavbar: true }}
+                            className="flex justify-between items-center py-1"
+                        >
+                          <div className="flex justify-between items-center">
+                            <h5 className="text-base font-black text-black ml-2">
+                              View All Results
+                            </h5>
+                          </div>
+                          <div>
+                            <span
+                                className="font-semibold text-black text-xl font-black">&rarr;</span>
+                          </div>
+                        </Link>
+                      </li>
+                    :
+                      ""
+                }
               </ul>
             </div>
           )}
@@ -193,8 +218,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    getSearchResult: (keyword) => {
-      dispatch(searchProducts(keyword));
+    getSearchResult: (keyword, page, pageSize) => {
+      dispatch(searchProducts(keyword, page, pageSize));
     },
   };
 };
