@@ -4,7 +4,11 @@ import Cart from "./cart/cart";
 import Register from "./register/register";
 import Login from "./login/login";
 import { connect } from "react-redux";
-import { loginUser, checkIfLoggedIn ,logOut} from "../../../redux/users/users.action";
+import {
+  loginUser,
+  checkIfLoggedIn,
+  logOut,
+} from "../../../redux/users/users.action";
 import "./nav-bar.css";
 import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
@@ -20,11 +24,10 @@ import {
   MenuItem,
   Button,
 } from "@material-tailwind/react";
-import {ChevronDownIcon} from "@heroicons/react/solid";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 
 let user = {};
 const Navbar = (props) => {
-
   if (Object.keys(props.user).length !== 0 && props.rememberMe) {
     user = props.user;
     localStorage.setItem("loggedInUser", JSON.stringify(user));
@@ -34,8 +37,6 @@ const Navbar = (props) => {
     user = props.user;
     sessionStorage.setItem("loggedInUser", JSON.stringify(user));
   }
-
-
 
   useEffect(() => {
     props.checkIfLoggedIn();
@@ -74,7 +75,9 @@ const Navbar = (props) => {
       <div className="flex flex-col justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 ">
         <div className="flex justify-between items-center w-full">
           <NavLink to={"/"} className="flex items-center">
-            <h1 className={`text-2xl font-serif text-theme-hover lowercase`}>mwmmy <span className={`text-background`}>Books</span></h1>
+            <h1 className={`text-2xl font-serif text-theme-hover lowercase`}>
+              mwmmy <span className={`text-background`}>Books</span>
+            </h1>
           </NavLink>
           <Search></Search>
           <Cart
@@ -256,8 +259,9 @@ const Navbar = (props) => {
               }
               return (
                 <>
-                  <li className="py-2" key={navItem.id} >
-                    <NavLink to={navItem.url}
+                  <li className="py-2" key={navItem.id}>
+                    <NavLink
+                      to={navItem.url}
                       className=" text-base font-sans text-background hover:text-theme-hover"
                       aria-current="page"
                     >
@@ -274,17 +278,26 @@ const Navbar = (props) => {
         <div className="flex capitalize ">
           {props.loggedIn ? (
             <div>
-              <Menu >
+              <Menu>
                 <MenuHandler>
                   <Button variant="gradient" className="text-black">
-                  {`Hi, ${props.user.name}`}<ChevronDownIcon className="inline" width={15} height={15}/>
+                    {`Hi, ${props.user.name}`}
+                    <ChevronDownIcon
+                      className="inline"
+                      width={15}
+                      height={15}
+                    />
                   </Button>
                 </MenuHandler>
                 <MenuList className="z-50 w-40">
-                  <MenuItem>Account</MenuItem>
-                  <MenuItem >
+                  <MenuItem>
+                    <NavLink to={"/my-account"}>Account</NavLink>
+                  </MenuItem>
+                  <MenuItem>
                     <button
-                      onClick={() => {props.LogOutUser()}}
+                      onClick={() => {
+                        props.LogOutUser();
+                      }}
                     >
                       Logout
                     </button>
