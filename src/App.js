@@ -12,7 +12,7 @@ import ErrorPage from "./shared/components/error-page/error-page";
 import CategoryBook from "./shared/components/categories-books/category-book";
 import ShopByCategory from "./Home/components/shop-by-category/shop-by-category";
 import UserAccount from "./shared/components/user-account/user-account";
-
+import Checkout from "./shared/components/cart-checkout/cartcheckout";
 function App() {
   return (
     <>
@@ -23,6 +23,7 @@ function App() {
           <Route path="/search/:keyword" element={<Search />} />
           <Route path="/home" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/my-account" element={<UserAccount />} />
 
           <Route path="/category/:id" element={<CategoryBook />} />
