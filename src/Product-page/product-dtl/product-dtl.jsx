@@ -55,7 +55,7 @@ const ProductDtl = (props) => {
   return (
     <section className="mt-10    lg:w-11/12 lg:mx-auto">
       <div className="lg:w-8/12 lg:grid lg:grid-cols-6 lg:gap-40 lg:mx-auto">
-        <div className=" w-8/12 mx-auto md:5/12  lg:col-span-2 lg:w-80">
+        <div className=" w-8/12 mx-auto md:4/12  lg:col-span-2 lg:w-80">
           <Carousel interval="500" transitionTime="500">
             {loading ? (
               <Skeleton variant="rectangular" width={210} height={118} />
@@ -119,7 +119,7 @@ const ProductDtl = (props) => {
                 href="#"
                 onClick={() => props.AddToCart(book)}
                 className="block text-center md:mt-6 md:w-5/12 md:text-center
-                 md:inline-flex md:px-4 py-2 lg:px-1 bg-theme lg:text-start lg:px-16 lg:py-2 text-background hover:bg-theme-hover lg:ml-5 rounded"
+                 md:inline-flex md:px-4  bg-theme lg:text-start py-2 lg:px-10  text-background hover:bg-theme-hover lg:ml-5 rounded"
               >
                 ADD TO CART
               </a>

@@ -252,11 +252,11 @@ const CustomerReviews = (props) => {
           return (
             <div className="w-10/12 mx-auto">
               <section className=" lg:flex jusrify-center my-10">
-                <div className="w-1/4">
+                <div className="w-3/4 lg:w-1/4">
                   <h3 className="font-bold capitalize">{review.userId.name}</h3>
                   <p>{new Date(review.date).toLocaleString()}</p>
                 </div>
-                <div className="w-3/4">
+                <div className="w-4/4 lg:w-3/4">
                   <div className="flex mt-2.5 mb-5">
                     {forloop(review.rating)}
                   </div>
