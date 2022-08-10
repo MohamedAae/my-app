@@ -34,7 +34,7 @@ const OffersSlider = (props) => {
               <img
                 src={offer.image}
                 alt=""
-                className={classes["swiper-slide"]}
+                className={`${classes["swiper-slide"]} w-full` }
               />
             </SwiperSlide>
           );

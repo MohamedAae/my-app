@@ -47,11 +47,11 @@ const BestSeller = (props) => {
       <h1 className="py-6 text-3xl italic font-serif">
         Our Booksellers Recommend
       </h1>
-      <aside className="w-11/12 grid grid-cols-4 text-center gap-2 mx-auto w-11/12 ">
-        <div className="grid gap-2">
-          <div className="max-w-sm bg-white rounded-lg rounded dark:bg-gray-800 dark:border-gray-700">
+      <aside className="w-11/12 grid grid-cols-1 lg:grid-cols-4 text-center gap-2 mx-auto w-11/12 ">
+        <div className="hidden lg:grid grid-cols-1 gap-2">
+          <div className="max-w-sm bg-transparent rounded-lg rounded dark:bg-gray-800 dark:border-gray-700">
             <div className=" group relative overflow-hidden">
-              <a href="#">
+              <NavLink to={`/c/${bestBooks[0]?.categoryId?.url}/${bestBooks[0]?._id}`} >
                 <img
                   className=" h-94 w-full rounded"
                   src={
@@ -63,10 +63,10 @@ const BestSeller = (props) => {
                   }
                   alt="product image"
                 />
-              </a>
+              </NavLink>
               <button
                 onClick={() => props.AddToCart(bestBooks[0])}
-                className="w-11/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
+                className="w-11/12 bg-tansparent hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
               >
                 Quick Add
               </button>
@@ -92,13 +92,11 @@ const BestSeller = (props) => {
             </div>
           </div>
         </div>
-
-        <div className="grid col-span-3 gap-2 mx-auto text-center">
-          <div className=" grid grid-cols-4 gap-4  mx-auto">
+        <div className="grid col-span-1 lg:col-span-3 gap-2 mx-auto text-center">
+          <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  mx-auto">
             {bestBooks.map((book, i) => {
-              if (i != 0) {
                 return (
-                  <div className=" px-4 max-w-sm bg-white rounded-lg  dark:bg-gray-800 dark:border-gray-700 rounded mb-4">
+                  <div className={`${i ==0  ? "lg:hidden" : ""} px-4 max-w-sm bg-transparent rounded-lg dark:bg-gray-800 dark:border-gray-700 rounded mb-4`}>
                     <div className=" group relative overflow-hidden">
 
 
@@ -117,7 +115,7 @@ const BestSeller = (props) => {
                         Quick Add
                       </button>
                     </div>
-                    <div className="px-5 pb-5">
+                    <div className="pb-5">
                       <NavLink
                         to={`/c/${book.categoryId.url}/${book._id}`}
                       >
@@ -126,7 +124,6 @@ const BestSeller = (props) => {
                         </h5>
                       </NavLink>
                       <a href="#" className="underline text-gray-500">
-                        {/* <p>{book.author}</p> */}
                       </a>
                       <div className="flex justify-center mt-2.5 mb-5">
                         {forloop(bestBooks.length && book.rating)}
@@ -134,7 +131,6 @@ const BestSeller = (props) => {
                     </div>
                   </div>
                 );
-              }
             })}
           </div>
         </div>

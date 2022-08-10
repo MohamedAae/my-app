@@ -33,7 +33,7 @@ const CategoryBook = (props) => {
       }
     };
     getcategoryname();
-  }, []);
+  }, [params.id]);
 
   books = props.books;
 

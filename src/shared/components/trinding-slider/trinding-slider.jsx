@@ -14,14 +14,30 @@ export default function TrindingSlider(props) {
     <section id="trinding" className="my-10 w-11/12	 mx-auto">
       <h1 className="py-6 text-3xl italic font-serif">{titles}</h1>{" "}
       <Swiper
-        slidesPerView={7}
+          breakpoints={{
+              480: {
+                  slidesPerView: 2
+              },
+              640: {
+                  slidesPerView: 3,
+              },
+              768: {
+                  slidesPerView: 4,
+              },
+              1024: {
+                  slidesPerView: 7,
+              },
+          }}
+          observer={true}
+        observeParents={true}
+        slidesPerView={1}
         spaceBetween={20}
         slidesPerGroup={1}
         loop={true}
         loopFillGroupWithBlank={true}
         navigation={true}
         modules={[Pagination, Navigation]}
-        className="mySwiper w-11/12"
+        className="mySwiper"
       >
         {SliderBooks.length &&
           SliderBooks.map((slide, index) => {

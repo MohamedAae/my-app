@@ -10,10 +10,9 @@ let products = [];
 const Cart = (props) => {
   const [open, setOpen] = useState(false);
   products = props.item;
-  console.log(props);
   return (
     <>
-      <span onClick={() => setOpen(true)} className="cursor-pointer relative">
+      <span onClick={() => setOpen(true)} className="cursor-pointer relative ml-auto">
         <ShoppingCartIcon
           width={28}
           height={28}
@@ -170,6 +169,7 @@ const Cart = (props) => {
                             <div className="mt-6">
                               <NavLink
                                 to={"/checkout"}
+                                onClick={() => setOpen(false)}
                                 className="flex items-center justify-center rounded-md border border-transparent bg-theme  px-6 py-3 text-base font-medium text-background shadow-sm "
                               >
                                 Checkout

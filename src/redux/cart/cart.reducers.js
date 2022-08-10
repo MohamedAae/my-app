@@ -18,7 +18,6 @@ const reducer = (state = initialState, action) => {
             })
 
         case EDITCARTITEM :
-            console.log(state.cartItems);
             return ({
                 ...state,
                 cartItems   : handleQuantity(state.cartItems, action.id, false),

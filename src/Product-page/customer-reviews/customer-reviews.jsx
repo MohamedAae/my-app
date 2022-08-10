@@ -79,8 +79,6 @@ const CustomerReviews = (props) => {
     }
   };
 
-  console.log(reviews);
-
   const changeDataHandler = (event, init) => {
     const value = event.target.value;
     switch (init) {
@@ -107,7 +105,6 @@ const CustomerReviews = (props) => {
     event.preventDefault();
     const token = Helpers.getToken();
     try {
-      console.log(userReview);
       const res = await axios.post(`${API_URL}/reviews`, userReview, {
         headers: {
           "x-access-token": token,

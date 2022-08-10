@@ -11,7 +11,7 @@ import {
 } from "../../../redux/users/users.action";
 import "./nav-bar.css";
 import {NavLink} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {
     AddToCart,
     EditCartItem,
@@ -24,6 +24,7 @@ import {
     MenuItem,
     MenuList,
 } from "@material-tailwind/react";
+import { Transition } from "@headlessui/react";
 import {ChevronDownIcon} from "@heroicons/react/solid";
 
 let user = {};
@@ -43,7 +44,8 @@ const Navbar = (props) => {
         props.checkIfLoggedIn();
     }, []);
 
-    const navItems = [
+    const [isOpen, setOpen] = useState(false),
+        navItems = [
         {
             id: 1,
             item: "Books",
@@ -87,14 +89,22 @@ const Navbar = (props) => {
             className="bg-white border-gray-200 dark:border-gray-600 dark:bg-gray-900">
             <TopSlider></TopSlider>
             <div
-                className="flex justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 ">
-                <div className="flex justify-between items-center">
+                className="flex md:gap-x-20 justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6">
+                <div className="flex justify-between items-center ">
                     <NavLink to={"/"} className="flex items-center">
-                        <h1 className={`text-2xl font-serif text-theme-hover lowercase`}>mwmmy <span
-                            className={`text-background`}>Books</span></h1>
+                        {/*<h1 className={`text-2xl font-serif text-theme-hover lowercase capitalize`}>mwmmy <span*/}
+                        {/*    className={`text-background`}>Books</span></h1>*/}
+                        <img
+                            width={180}
+                            height={70}
+                            src={"/mwmmy-logo.png"}
+                            alt="mwmmmy logo"
+                        />
                     </NavLink>
                 </div>
-                <Search></Search>
+                <div className={`hidden md:block w-full`}>
+                    <Search></Search>
+                </div>
                 <Cart
                     addFunction={props.AddToCart}
                     editFunction={props.EditCartItem}
@@ -104,6 +114,7 @@ const Navbar = (props) => {
                     totalItems={props.totalItems}
                 />
                 <button
+                    onClick={() => setOpen(!isOpen)}
                     id="mega-menu-full-cta-button"
                     data-collapse-toggle="mega-menu-full-cta"
                     type="button"
@@ -126,14 +137,14 @@ const Navbar = (props) => {
                         ></path>
                     </svg>
                 </button>
-                <div
-                    id="mega-menu-full-cta"
-                    className="justify-items-start w-full md:flex md:order-1"
-                ></div>
+                {/*<div*/}
+                {/*    id="mega-menu-full-cta"*/}
+                {/*    className="justify-items-start w-full md:flex md:order-1"*/}
+                {/*></div>*/}
             </div>
             <div
                 id="mega-menu-full-cta"
-                className="mb-3 justify-between w-full md:flex md:order-1 mx-auto max-w-screen-xl px-4 md:px-6 relative mt-5"
+                className="hidden mb-3 justify-between w-full md:flex md:order-1 mx-auto max-w-screen-xl px-4 md:px-6 relative mt-5"
             >
                 <ul className="flex flex-col text-sm font-medium md:flex-row md:space-x-8 md:mt-0">
                     {navItems &&
@@ -313,7 +324,11 @@ const Navbar = (props) => {
                                     </Button>
                                 </MenuHandler>
                                 <MenuList className="z-50 w-40">
-                                    <MenuItem>Account</MenuItem>
+                                    <MenuItem>
+                                        <NavLink to={'/my-account'}>
+                                            Account
+                                        </NavLink>
+                                    </MenuItem>
                                     <MenuItem>
                                         <button
                                             onClick={() => {
@@ -334,6 +349,42 @@ const Navbar = (props) => {
                     )}
                 </div>
             </div>
+            <div className={`md:hidden flex justify-end my-5 px-4`}>
+                <Login loginFunction={props.loginUser} />
+                <Register/>
+            </div>
+            <Transition
+                show={isOpen}
+                enter="transition ease-out duration-100 transform"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="transition ease-in duration-75 transform"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+            >
+                {(ref) => (
+                    <div className="md:hidden" id="mobile-menu">
+                        <ul ref={ref} className="px-4 pt-2 pb-3 sm:px-4">
+                            {navItems ?
+                                navItems.map(navItem => {
+                                    return(
+                                        <li className={`mb-5`} key={navItem.id}>
+                                            <NavLink
+                                                to={navItem.url}
+                                                className="text-base font-sans text-background hover:text-theme-hover"
+                                            >
+                                                {navItem.item}
+                                            </NavLink>
+                                        </li>
+                                    )
+                                })
+                                :
+                                ""
+                            }
+                        </ul>
+                    </div>
+                )}
+            </Transition>
         </nav>
     );
 };

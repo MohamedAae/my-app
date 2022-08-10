@@ -30,7 +30,7 @@ const Search = (props) => {
   const loading = props.searchResultLoading;
 
   return (
-    <form className="w-3/4 hidden md:block">
+    <form className="w-full">
       <div className="flex">
         <label
           htmlFor="search-dropdown"
@@ -41,13 +41,13 @@ const Search = (props) => {
         <button
           id="dropdown-button"
           data-dropdown-toggle="dropdown"
-          className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+          className="hidden flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
           type="button"
         >
           All{" "}
           <svg
             aria-hidden="true"
-            className="ml-1 w-4 h-4"
+            className="hidden ml-1 w-4 h-4"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +109,7 @@ const Search = (props) => {
             autoComplete="off"
             type="search"
             id="search-dropdown"
-            className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+            className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-100 border-gray-50 border-1 border border-gray-100 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Search books by title"
             required=""
             onChange={searchChangeHandler}
