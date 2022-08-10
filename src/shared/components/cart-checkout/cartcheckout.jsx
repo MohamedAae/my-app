@@ -2,22 +2,21 @@ import React from "react";
 import { Disclosure } from "@headlessui/react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
-import {RemoveFromCart} from "../../../redux/cart/cart.action";
+import { RemoveFromCart } from "../../../redux/cart/cart.action";
 
 const discount = { code: "iti", amount: 5 },
   shipping = 0;
 
 let products = [],
-    subtotal = 0,
-    total = 0,
-    taxes = 0;
+  subtotal = 0,
+  total = 0,
+  taxes = 0;
 
 const Checkout = (props) => {
-
-  products  = props.cart.cartItems;
-  subtotal  = +props.cart.totalPrice;
-  taxes     = subtotal * 0.15;
-  total     = subtotal ? (subtotal + taxes - discount.amount).toFixed(2) : "";
+  products = props.cart.cartItems;
+  subtotal = +props.cart.totalPrice;
+  taxes = subtotal * 0.15;
+  total = subtotal ? (subtotal + taxes - discount.amount).toFixed(2) : "";
 
   return (
     <>
@@ -52,36 +51,46 @@ const Checkout = (props) => {
                     role="list"
                     className="divide-y divide-gray-200 border-b border-gray-200"
                   >
-                    {
-                      products.length
-                        ?
-                      products.map((product) => (
-                        <li key={product.id} className="flex py-6 space-x-6">
-                          <img
-                            src={product.image}
-                            alt={product.image}
-                            className="flex-none w-40 h-40 object-center object-cover bg-gray-200 rounded-md"
-                          />
-                          <div className="flex flex-col justify-between space-y-4">
-                            <div className="text-sm font-medium space-y-1">
-                              <h3 className="text-gray-900">{product.name}</h3>
-                              <p className="text-gray-900">${product.price}</p>
-                              <p className="text-gray-900">Qty: {product.quantity}</p>
-                            </div>
-                            <div className="flex space-x-4">
-                              <div className="flex pl-4">
-                                <button
-                                    onClick={() => props.RemoveFromCart(product._id, product.price)}
-                                  type="button"
-                                  className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                                >
-                                  Remove
-                                </button>
+                    {products.length
+                      ? products.map((product) => (
+                          <li key={product.id} className="flex py-6 space-x-6">
+                            <img
+                              src={product.image}
+                              alt={product.image}
+                              className="flex-none w-40 h-40 object-center object-cover bg-gray-200 rounded-md"
+                            />
+                            <div className="flex flex-col justify-between space-y-4">
+                              <div className="text-sm font-medium space-y-1">
+                                <h3 className="text-gray-900">
+                                  {product.name}
+                                </h3>
+                                <p className="text-gray-900">
+                                  ${product.price}
+                                </p>
+                                <p className="text-gray-900">
+                                  Qty: {product.quantity}
+                                </p>
+                              </div>
+                              <div className="flex space-x-4">
+                                <div className="flex pl-4">
+                                  <button
+                                    onClick={() =>
+                                      props.RemoveFromCart(
+                                        product._id,
+                                        product.price
+                                      )
+                                    }
+                                    type="button"
+                                    className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                                  >
+                                    Remove
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </li>
-                      )) : ""}
+                          </li>
+                        ))
+                      : ""}
                   </ul>
 
                   <dl className="text-sm font-medium text-gray-500 mt-10 space-y-6">
@@ -130,7 +139,7 @@ const Checkout = (props) => {
             role="list"
             className="flex-auto overflow-y-auto divide-y divide-gray-200 px-6"
           >
-            {products.length ?
+            {products.length ? (
               products.map((product) => (
                 <li key={product.id} className="flex py-6 space-x-6">
                   <img
@@ -147,7 +156,9 @@ const Checkout = (props) => {
                     <div className="flex space-x-4">
                       <div className="flex pl-4">
                         <button
-                            onClick={() => props.RemoveFromCart(product._id, product.price)}
+                          onClick={() =>
+                            props.RemoveFromCart(product._id, product.price)
+                          }
                           type="button"
                           className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                         >
@@ -157,11 +168,12 @@ const Checkout = (props) => {
                     </div>
                   </div>
                 </li>
-              )) :
+              ))
+            ) : (
               <span className={`text-gray-500 font-bold capitalize`}>
                 No items, continue shopping.
               </span>
-            }
+            )}
           </ul>
 
           <div className="sticky bottom-0 flex-none bg-gray-50 border-t border-gray-200 p-6">
@@ -223,7 +235,6 @@ const Checkout = (props) => {
                 <div className="col-span-full">
                   <label
                     htmlFor="name-on-card"
-                    className="block text-sm font-medium text-gray-700"
                     className="block text-sm font-medium text-gray-700"
                   >
                     Name on card
@@ -412,7 +423,7 @@ let mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     RemoveFromCart: (id, price) => dispatch(RemoveFromCart(id, price)),
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

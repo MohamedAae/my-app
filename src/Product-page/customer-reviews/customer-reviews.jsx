@@ -8,10 +8,12 @@ const API_URL = "http://127.0.0.1:5003";
 const CustomerReviews = (props) => {
   const userId = props.userId,
     bookId = props.productId,
+    productImg = props.productImg,
     [showModal, setShowModal] = useState(false),
     [userReview, setUserReview] = useState({
       userId,
       bookId,
+      productImg,
       rating: 0,
       title: "",
       review: "",
@@ -20,38 +22,6 @@ const CustomerReviews = (props) => {
     [rating, setRating] = useState(0),
     [hover, setHover] = useState(0),
     [reviews, setReviews] = useState([]);
-
-  // const reviews = [
-  //     {
-  //         name: "My Opinion",
-  //         rate: 3,
-  //         title: "helpful",
-  //         discreption:
-  //             'I had seen the movie years ago, but having recently visited Savannah, and a ghost tour, my interest was piqued to learn more about this story. The city is exactly as depicted in the book; historic, gentile, gracious, and yet with a very dark feel. The only way to understand it is to experience it. "The Book" offers a beautiful glimpse of this jewel in Georgia.',
-  //     },
-  //     {
-  //         name: "My Opinion",
-  //         rate: 5,
-  //         title: "helpful",
-  //         discreption:
-  //             'I had seen the movie years ago, but having recently visited Savannah, and a ghost tour, my interest was piqued to learn more about this story. The city is exactly as depicted in the book; historic, gentile, gracious, and yet with a very dark feel. The only way to understand it is to experience it. "The Book" offers a beautiful glimpse of this jewel in Georgia.',
-  //     },
-  //     {
-  //         name: "My Opinion",
-  //         rate: 2,
-  //         title: "poring",
-  //         discreption:
-  //             'I had seen the movie years ago, but having recently visited Savannah, and a ghost tour, my interest was piqued to learn more about this story. The city is exactly as depicted in the book; historic, gentile, gracious, and yet with a very dark feel. The only way to understand it is to experience it. "The Book" offers a beautiful glimpse of this jewel in Georgia.',
-  //     },
-  //     {
-  //         name: "My Opinion",
-  //         rate: 4,
-  //         title: "poring",
-  //         discreption:
-  //             'I had seen the movie years ago, but having recently visited Savannah, and a ghost tour, my interest was piqued to learn more about this story. The city is exactly as depicted in the book; historic, gentile, gracious, and yet with a very dark feel. The only way to understand it is to experience it. "The Book" offers a beautiful glimpse of this jewel in Georgia.',
-  //     },
-  // ];
-
   useEffect(() => {
     getReviews();
   }, [reviews]);
@@ -118,30 +88,6 @@ const CustomerReviews = (props) => {
     }
   };
 
-  function forloop(bookRating) {
-    let starsarr = [],
-      color;
-    for (let i = 0; i < 5; i++) {
-      color = "text-gray-300";
-      if (bookRating > i) {
-        color = "text-yellow-300";
-      }
-      starsarr.push(
-        <svg
-          aria-hidden="true"
-          className={`w-5 h-5 ${color}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title>Second star</title>
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-        </svg>
-      );
-    }
-    return starsarr;
-  }
-
   return (
     <section className="w-11/12 mx-auto mt-5">
       <div className="block md:flex justify-between mb-10">
@@ -153,7 +99,7 @@ const CustomerReviews = (props) => {
             onClick={() => setShowModal(true)}
           >
             <div className="block md:flex">
-              <span className="px-2 py-2">Write A Review</span>
+              <span className="px-2 py-2 mx-auto">Write A Review</span>
             </div>
           </button>
         ) : (
@@ -163,9 +109,12 @@ const CustomerReviews = (props) => {
 
       {showModal ? (
         <>
-          <div className=" wz-50 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg bg-white py-12 px-4 sm:px-6 lg:px-8">
-            <form onSubmit={(event) => submitData(event)}>
-              <div className="flex justify-between items-center">
+          <div className=" z-50 fixed flex justify-between top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg bg-white py-12 px-4 sm:px-6 lg:px-3">
+            <div className="mr-5">
+              <img src={productImg} alt="" width={150} height={100} />
+            </div>
+            <form onSubmit={(event) => submitData(event)} className="border-l">
+              <div className="flex justify-between items-center pl-5">
                 <h4 className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
                   Overall Rating
                 </h4>
@@ -191,7 +140,7 @@ const CustomerReviews = (props) => {
                 </div>
                 <p className="text-xs">Click To Rate!</p>
               </div>
-              <div className="flex justify-between w-80 md:w-96 items-center my-5">
+              <div className="flex justify-between w-80 md:w-96 items-center my-5 pl-5">
                 <label
                   for="default-input"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 w-1/4"
@@ -208,7 +157,7 @@ const CustomerReviews = (props) => {
                   required
                 />
               </div>
-              <div className="flex justify-between items-center my-5">
+              <div className="flex justify-between items-center my-5 pl-5">
                 <label
                   for="message"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 w-1/4"
@@ -255,7 +204,7 @@ const CustomerReviews = (props) => {
                 </div>
                 <div className="w-4/4 lg:w-3/4">
                   <div className="flex mt-2.5 mb-5">
-                    {forloop(review.rating)}
+                    {Helpers.displayRating(review.rating)}
                   </div>
                   <h2 className="font-bold capitalize">{review.title}</h2>
                   <p>{review.review}</p>
@@ -275,8 +224,10 @@ const CustomerReviews = (props) => {
 };
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
     userId: state.user.user._id,
+    productImg: state.products.product.image,
   };
 };
 

@@ -8,6 +8,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { getProductById } from "../../redux/products/products.action";
 import { AddToCart } from "../../redux/cart/cart.action";
+import { Helpers } from "../../shared/helpers";
 
 let book = {},
   loading = true;
@@ -28,34 +29,10 @@ const ProductDtl = (props) => {
     });
   };
 
-  function forloop(bookRating) {
-    let starsarr = [],
-      color;
-    for (let i = 0; i < 5; i++) {
-      color = "text-gray-300";
-      if (bookRating > i) {
-        color = "text-yellow-300";
-      }
-      starsarr.push(
-        <svg
-          aria-hidden="true"
-          className={`w-5 h-5 ${color}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title>Second star</title>
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-        </svg>
-      );
-    }
-    return starsarr;
-  }
-
   return (
     <section className="mt-10    lg:w-11/12 lg:mx-auto">
       <div className="lg:w-8/12 lg:grid lg:grid-cols-6 lg:gap-40 lg:mx-auto">
-        <div className=" w-8/12 mx-auto md:4/12  lg:col-span-2 lg:w-80">
+        <div className=" w-8/12 md:w-5/12 mx-auto  lg:col-span-2 lg:w-80">
           <Carousel interval="500" transitionTime="500">
             {loading ? (
               <Skeleton variant="rectangular" width={210} height={118} />
@@ -83,7 +60,7 @@ const ProductDtl = (props) => {
                 </h5>
               </a>
               <div className="flex lg:mt-2.5 Lg:mb-5">
-                {loading ? <Skeleton /> : forloop(book.rating)}
+                {loading ? <Skeleton /> : Helpers.displayRating(book.rating)}
                 <span></span>
               </div>
               <hr className="my-2" />
@@ -111,15 +88,15 @@ const ProductDtl = (props) => {
               <a
                 href="#"
                 onClick={() => setReadMore(!readMore)}
-                className="block py-3 mb-5 md:w-5/12 md:mr-10 md:inline-flex items-center lg:py-2 px-3 text-sm text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 bg-background dark:focus:ring-blue-800"
+                className="block py-3 mt-3 mb-5 md:w-3/12 md:mr-5 lg:mr-1 md:inline-block items-center lg:py-2 px-3 text-sm text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 bg-background dark:focus:ring-blue-800"
               >
                 {readMore ? "Read Less ↑" : "Read More ↓"}
               </a>
               <a
                 href="#"
                 onClick={() => props.AddToCart(book)}
-                className="block text-center md:mt-6 md:w-5/12 md:text-center
-                 md:inline-flex md:px-4  bg-theme lg:text-start py-2 lg:px-10  text-background hover:bg-theme-hover lg:ml-5 rounded"
+                className="block text-center md:mt-6 md:w-3/12 lg:w-5/12
+                 md:inline-block md:px-4 bg-theme lg:text-start py-2 xl:px-12  lg:px-10 text-background hover:bg-theme-hover lg:ml-2 rounded-lg"
               >
                 ADD TO CART
               </a>

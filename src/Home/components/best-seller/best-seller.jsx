@@ -7,6 +7,7 @@ import {
 } from "../../../redux/products/products.action";
 import { NavLink } from "react-router-dom";
 import { AddToCart } from "../../../redux/cart/cart.action";
+import { Helpers } from "../../../shared/helpers";
 
 let bestBooks = [];
 
@@ -17,31 +18,6 @@ const BestSeller = (props) => {
 
   bestBooks = props.bestSellerBooks;
 
-  function forloop(bookRating) {
-    let starsarr = [],
-      color;
-    for (let i = 0; i < 5; i++) {
-      color = "text-gray-300";
-      if (bookRating > i) {
-        color = "text-yellow-300";
-      }
-      starsarr.push(
-        <svg
-          aria-hidden="true"
-          className={`w-5 h-5 ${color}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {bestBooks.length && bestBooks[0].rating}
-          <title>Second star</title>
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-        </svg>
-      );
-    }
-    return starsarr;
-  }
-
   return (
     <section className="w-11/12 mx-auto my-5">
       <h1 className="py-6 text-3xl italic font-serif">
@@ -51,7 +27,9 @@ const BestSeller = (props) => {
         <div className="hidden lg:grid grid-cols-1 gap-2">
           <div className="max-w-sm bg-transparent rounded-lg rounded dark:bg-gray-800 dark:border-gray-700">
             <div className=" group relative overflow-hidden">
-              <NavLink to={`/c/${bestBooks[0]?.categoryId?.url}/${bestBooks[0]?._id}`} >
+              <NavLink
+                to={`/c/${bestBooks[0]?.categoryId?.url}/${bestBooks[0]?._id}`}
+              >
                 <img
                   className=" h-94 w-full rounded"
                   src={
@@ -82,7 +60,7 @@ const BestSeller = (props) => {
                 </h5>
               </NavLink>
               <div className="flex justify-center mt-2.5 mb-5">
-                {forloop(bestBooks.length && bestBooks[0].rating)}
+                {Helpers.displayRating(bestBooks.length && bestBooks[0].rating)}
               </div>
               <div>
                 <p>
@@ -95,42 +73,41 @@ const BestSeller = (props) => {
         <div className="grid col-span-1 lg:col-span-3 gap-2 mx-auto text-center">
           <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  mx-auto">
             {bestBooks.map((book, i) => {
-                return (
-                  <div className={`${i ==0  ? "lg:hidden" : ""} px-4 max-w-sm bg-transparent rounded-lg dark:bg-gray-800 dark:border-gray-700 rounded mb-4`}>
-                    <div className=" group relative overflow-hidden">
-
-
-                      <NavLink to={`/c/${book.categoryId.url}/${book._id}`} >
-                   <img
-                          className="object-cover h-60  w-full  rounded-t-lg"
-                          src={bestBooks.length && book.image}
-                          alt="product image"
-                        />
+              return (
+                <div
+                  className={`${
+                    i == 0 ? "lg:hidden" : ""
+                  } px-4 max-w-sm bg-transparent rounded-lg dark:bg-gray-800 dark:border-gray-700 rounded mb-4`}
+                >
+                  <div className=" group relative overflow-hidden">
+                    <NavLink to={`/c/${book.categoryId.url}/${book._id}`}>
+                      <img
+                        className="object-cover h-60  w-full  rounded-t-lg"
+                        src={bestBooks.length && book.image}
+                        alt="product image"
+                      />
                     </NavLink>
 
-                      <button
-                        onClick={() => props.AddToCart(book)}
-                        className="w-10/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
-                      >
-                        Quick Add
-                      </button>
-                    </div>
-                    <div className="pb-5">
-                      <NavLink
-                        to={`/c/${book.categoryId.url}/${book._id}`}
-                      >
-                        <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-14 my-5 ">
-                          {bestBooks.length && book.name.slice(0, 25)}
-                        </h5>
-                      </NavLink>
-                      <a href="#" className="underline text-gray-500">
-                      </a>
-                      <div className="flex justify-center mt-2.5 mb-5">
-                        {forloop(bestBooks.length && book.rating)}
-                      </div>
+                    <button
+                      onClick={() => props.AddToCart(book)}
+                      className="w-10/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
+                    >
+                      Quick Add
+                    </button>
+                  </div>
+                  <div className="pb-5">
+                    <NavLink to={`/c/${book.categoryId.url}/${book._id}`}>
+                      <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-14 my-5 ">
+                        {bestBooks.length && book.name.slice(0, 25)}
+                      </h5>
+                    </NavLink>
+                    <a href="#" className="underline text-gray-500"></a>
+                    <div className="flex justify-center mt-2.5 mb-5">
+                      {Helpers.displayRating(bestBooks.length && book.rating)}
                     </div>
                   </div>
-                );
+                </div>
+              );
             })}
           </div>
         </div>

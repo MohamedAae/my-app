@@ -1,18 +1,24 @@
 /* This example requires Tailwind CSS v2.0+ */
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { ShoppingCartIcon } from "@heroicons/react/solid";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 
 let products = [];
 
 const Cart = (props) => {
   const [open, setOpen] = useState(false);
+
+  console.log(props);
   products = props.item;
   return (
     <>
-      <span onClick={() => setOpen(true)} className="cursor-pointer relative ml-auto">
+      <span
+        onClick={() => setOpen(true)}
+        className="cursor-pointer relative ml-auto"
+      >
         <ShoppingCartIcon
           width={28}
           height={28}
@@ -167,13 +173,19 @@ const Cart = (props) => {
                               Shipping and taxes calculated at checkout.
                             </p>
                             <div className="mt-6">
-                              <NavLink
-                                to={"/checkout"}
-                                onClick={() => setOpen(false)}
-                                className="flex items-center justify-center rounded-md border border-transparent bg-theme  px-6 py-3 text-base font-medium text-background shadow-sm "
-                              >
-                                Checkout
-                              </NavLink>
+                              {props.loggedIn ? (
+                                <NavLink
+                                  to={"/checkout"}
+                                  onClick={() => setOpen(false)}
+                                  className="flex items-center justify-center rounded-md border border-transparent bg-theme  px-6 py-3 text-base font-medium text-background shadow-sm "
+                                >
+                                  Checkout
+                                </NavLink>
+                              ) : (
+                                <span className="text-theme-hover font-serif italic">
+                                  "Please Login First To Checkout"
+                                </span>
+                              )}
                             </div>
                           </>
                         ) : (
@@ -204,5 +216,10 @@ const Cart = (props) => {
     </>
   );
 };
+let mapStateToProps = (state) => {
+  return {
+    loggedIn: state.user.loggedIn,
+  };
+};
 
-export default Cart;
+export default connect(mapStateToProps)(Cart);
