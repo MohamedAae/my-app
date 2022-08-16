@@ -1,12 +1,10 @@
 import React from 'react'
-import Grid from '../components/grid/grid'
+import ProductsGrid from "../../shared/components/products-grid/products-grid";
 
-function Shop() {
-  return (
-    <>
-    <Grid/>
-    </>
-  )
+const Shop = () => {
+    return (<>
+            <ProductsGrid pageTite={`Shop Book`} />
+        </>)
 }
 
 export default Shop

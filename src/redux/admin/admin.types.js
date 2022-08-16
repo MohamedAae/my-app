@@ -1,0 +1,1 @@
+export const GETREVIEWS = "getReviews";
