@@ -1,4 +1,10 @@
-import { LOGINUSER, REGISTERUSER, CHECKIFLOGGEDIN,LOGOUT } from "./users.types";
+import {
+  LOGINUSER,
+  REGISTERUSER,
+  CHECKIFLOGGEDIN,
+  LOGOUT,
+  REGISTERFAIL,
+} from "./users.types";
 
 const initialState = {
   user: {},
@@ -6,6 +12,7 @@ const initialState = {
   loading: true,
   loggedIn: false,
   rememberMe: false,
+  message: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +24,11 @@ const reducer = (state = initialState, action) => {
         token: "",
         loading: false,
       };
+    case REGISTERFAIL:
+      return {
+        ...state,
+        message: action.message,
+      };
     case LOGINUSER:
       return {
         ...state,
@@ -24,7 +36,7 @@ const reducer = (state = initialState, action) => {
         token: action.token,
         loading: false,
         loggedIn: action.loggedIn,
-        rememberMe: action.rememberMe
+        rememberMe: action.rememberMe,
       };
 
     case CHECKIFLOGGEDIN:
@@ -34,8 +46,8 @@ const reducer = (state = initialState, action) => {
         token: action.token,
         loading: false,
         loggedIn: action.loggedIn,
-      }; 
-      case LOGOUT:
+      };
+    case LOGOUT:
       return {
         ...state,
         user: action.user,

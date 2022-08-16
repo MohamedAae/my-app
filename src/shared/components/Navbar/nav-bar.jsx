@@ -92,12 +92,8 @@ const Navbar = (props) => {
           <NavLink to={"/"} className="flex items-center">
             {/*<h1 className={`text-2xl font-serif text-theme-hover lowercase capitalize`}>mwmmy <span*/}
             {/*    className={`text-background`}>Books</span></h1>*/}
-            <img
-              width={180}
-              height={70}
-              src={"/mwmmy-logo.png"}
-              alt="mwmmmy logo"
-            />
+            <img width={190} height={70} src={"/logo.jpeg"} alt="mwmmmy logo" />
+            <img src="" alt="" />
           </NavLink>
         </div>
         <div className={`hidden md:block w-full`}>

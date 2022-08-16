@@ -1,5 +1,11 @@
 import axios from "axios";
-import { REGISTERUSER, LOGINUSER, CHECKIFLOGGEDIN,LOGOUT } from "./users.types";
+import {
+  REGISTERUSER,
+  LOGINUSER,
+  CHECKIFLOGGEDIN,
+  LOGOUT,
+  REGISTERFAIL,
+} from "./users.types";
 
 export const registerUser = (user) => async (dispatch) => {
   try {
@@ -9,6 +15,11 @@ export const registerUser = (user) => async (dispatch) => {
       user: res.data.user,
     });
   } catch (e) {
+    dispatch({
+      type: REGISTERFAIL,
+      message: e.message,
+    });
+    // alert("This email is already registered please login");
     console.log(e.message);
   }
 };
@@ -25,7 +36,7 @@ export const loginUser = (userCredentials) => async (dispatch) => {
         user: res.data.user,
         token: res.data.user.token,
         loggedIn: true,
-        rememberMe: res.data.user.rememberMe
+        rememberMe: res.data.user.rememberMe,
       });
     }
   } catch (e) {
@@ -33,29 +44,30 @@ export const loginUser = (userCredentials) => async (dispatch) => {
   }
 };
 
-export const logOut=()=>async (dispatch)=> {
+export const logOut = () => async (dispatch) => {
   localStorage.removeItem("loggedInUser");
   sessionStorage.removeItem("loggedInUser");
 
   dispatch({
     type: LOGOUT,
-    user:{},
+    user: {},
     token: "",
-    loggedIn: false
+    loggedIn: false,
   });
-}
-
+};
 
 export const checkIfLoggedIn = () => async (dispatch) => {
   try {
-    const checkLocalStorage = localStorage.getItem("loggedInUser") || sessionStorage.getItem("loggedInUser");
+    const checkLocalStorage =
+      localStorage.getItem("loggedInUser") ||
+      sessionStorage.getItem("loggedInUser");
     if (checkLocalStorage) {
       const user = JSON.parse(checkLocalStorage);
       dispatch({
         type: CHECKIFLOGGEDIN,
         user,
         token: user.token,
-        loggedIn: true
+        loggedIn: true,
       });
     }
   } catch (e) {
