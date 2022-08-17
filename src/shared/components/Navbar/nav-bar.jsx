@@ -85,7 +85,7 @@ const Navbar = (props) => {
   };
 
   return (
-    <nav className="bg-white pb-1 border-gray-200 dark:border-gray-600 dark:bg-gray-900">
+    <nav className="bg-white pb-1 border-gray-200">
       <TopSlider></TopSlider>
       <div className="flex md:gap-x-20 justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6">
         <div className="flex justify-between items-center ">
@@ -346,8 +346,51 @@ const Navbar = (props) => {
         </div>
       </div>
       <div className={`md:hidden flex justify-end my-5 px-4`}>
-        <Login loginFunction={props.loginUser} />
-        <Register />
+        {props.loggedIn ? (
+            <div>
+              <Menu>
+                <MenuHandler>
+                  <Button variant="gradient" className="text-black">
+                    {`Hi, ${props.user.name}`}
+                    <ChevronDownIcon
+                        className="inline"
+                        width={15}
+                        height={15}
+                    />
+                  </Button>
+                </MenuHandler>
+                <MenuList className="z-50 w-40 pt-2">
+                  <MenuItem className="flex">
+                    <UserIcon
+                        width={20}
+                        height={20}
+                        className="text-background mr-2"
+                    ></UserIcon>
+                    <NavLink to={"/my-account"}> Account</NavLink>
+                  </MenuItem>
+                  <MenuItem className="flex">
+                    <LogoutIcon
+                        width={20}
+                        height={20}
+                        className="text-background mr-2"
+                    ></LogoutIcon>
+                    <button
+                        onClick={() => {
+                          props.LogOutUser();
+                        }}
+                    >
+                      Logout
+                    </button>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </div>
+        ) : (
+            <>
+              <Login loginFunction={props.loginUser} />
+              <Register />
+            </>
+        )}
       </div>
       <Transition
         show={isOpen}

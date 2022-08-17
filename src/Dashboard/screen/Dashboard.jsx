@@ -12,6 +12,7 @@ import Products from "../components/products/products";
 import { getProducts } from "../../redux/products/products.action";
 import EditProduct from "../components/edit-product/edit-product";
 import AddProduct from "../components/add-product/add-product";
+import Orders from "../components/orders/orders";
 
 const Dashboard = (props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -46,6 +47,7 @@ const Dashboard = (props) => {
               <Route path={`products`} element={<Products />} />
               <Route path={`edit-product/:id`} element={<EditProduct />} />
               <Route path={`add-product`} element={<AddProduct />} />
+              <Route path={`orders`} element={<Orders />} />
             </Routes>
           </div>
         </main>

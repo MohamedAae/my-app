@@ -8,13 +8,14 @@ import {
 import { NavLink } from "react-router-dom";
 import { AddToCart } from "../../../redux/cart/cart.action";
 import { Helpers } from "../../../shared/helpers";
+import {CheckIcon} from "@heroicons/react/solid";
 
 let bestBooks = [];
 
 const BestSeller = (props) => {
   useEffect(() => {
     props.getBestBooks();
-  }, []);
+  }, [props.cartItems]);
 
   bestBooks = props.bestSellerBooks;
 
@@ -25,7 +26,7 @@ const BestSeller = (props) => {
       </h1>
       <aside className="w-11/12 grid grid-cols-1 lg:grid-cols-4 text-center gap-2 mx-auto w-11/12 ">
         <div className="hidden lg:grid grid-cols-1 gap-2">
-          <div className="max-w-sm bg-transparent rounded-lg rounded dark:bg-gray-800 dark:border-gray-700">
+          <div className="max-w-sm bg-transparent rounded-lg rounded">
             <div className=" group relative overflow-hidden">
               <NavLink
                 to={`/c/${bestBooks[0]?.categoryId?.url}/${bestBooks[0]?._id}`}
@@ -42,12 +43,25 @@ const BestSeller = (props) => {
                   alt="product image"
                 />
               </NavLink>
-              <button
-                onClick={() => props.AddToCart(bestBooks[0])}
-                className="w-11/12 bg-tansparent hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
-              >
-                Quick Add
-              </button>
+              {
+                bestBooks.length && bestBooks[0].stock
+                    ?
+                    Helpers.checkIfInCart(props.cartItems ? props.cartItems : [], bestBooks[0]._id) ?
+                        <button className="w-11/12 flex justify-center items-center bg-white text-green-500 font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 ">
+                          Already Added <CheckIcon width={20} height={20}></CheckIcon>
+                        </button>
+                        :
+                        <button className="w-11/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 "
+                                onClick={()=> {
+                                  props.AddToCart(bestBooks[0]);
+                                }}>
+                          Quick Add
+                        </button>
+                    :
+                    <button className="w-11/12 text-white bg-red-500 font-semibold py-2 px-2 border border-red-500 rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 ">
+                      Out Of Stock
+                    </button>
+              }
             </div>
             <div className="px-5 pb-5">
               <NavLink
@@ -55,7 +69,7 @@ const BestSeller = (props) => {
                   bestBooks.length && bestBooks[0]._id
                 }`}
               >
-                <h5 className="text-2xl  font-semibold py-2 tracking-tight text-gray-900 dark:text-white">
+                <h5 className="text-2xl  font-semibold py-2 tracking-tight text-gray-900">
                   {bestBooks.length && bestBooks[0].name}
                 </h5>
               </NavLink>
@@ -77,7 +91,7 @@ const BestSeller = (props) => {
                 <div
                   className={`${
                     i == 0 ? "lg:hidden" : ""
-                  } px-4 max-w-sm bg-transparent rounded-lg dark:bg-gray-800 dark:border-gray-700 rounded mb-4`}
+                  } px-4 max-w-sm bg-transparent rounded-lg rounded mb-4`}
                 >
                   <div className=" group relative overflow-hidden">
                     <NavLink to={`/c/${book.categoryId.url}/${book._id}`}>
@@ -88,16 +102,29 @@ const BestSeller = (props) => {
                       />
                     </NavLink>
 
-                    <button
-                      onClick={() => props.AddToCart(book)}
-                      className="w-10/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
-                    >
-                      Quick Add
-                    </button>
+                    {
+                      book.stock
+                          ?
+                          Helpers.checkIfInCart(props.cartItems ? props.cartItems : [], book._id) ?
+                              <button className="w-11/12 flex justify-center items-center bg-white text-green-500 font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 ">
+                                Already Added <CheckIcon width={20} height={20}></CheckIcon>
+                              </button>
+                              :
+                              <button className="w-11/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 "
+                                      onClick={()=> {
+                                        props.AddToCart(book);
+                                      }}>
+                                Quick Add
+                              </button>
+                          :
+                          <button className="w-11/12 text-white bg-red-500 font-semibold py-2 px-2 border border-red-500 rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 ">
+                            Out Of Stock
+                          </button>
+                    }
                   </div>
                   <div className="pb-5">
                     <NavLink to={`/c/${book.categoryId.url}/${book._id}`}>
-                      <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-14 my-5 ">
+                      <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 h-14 my-5 ">
                         {bestBooks.length && book.name.slice(0, 25)}
                       </h5>
                     </NavLink>

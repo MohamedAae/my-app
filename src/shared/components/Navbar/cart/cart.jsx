@@ -11,7 +11,6 @@ let products = [];
 const Cart = (props) => {
   const [open, setOpen] = useState(false);
 
-  console.log(props);
   products = props.item;
   return (
     <>
@@ -106,6 +105,11 @@ const Cart = (props) => {
                                             ${product.price}
                                           </p>
                                         </div>
+                                        <div>
+                                          <p className={`my-2 text-gray-600 font-medium text-sm`}>
+                                            Items Available: {product.stock}
+                                          </p>
+                                        </div>
                                       </div>
                                       <div className="flex items-end justify-between text-md">
                                         <div className="flex justify-center items-center text-gray-500">
@@ -127,7 +131,7 @@ const Cart = (props) => {
                                             onClick={() =>
                                               props.addFunction(product)
                                             }
-                                            className={`text-xl text-background h-full px-3 py-1 font-black rounded-sm flex justify-center items-center`}
+                                            className={`${product.stock === product.quantity ? `hidden` : ""} text-xl text-background h-full px-3 py-1 font-black rounded-sm flex justify-center items-center`}
                                           >
                                             +
                                           </button>

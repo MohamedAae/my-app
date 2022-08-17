@@ -49,10 +49,11 @@ const getQuantity = (cartItems, bookId) => {
 
 
 const handleQuantity = (arr, book, isAdd) => {
+    console.log(book.stock);
     let flag = true;
     arr.map((item) => {
         if (item._id === book._id && isAdd) {
-            item.quantity = item.quantity + 1;
+            if ( item.quantity < book.stock ) item.quantity = item.quantity + 1;
             flag = false;
         }
 

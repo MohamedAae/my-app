@@ -81,7 +81,7 @@ const SearchGrid = (props) => {
                       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-16 gap-y-10 mx-auto">
                         {allBooks.map((book, i) => {
                           return (
-                            <div className="max-w-sm bg-transparent rounded-lg  dark:bg-gray-800 dark:border-gray-700 rounded mb-4">
+                            <div className="max-w-sm bg-transparent rounded-lg rounded mb-4">
                               <div className=" group relative overflow-hidden">
                                 <NavLink
                                   to={`/c/${book.categoryId.url}/${book._id}`}
@@ -114,7 +114,7 @@ const SearchGrid = (props) => {
                                 <NavLink
                                   to={`/c/${book.categoryId.url}/${book._id}`}
                                 >
-                                  <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 dark:text-white h-16 my-1 ">
+                                  <h5 className="flex justify-center items-start text-xl font-semibold tracking-tight text-gray-900 h-16 my-1 ">
                                     {allBooks.length && book.name.slice(0, 25)}
                                   </h5>
                                 </NavLink>

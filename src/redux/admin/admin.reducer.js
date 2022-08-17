@@ -1,4 +1,4 @@
-import {GETREVIEWS} from "./admin.types";
+import {GETORDERS, GETREVIEWS} from "./admin.types";
 
 const initialState = {
     reviews   : [],
@@ -10,6 +10,12 @@ const reducer = (state = initialState, action) => {
             return ({
                 ...state,
                 reviews: action.reviews
+            })
+
+        case GETORDERS:
+            return ({
+                ...state,
+                orders: action.orders
             })
 
         default:

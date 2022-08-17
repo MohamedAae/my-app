@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import "./customer-reviews.css";
 import axios from "axios";
-import { Helpers } from "../../shared/helpers";
+import { Helpers } from "../../../shared/helpers";
 
 const API_URL = "http://127.0.0.1:5003";
 const CustomerReviews = (props) => {
@@ -22,9 +22,10 @@ const CustomerReviews = (props) => {
     [rating, setRating] = useState(0),
     [hover, setHover] = useState(0),
     [reviews, setReviews] = useState([]);
+
   useEffect(() => {
     getReviews();
-  }, [reviews]);
+  }, []);
 
   useEffect(() => {
     setUserReview({

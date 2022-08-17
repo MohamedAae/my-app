@@ -17,10 +17,9 @@ export const registerUser = (user) => async (dispatch) => {
   } catch (e) {
     dispatch({
       type: REGISTERFAIL,
-      message: e.message,
+      message: e.response.data.error,
     });
     // alert("This email is already registered please login");
-    console.log(e.message);
   }
 };
 

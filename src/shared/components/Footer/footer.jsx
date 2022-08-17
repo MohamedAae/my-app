@@ -9,14 +9,13 @@ const Footer = (props) => {
   categories = props.categories;
 
   return (
-    <footer class="bg-white dark:bg-gray-900">
-      <hr className="my-5 border h-0.5 mx-6" />
+    <footer class="bg-white border-t border-gray-200">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 py-8 px-6 md:grid-cols-3">
         <div>
           <h2 class="mb-6 text-sm font-semibold text-background capitalize font-serif">
             Categories
           </h2>
-          <ul class="text-gray-500 dark:text-gray-400">
+          <ul class="text-gray-500">
             {
               categories.length
                 ?
@@ -85,8 +84,8 @@ const Footer = (props) => {
           </ul>
         </div>
       </div>
-      <div class="py-6 px-4 bg-gray-100 dark:bg-gray-700 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 dark:text-gray-300 sm:text-center">
+      <div class="py-6 px-4 bg-gray-100md:flex md:items-center md:justify-between">
+        <span class="text-sm text-gray-500 sm:text-center">
           © 2022 Mwmmy Team™.
           All Rights Reserved.
         </span>

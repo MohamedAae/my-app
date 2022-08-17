@@ -31,4 +31,9 @@ export const Helpers = {
       }
       return starsarr;
   },
+
+  checkIfInCart: (cartItems, productId) => {
+    const found = cartItems.find(({ _id }) => _id === productId);
+    return found;
+  },
 };
