@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {useLocation} from "react-router-dom";
 import axios from "axios";
+import { Helpers } from "../../shared/helpers";
 
 const useQuery = () => {
     const { search } = useLocation();
@@ -10,7 +11,7 @@ const useQuery = () => {
 
 const postToDB = async (paymentId, paymentStatus, items) => {
     try {
-        const res = axios.post(`http://127.0.0.1:5003/orders`, {paymentId, paymentStatus, items: items});
+        const res = axios.post(`http://127.0.0.1:5003/orders`, {paymentId, paymentStatus, items: items, userId: Helpers.getUser()._id});
     } catch (e) {
         throw new Error(e);
     }

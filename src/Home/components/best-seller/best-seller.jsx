@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import "./best-seller.css";
 import {
@@ -13,9 +13,29 @@ import {CheckIcon} from "@heroicons/react/solid";
 let bestBooks = [];
 
 const BestSeller = (props) => {
+
   useEffect(() => {
     props.getBestBooks();
   }, [props.cartItems]);
+
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [itemAddedId, setItemAddedId] = useState(null);
+  const [checkIfInCart, setCheckIfInCart] = useState([]);
+
+  const checkCart = () => {
+    const inCart = Helpers.checkIfInCart(props.cartItems ? props.cartItems : [], itemAddedId);
+    if (inCart) {
+      setCheckIfInCart([
+        ...checkIfInCart,
+        itemAddedId
+      ])
+    }
+  };
+
+  useEffect(() => {
+    checkCart();
+    setAddedToCart(false);
+  }, [itemAddedId, addedToCart]);
 
   bestBooks = props.bestSellerBooks;
 
@@ -46,7 +66,7 @@ const BestSeller = (props) => {
               {
                 bestBooks.length && bestBooks[0].stock
                     ?
-                    Helpers.checkIfInCart(props.cartItems ? props.cartItems : [], bestBooks[0]._id) ?
+                    checkIfInCart.includes(bestBooks[0]._id) ?
                         <button className="w-11/12 flex justify-center items-center bg-white text-green-500 font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 ">
                           Already Added <CheckIcon width={20} height={20}></CheckIcon>
                         </button>
@@ -54,6 +74,7 @@ const BestSeller = (props) => {
                         <button className="w-11/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 "
                                 onClick={()=> {
                                   props.AddToCart(bestBooks[0]);
+                                  setItemAddedId(bestBooks[0]._id);
                                 }}>
                           Quick Add
                         </button>
@@ -105,7 +126,7 @@ const BestSeller = (props) => {
                     {
                       book.stock
                           ?
-                          Helpers.checkIfInCart(props.cartItems ? props.cartItems : [], book._id) ?
+                          checkIfInCart.includes(book._id) ?
                               <button className="w-11/12 flex justify-center items-center bg-white text-green-500 font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 ">
                                 Already Added <CheckIcon width={20} height={20}></CheckIcon>
                               </button>
@@ -113,6 +134,7 @@ const BestSeller = (props) => {
                               <button className="w-11/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 "
                                       onClick={()=> {
                                         props.AddToCart(book);
+                                        setItemAddedId(book._id);
                                       }}>
                                 Quick Add
                               </button>

@@ -1,19 +1,52 @@
 import {NavLink} from "react-router-dom";
 import {Helpers} from "../../../helpers";
 import {
+    CheckIcon,
     ChevronLeftIcon, ChevronRightIcon, PencilAltIcon, TrashIcon
 } from "@heroicons/react/solid";
 import axios from "axios";
+import React, {useEffect, useState} from "react";
+import {connect} from "react-redux";
+import {
+    checkIfLoggedIn,
+    loginUser,
+    logOut
+} from "../../../../redux/users/users.action";
+import {
+    AddToCart,
+    EditCartItem,
+    RemoveFromCart
+} from "../../../../redux/cart/cart.action";
 
 const pageSize = 12;
 
 const Grid = (props) => {
 
+    console.log(props);
     const products = props.products;
     const page = props.page;
     const setPage = props.setPage;
     const setDeleted = props.setDeleted;
     const isAdmin = props.isAdmin;
+
+    const [addedToCart, setAddedToCart] = useState(false);
+    const [itemAddedId, setItemAddedId] = useState(null);
+    const [checkIfInCart, setCheckIfInCart] = useState([]);
+
+    const checkCart = () => {
+        const inCart = Helpers.checkIfInCart(props.cartItems ? props.cartItems : [], itemAddedId);
+        if (inCart) {
+            setCheckIfInCart([
+                ...checkIfInCart,
+                itemAddedId
+            ])
+        }
+    };
+
+    useEffect(() => {
+        checkCart();
+        setAddedToCart(false);
+    }, [itemAddedId, addedToCart]);
 
     const numberofpages = Math.ceil(props.count / pageSize ? props.count / pageSize : 0);
 
@@ -66,13 +99,27 @@ const Grid = (props) => {
                                                 alt="product image"
                                             />
                                         </NavLink>
-                                        {!isAdmin ? <button
-                                            onClick={() => props.AddToCart(book)}
-                                            className="w-10/12 bg-transparent hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300"
-                                        >
-                                            Quick
-                                            Add
-                                        </button> : ""}
+                                        {!isAdmin ?
+                                            book.stock
+                                                ?
+                                                checkIfInCart.includes(book._id) ?
+                                                    <button className="w-11/12 flex justify-center items-center bg-white text-green-500 font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 ">
+                                                        Already Added <CheckIcon width={20} height={20}></CheckIcon>
+                                                    </button>
+                                                    :
+                                                    <button className="w-11/12 bg-white hover:bg-theme text-theme-hover font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 "
+                                                            onClick={()=> {
+                                                                props.AddToCart(book);
+                                                                setAddedToCart(true);
+                                                                setItemAddedId(book._id);
+                                                            }}>
+                                                        Quick Add
+                                                    </button>
+                                                :
+                                                <button className="w-11/12 text-white bg-red-500 font-semibold py-2 px-2 border border-red-500 rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 ">
+                                                    Out Of Stock
+                                                </button>
+                                            : ""}
                                     </div>
                                     <div
                                         className="flex justify-between mt-2.5 ">

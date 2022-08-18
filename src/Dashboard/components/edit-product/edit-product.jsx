@@ -70,7 +70,6 @@ const EditProduct = (props) => {
     const onSubmitHandler = async (id, product) => {
         try {
             const res = await axios.patch(`http://127.0.0.1:5003/products/${id}`, product);
-            console.log(res);
         } catch (e) {
             throw new Error(e);
         }
@@ -89,7 +88,7 @@ const EditProduct = (props) => {
                         </p>
                         <img
                             className="object-cover w-full rounded-lg mt-5"
-                            src={originalBookCover && originalBookCover}
+                            src={Object.keys(product).length && product.image}
                             alt="product image"
                         />
                     </div>

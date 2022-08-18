@@ -16,6 +16,23 @@ const TrindingSlider = (props) => {
   const SliderBooks = props.book;
   const titles = props.title;
   const [addedToCart, setAddedToCart] = useState(false);
+  const [itemAddedId, setItemAddedId] = useState(null);
+  const [checkIfInCart, setCheckIfInCart] = useState([]);
+
+  const checkCart = () => {
+      const inCart = Helpers.checkIfInCart(props.cartItems ? props.cartItems : [], itemAddedId);
+      if (inCart) {
+          setCheckIfInCart([
+              ...checkIfInCart,
+              itemAddedId
+          ])
+      }
+  };
+
+  useEffect(() => {
+      checkCart();
+      setAddedToCart(false);
+  }, [itemAddedId, addedToCart]);
 
   return (
     <section id="trinding" className="my-10 w-11/12	 mx-auto">
@@ -64,7 +81,7 @@ const TrindingSlider = (props) => {
                   {
                       slide.stock
                       ?
-                          Helpers.checkIfInCart(props.cartItems ? props.cartItems : [], slide._id) ?
+                          checkIfInCart.includes(slide._id) ?
                               <button className="w-11/12 flex justify-center items-center bg-white text-green-500 font-semibold hover:text-background py-2 px-2 hover:border-transparent rounded absolute bottom-0 right-2/4 translate-x-2/4 translate-y-full group-hover:-translate-y-1 hover:translate-y-0 transition ease-in-out duration-300 ">
                                   Already Added <CheckIcon width={20} height={20}></CheckIcon>
                               </button>
@@ -73,6 +90,7 @@ const TrindingSlider = (props) => {
                                       onClick={()=> {
                                           props.addcart(slide);
                                           setAddedToCart(true);
+                                          setItemAddedId(slide._id);
                                       }}>
                                   Quick Add
                               </button>

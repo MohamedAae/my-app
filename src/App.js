@@ -20,6 +20,12 @@ import Products from "./Dashboard/components/products/products";
 import AddProduct from "./Dashboard/components/add-product/add-product";
 import Orders from "./Dashboard/components/orders/orders";
 import ThankYou from "./ThankYou/screen/thank-you";
+import {Helpers} from "./shared/helpers";
+import axios from "axios";
+import React, {useEffect, useState} from "react";
+import {connect} from "react-redux";
+import {checkIfAdmin} from "./redux/users/users.action";
+
 
 const layout = (component, hideCategories = false) => {
     return (<>
@@ -30,7 +36,8 @@ const layout = (component, hideCategories = false) => {
         </>);
 };
 
-const App = () => {
+const App = (props) => {
+
     return (<>
             <ScrollToTop>
                 <Routes>
@@ -38,8 +45,7 @@ const App = () => {
                         <Route path="reviews" element={<reviews/>}/>
                         <Route path="products" element={<Products/>}/>
                         <Route path="orders" element={<Orders/>}/>
-                        <Route path="edit-product/:id"
-                               element={<EditProduct/>}/>
+                        <Route path="edit-product/:id" element={<EditProduct/>}/>
                         <Route path="add-product" element={<AddProduct/>}/>
                     </Route>
                     <Route exact path="/" element={<Navigate to="/home"/>}/>

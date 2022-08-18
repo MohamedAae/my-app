@@ -1,6 +1,18 @@
 import axios from "axios";
 
+const API_URL = "http://127.0.0.1:5003";
+
 export const Helpers = {
+    getUser: () => {
+        const checkLocalStorage = localStorage.getItem("loggedInUser") || sessionStorage.getItem("loggedInUser");
+        if (checkLocalStorage) {
+            const user = JSON.parse(checkLocalStorage);
+            return user;
+        }
+
+        return null;
+    },
+
     getToken: () => {
         const checkLocalStorage = localStorage.getItem("loggedInUser") || sessionStorage.getItem("loggedInUser");
         if (checkLocalStorage) {
@@ -53,6 +65,20 @@ export const Helpers = {
             } catch (e) {
                 throw new Error(e);
             }
+        }
+    },
+    isAdmin: false,
+    checkPermissions: async (userId, token) => {
+        try {
+            const res = await axios.post(`${API_URL}/users/${userId}/permissions`, {}, {
+                headers: {
+                    "x-access-token": token,
+                },
+            });
+            this.isAdmin = res.data.isAdmin;
+            return this.isAdmin;
+        } catch (err) {
+            throw new Error(err);
         }
     }
 };

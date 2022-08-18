@@ -1,9 +1,9 @@
-import React, {useState, useReducer} from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import {LockClosedIcon, UserIcon} from "@heroicons/react/solid";
 import {connect} from "react-redux";
 import {registerUser} from "../../../../redux/users/users.action";
-import {useEffect} from "react";
 import Notification from "../../notification/notification";
+import axios from "axios";
 
 const dataReducer = (state, action) => {
     if (action.type === "USER_INPUT") {
@@ -17,13 +17,21 @@ const dataReducer = (state, action) => {
 };
 
 let i = 0;
+let signedUp = false;
 
 const Register = (props) => {
 
-    const [sentData, setSentData] = useState(false);
-    const [notify, setNotify] = useState(false);
-    const [notificationBg, setNotificationBg] = useState("transparent");
-    const [message, setMessage] = useState("");
+    const checkIfEmailExist = async (email) => {
+        try {
+            const res = await axios.post(`http://127.0.0.1:5003/users/exists`, {email: email});
+            return setAlreadyExist(res.data.exists);
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    const [registerErrorMessage, setRegisterErrorMessage] = useState("");
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const [nameState, dispatchName] = useReducer(dataReducer, {
         value: "", isValid: true,
@@ -40,6 +48,12 @@ const Register = (props) => {
     const [confirmPasswordState, dispatchConfirmPassword] = useReducer(dataReducer, {
         value: "", isValid: true,
     });
+
+    const [alreadyExist, setAlreadyExist] = useState(false);
+
+    useEffect(() => {
+        setRegisterErrorMessage(props.registerErrorMessage)
+    }, [props.registerErrorMessage]);
 
     const nameChangeHandler = (event) => {
         dispatchName({
@@ -58,6 +72,11 @@ const Register = (props) => {
             },
         });
     };
+
+
+    useEffect(() => {
+        checkIfEmailExist(emailState.value);
+    }, [emailState]);
 
     const passwordChangeHandler = (event) => {
         dispatchPassword({
@@ -93,7 +112,14 @@ const Register = (props) => {
 
     const submitData = async (event) => {
         event.preventDefault();
-        hardResetNotify();
+
+        if (alreadyExist) {
+            setRegisterErrorMessage("Email Already Exists.");
+            setTimeout(() => {
+                return setRegisterErrorMessage("");
+            }, 4000);
+            return;
+        }
 
         if (nameState.isValid && emailState.isValid && passwordState.isValid && confirmPasswordState.isValid) {
             props.registerUser({
@@ -101,48 +127,16 @@ const Register = (props) => {
                 password: passwordState.value,
                 email: emailState.value,
             });
-
-            setSentData(true);
-            ++i;
-            return setShowModal(false);
         }
+
+        setShowModal(false);
+        setShowSuccess(true);
+        setTimeout(() => {
+            setShowSuccess(false);
+        }, 5000);
     };
 
-    useEffect(() => {
-        if (sentData && props.message) {
-            fireNotification("red", props.message);
-            return;
-        }
-
-        fireNotification("green", `Successfully registered the account!`);
-
-    }, [props.message, i]);
-
-    const fireNotification = (bg, message) => {
-        setNotificationBg(bg);
-        setNotify(true);
-        setMessage(message);
-        softResetNotify();
-    }
-
-    const softResetNotify = () => {
-        setTimeout(() => {
-            setNotificationBg("transparent");
-            setNotify(false);
-            setMessage("");
-        }, 4000);
-    }
-
-    const hardResetNotify = () => {
-        setNotificationBg("transparent");
-        setNotify(false);
-        setMessage("");
-    }
-
     return (<>
-        <Notification bg={notificationBg}
-                      message={message ? message : ""}
-                      show={notify}/>
         <button
             className="py-2 text-background bg-theme hoverable hover:bg-theme-hover capitalize text-sm mx-2 px-2 rounded-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
@@ -163,6 +157,7 @@ const Register = (props) => {
                             Sign up for your account
                         </h2>
                     </div>
+                    {registerErrorMessage ? <span className={`m-0 flex justify-center items-center text-red-600 font-medium text-sm text-center w-full`}>{registerErrorMessage}</span> : ""}
                     <form className="mt-8 mb-8 space-y-6"
                           onSubmit={submitData}>
                         <div
@@ -273,13 +268,33 @@ const Register = (props) => {
                 onClick={() => setShowModal(false)}
                 className="opacity-25 fixed inset-0 z-40 bg-black"
             ></div>
-        </>) : null}
+        </>) :
+        showSuccess ?
+            <>
+                <div
+                    className="z-50 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg bg-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-md w-full space-y-8">
+                        <div>
+                            <h2 className="capitalize text-center text-xl font-bold text-green-900">
+                                Successfully Signed Up!
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    onClick={() => setShowSuccess(false)}
+                    className="opacity-25 fixed inset-0 z-40 bg-black"
+                ></div>
+            </>
+        : null}
     </>);
 };
 
 let mapStateToProps = (state) => {
     return {
-        user: state.user, message: state.user.message,
+        user: state.user,
+        message: state.user.message,
+        registerErrorMessage: state.user.registerErrorMessage
     };
 };
 

@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../iti-book-store-backend/.idea/iti-book-store-backend.iml" filepath="$PROJECT_DIR$/../iti-book-store-backend/.idea/iti-book-store-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/my-app.iml" filepath="$PROJECT_DIR$/.idea/my-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../tailwind-dashboard-template/.idea/tailwind-dashboard-template.iml" filepath="$PROJECT_DIR$/../tailwind-dashboard-template/.idea/tailwind-dashboard-template.iml" />
     </modules>
   </component>
 </project>

@@ -1,6 +1,6 @@
 import {TrashIcon} from "@heroicons/react/solid";
 import {Helpers} from "../../../shared/helpers";
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {getReviews} from "../../../redux/admin/admin.action";
 import {connect} from "react-redux";
@@ -8,8 +8,8 @@ import {connect} from "react-redux";
 let reviews = [];
 
 const Reviews = (props) => {
-
     const [deleted, setDeleted] = useState(true);
+
     useEffect(() => {
         props.getReviews();
         setDeleted(false);
@@ -25,12 +25,12 @@ const Reviews = (props) => {
         }
     }
 
-    return(
+    return (
         <div className="w-full">
             {
                 reviews.length ?
                     <div
-                        className="bg-gray-100 my-5 rounded-md md:w-11/12 w-full py-5 mx-auto">
+                        className="my-5 rounded-md w-full py-5 mx-auto">
                         <h1 className={`text-xl font-serif font-black text-background`}>Reviews: {reviews.length}</h1>
                     </div>
                     :
@@ -39,7 +39,7 @@ const Reviews = (props) => {
             {reviews.length ?
                 reviews.map((item) => {
                     return (<div
-                            className="bg-gray-100 my-5 rounded-md md:w-11/12 w-full py-5 mx-auto">
+                            className="bg-gray-100 my-5 rounded-md w-full py-5 mx-auto shadow-md">
                             <div
                                 className="md:w-11/12 mx-auto lg:flex lg:justify-between">
                                 <div className="lg:w-1/5 ">
@@ -51,8 +51,10 @@ const Reviews = (props) => {
                                         height={300}
                                     />
                                 </div>
-                                <div className="md:w-4/5 pl:2 md:pl-5 ">
-                                    <div className={`flex flex-row justify-between`}>
+                                <div
+                                    className="md:w-4/5 pl:2 md:pl-5 flex flex-col gap-2">
+                                    <div
+                                        className={`flex flex-row justify-between`}>
                                         <h3 className="text-xl font-serif my-5 text-background ">
                                             {item.bookId.name}
                                         </h3>
@@ -60,12 +62,21 @@ const Reviews = (props) => {
                                             onClick={() => deleteReview(item._id)}
                                             className={`cursor-pointer bg-white shadow-md rounded-md px-2 inline-flex justify-center items-center`}
                                         >
-                                                    <TrashIcon className={`text-dark-red`} width={25} height={25}></TrashIcon>
+                                                    <TrashIcon
+                                                        className={`text-dark-red`}
+                                                        width={25}
+                                                        height={25}></TrashIcon>
                                                 </span>
+                                    </div>
+                                    <div className="md:flex">
+                          <span className="font-semibold text-gray-500">
+                            UserId:
+                          </span>
+                                        <p className={`ml-2`}>{item.userId}</p>
                                     </div>
                                     <div className="flex">
                           <span className="font-semibold text-gray-500 mr-2">
-                            My Rate:{" "}
+                            Rate:{" "}
                           </span>
                                         <span
                                             className="flex justify-start items-center">
@@ -79,11 +90,11 @@ const Reviews = (props) => {
                                         <h3>{item.title}</h3>
                                     </div>
                                     {" "}
-                                    <div className="md:flex">
-                          <span className="font-semibold text-gray-500 mr-2">
+                                    <div className="md:flex flex-col">
+                          <span className="font-semibold text-gray-500">
                             Review:
                           </span>
-                                        <p className="px-2">{item.review.slice(0, 300)}</p>
+                                        <p className={`p-4`}>{item.review}</p>
                                     </div>
                                     <div className="flex">
                           <span className="font-semibold text-gray-500 mr-2">
@@ -92,6 +103,7 @@ const Reviews = (props) => {
                                         <p>{new Date(item.date).toLocaleString()}</p>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     );

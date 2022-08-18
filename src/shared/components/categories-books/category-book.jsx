@@ -11,6 +11,8 @@ import { useLocation } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import axios from "axios";
+import {CheckIcon} from "@heroicons/react/solid";
+import {Helpers} from "../../helpers";
 
 let books = [];
 let categoryname = "";
@@ -43,6 +45,26 @@ const CategoryBook = (props) => {
     });
   };
 
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [itemAddedId, setItemAddedId] = useState(null);
+  const [checkIfInCart, setCheckIfInCart] = useState([]);
+
+  const checkCart = () => {
+    const inCart = Helpers.checkIfInCart(props.cartItems ? props.cartItems : [], itemAddedId);
+    if (inCart) {
+      setCheckIfInCart([
+        ...checkIfInCart,
+        itemAddedId
+      ])
+    }
+  };
+
+  useEffect(() => {
+    checkCart();
+    setAddedToCart(false);
+  }, [itemAddedId, addedToCart]);
+
+
   return (
     <>
       <h1 className="text-2xl lg:text-3xl px-3 py-4 md:px-5 md:py-6  italic font-serif text-center">
@@ -66,12 +88,30 @@ const CategoryBook = (props) => {
                 </NavLink>
                 <hr className="hidden md:block w-2/5 top-11 right-0.5" />
               </div>
-              <button
-                className="py-1 italic font-serif text-center md:w-full w-8/12 mx-auto block mb-10 mt-2 text-theme-hover font-black md:border-none border-solid border-2 border-theme-hover rounded-lg"
-                onClick={() => props.AddToCart(item)}
-              >
-                Add To Cart
-              </button>
+              {
+                item.stock
+                    ?
+                    checkIfInCart.includes(item._id) ?
+                        <button                 className="py-1 italic font-serif text-center md:w-full w-8/12 mx-auto block mb-10 mt-2 text-green-700 font-black md:border-none border-solid border-2 border-theme-hover rounded-lg"
+                        >
+                          Already Added <CheckIcon width={20} height={20}></CheckIcon>
+                        </button>
+                        :
+                        <button className="py-1 italic font-serif text-center md:w-full w-8/12 mx-auto block mb-10 mt-2 text-theme-hover font-black md:border-none border-solid border-2 border-theme-hover rounded-lg"
+
+                                onClick={()=> {
+                                  props.AddToCart(item);
+                                  setAddedToCart(true);
+                                  setItemAddedId(item._id);
+                                }}>
+                          Add To Cart
+                        </button>
+                    :
+                    <button className="py-1 italic font-serif text-center md:w-full w-8/12 mx-auto block mb-10 mt-2 text-red-500 font-black md:border-none border-solid border-2 border-theme-hover rounded-lg"
+                    >
+                      Out Of Stock
+                    </button>
+              }
               <div className="md:flex lg:w-8/12 w-11/12 mx-auto justify-between">
                 <div className="lg:w-1/4 md:w-2/4 w-full mx-auto">
                   {loading ? (
@@ -107,6 +147,7 @@ const CategoryBook = (props) => {
 
 let mapStateToProps = (state) => {
   return {
+    cartItems: state.cart.cartItems,
     books: state.categories.categoryBooks,
   };
 };

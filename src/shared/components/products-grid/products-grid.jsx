@@ -2,14 +2,14 @@ import React, {Fragment, useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {getProducts} from "../../../redux/products/products.action";
 import {XIcon} from "@heroicons/react/outline";
-import {
-    MinusSmIcon, PlusSmIcon,
-} from "@heroicons/react/solid";
-import {Dialog, Disclosure, Menu, Transition} from "@headlessui/react";
+import {MinusSmIcon, PlusSmIcon,} from "@heroicons/react/solid";
+import {Dialog, Disclosure, Transition} from "@headlessui/react";
 import {AddToCart} from "../../../redux/cart/cart.action";
 import Grid from "./components/grid";
 import Sort from "./components/sort";
 import Filters from "./components/filters";
+import {getCategories} from "../../../redux/categories/categories.action";
+import {NavLink} from "react-router-dom";
 
 const pageSize = 12;
 const sortOptions = [{
@@ -72,6 +72,10 @@ const ProductsGrid = (props) => {
         props.getAllBooks(pageSize, page, filter, filterDirection, categoryId, discountRate);
         setDeleted(false);
     }, [page, filter, filterDirection, categoryId, discountRate, deleted]);
+
+    useEffect(() => {
+        props.getCategories();
+    }, [])
 
     let currentPage = page;
 
@@ -223,14 +227,36 @@ const ProductsGrid = (props) => {
                         className="relative z-10 md:flex md:items-baseline  md:justify-between pt-14 pb-6 border-b border-gray-200">
                         <h1 className="text-4xl text-center font-extrabold tracking-tight text-background">
                             {props.pageTitle}
+                            {
+                                isAdmin ?
+                                    <>
+                                        <span className={`mx-2`}>&mdash;</span>
+                                        {props.count ? props.count : 0}
+                                    </>
+                                    :
+                                    ""
+                            }
                         </h1>
-                        <Sort
-                            sortOptions={sortOptions}
-                            setFilter={setFilter}
-                            setFilterDirection={setFilterDirection}
-                            classNames={classNames}
-                            setMobileFiltersOpen={setMobileFiltersOpen}
-                        />
+                        {
+                            isAdmin ?
+                                <NavLink to={`/dashboard/add-product`} className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                                    <svg
+                                        className="w-4 h-4 fill-current opacity-50 shrink-0"
+                                        viewBox="0 0 16 16"
+                                    >
+                                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                                    </svg>
+                                    <span className="hidden xs:block ml-2">Add Product</span>
+                                </NavLink>
+                                :
+                                <Sort
+                                    sortOptions={sortOptions}
+                                    setFilter={setFilter}
+                                    setFilterDirection={setFilterDirection}
+                                    classNames={classNames}
+                                    setMobileFiltersOpen={setMobileFiltersOpen}
+                                />
+                        }
                     </div>
 
                     <section aria-labelledby="products-heading"
@@ -247,8 +273,11 @@ const ProductsGrid = (props) => {
                                 setPage={setPage}
                                 filters={filters}
                                 checkIfChecked={checkIfChecked}
+                                isAdmin={isAdmin}
                             />
                             <Grid
+                                cartItems={props.cartItems}
+                                AddToCart={props.AddToCart}
                                 products={props.products}
                                 count={props.count}
                                 currentPage={currentPage}
@@ -267,6 +296,7 @@ const ProductsGrid = (props) => {
 
 let mapStateToProps = (state) => {
     return {
+        cartItems: state.cart.cartItems,
         products: state.products.products,
         count: state.products.count,
         categories: state.categories.categories,
@@ -277,7 +307,9 @@ let mapDispatchToProps = (dispatch) => {
     return {
         getAllBooks: (pageSize, page, filter, filterDirection, categoryId, discountRate) => {
             dispatch(getProducts(pageSize, page, filter, filterDirection, categoryId, discountRate));
-        }, AddToCart: (book) => dispatch(AddToCart(book)),
+        },
+        AddToCart: (book) => dispatch(AddToCart(book)),
+        getCategories: () => dispatch(getCategories()),
     };
 };
 
