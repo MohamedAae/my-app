@@ -16,15 +16,14 @@ const dataReducer = (state, action) => {
     };
 };
 
-let flag = true;
 let i = 0;
 
 const Register = (props) => {
 
     const [sentData, setSentData] = useState(false);
     const [notify, setNotify] = useState(false);
-    const [notificationBg, setNotificationBg] = useState("green");
-    const [errorMessage, setErrorMessage] = useState("");
+    const [notificationBg, setNotificationBg] = useState("transparent");
+    const [message, setMessage] = useState("");
 
     const [nameState, dispatchName] = useReducer(dataReducer, {
         value: "", isValid: true,
@@ -94,6 +93,8 @@ const Register = (props) => {
 
     const submitData = async (event) => {
         event.preventDefault();
+        hardResetNotify();
+
         if (nameState.isValid && emailState.isValid && passwordState.isValid && confirmPasswordState.isValid) {
             props.registerUser({
                 name: nameState.value,
@@ -102,24 +103,46 @@ const Register = (props) => {
             });
 
             setSentData(true);
+            ++i;
             return setShowModal(false);
         }
     };
 
-    console.log(sentData, props.message)
-    if (sentData && props.message) {
-        setSentData(false);
-        setNotificationBg("red");
+    useEffect(() => {
+        if (sentData && props.message) {
+            fireNotification("red", props.message);
+            return;
+        }
+
+        fireNotification("green", `Successfully registered the account!`);
+
+    }, [props.message, i]);
+
+    const fireNotification = (bg, message) => {
+        setNotificationBg(bg);
         setNotify(true);
+        setMessage(message);
+        softResetNotify();
+    }
+
+    const softResetNotify = () => {
+        setTimeout(() => {
+            setNotificationBg("transparent");
+            setNotify(false);
+            setMessage("");
+        }, 4000);
+    }
+
+    const hardResetNotify = () => {
+        setNotificationBg("transparent");
+        setNotify(false);
+        setMessage("");
     }
 
     return (<>
-        {notify ? <Notification
-                bg={notificationBg}
-                message={props.message ? props.message : ""}
-            />
-
-            : ""}
+        <Notification bg={notificationBg}
+                      message={message ? message : ""}
+                      show={notify}/>
         <button
             className="py-2 text-background bg-theme hoverable hover:bg-theme-hover capitalize text-sm mx-2 px-2 rounded-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"

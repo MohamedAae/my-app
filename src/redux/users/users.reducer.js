@@ -23,6 +23,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.user,
         token: "",
+        message: "",
         loading: false,
       };
     case REGISTERFAIL:

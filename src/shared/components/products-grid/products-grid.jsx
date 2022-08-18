@@ -54,6 +54,8 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
+let isAdmin = false;
+
 const ProductsGrid = (props) => {
     filters.options = props.categories;
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -63,6 +65,8 @@ const ProductsGrid = (props) => {
     const [filterDirection, setFilterDirection] = useState(0);
     const [page, setPage] = useState(1);
     const [deleted, setDeleted] = useState(false);
+
+    isAdmin = props.isAdmin ? props.isAdmin : false;
 
     useEffect(() => {
         props.getAllBooks(pageSize, page, filter, filterDirection, categoryId, discountRate);
@@ -251,6 +255,7 @@ const ProductsGrid = (props) => {
                                 page={page}
                                 setPage={setPage}
                                 setDeleted={setDeleted}
+                                isAdmin={isAdmin}
                             />
                         </div>
                     </section>

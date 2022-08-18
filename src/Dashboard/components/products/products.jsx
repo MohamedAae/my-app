@@ -15,7 +15,7 @@ const Products = (props) => {
     products = props.products;
 
     return (<>
-        <ProductsGrid pageTitle={`Our Books`} />
+        <ProductsGrid isAdmin={true} pageTitle={`Our Books`} />
     </>)
 }
 

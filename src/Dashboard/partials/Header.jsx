@@ -2,9 +2,7 @@ import React, {useState} from 'react';
 import Notifications from '../components/notifications/notifications';
 import UserMenu from './header/UserMenu';
 
-function Header({
-                    sidebarOpen, setSidebarOpen
-                }) {
+const Header = (props, {sidebarOpen, setSidebarOpen}) => {
     return (<header
             className="sticky top-0 bg-white border-b border-slate-200 z-30">
             <div className="px-4 sm:px-6 lg:px-8">
@@ -33,7 +31,7 @@ function Header({
                     <div className="flex items-center">
                         <Notifications/>
                         <hr className="w-px h-6 bg-slate-200 mx-3"/>
-                        <UserMenu/>
+                        <UserMenu name={props.name ? props.name : ""}/>
 
                     </div>
 
